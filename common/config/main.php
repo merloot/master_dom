@@ -4,9 +4,9 @@ return [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
-    'db'    =>  require(__DIR__ . '/db.php'),
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
+        'db'    =>  require(__DIR__ . '/db.php'),
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
