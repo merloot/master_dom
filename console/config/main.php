@@ -21,6 +21,7 @@ return [
             'namespace' => 'common\fixtures',
           ],
     ],
+    'db'    =>  require(__DIR__ . '/../../common/config/db.php'),
     'components' => [
         'log' => [
             'targets' => [
