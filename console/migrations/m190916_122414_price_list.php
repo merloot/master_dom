@@ -17,7 +17,7 @@ class m190916_122414_price_list extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string()->unique()->comment('Название Услуги'),
             'type_service' => $this->integer()->comment(''),
-            'price' => $this->decimal(65,2)->comment('Цена услуги'),
+            'price' => $this->decimal()->comment('Цена услуги'),
             'percent_accruals' => $this->integer()->comment('Процент начисления зп сотрудникам'),
             'unit' =>$this->smallInteger()->comment('Тип единицы измерения'),
         ]);

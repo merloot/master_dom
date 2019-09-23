@@ -18,7 +18,7 @@ class m190916_124754_clients_doors extends Migration
            'id_doors'   => $this->integer()->unique(),
         ]);
 
-        $this->addForeignKey('ClientsDoors','ClientsDoors','id_client','Clients','id_clients');
+        $this->addForeignKey('ClientsDoors','ClientsDoors','id_client','Clients','idclients');
     }
 
     /**

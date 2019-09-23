@@ -17,6 +17,7 @@ return [
         ]
     ],
     'components' => [
+        'db'    =>  require(__DIR__ . '/../../common/config/db.php'),
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],
