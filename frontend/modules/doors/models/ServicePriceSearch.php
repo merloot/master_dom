@@ -1,15 +1,15 @@
 <?php
 
-namespace common\models;
+namespace backend\modules\doors\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Clients;
+use frontend\modules\doors\models\ServicePrice;
 
 /**
- * ClientsSearch represents the model behind the search form of `common\models\Clients`.
+ * ServicePriceSearch represents the model behind the search form of ` frontend\modules\doors\models\ServicePrice`.
  */
-class ClientsSearch extends Clients
+class ServicePriceSearch extends ServicePrice
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,9 @@ class ClientsSearch extends Clients
     public function rules()
     {
         return [
-            [['id', 'telephone'], 'integer'],
-            [['FIO', 'street', 'house', 'porch', 'apartment', 'comment'], 'safe'],
+            [['id', 'type_service', 'percent_accruals', 'unit'], 'integer'],
+            [['name'], 'safe'],
+            [['price'], 'number'],
         ];
     }
 
@@ -40,7 +41,7 @@ class ClientsSearch extends Clients
      */
     public function search($params)
     {
-        $query = Clients::find();
+        $query = ServicePrice::find();
 
         // add conditions that should always apply here
 
@@ -59,15 +60,13 @@ class ClientsSearch extends Clients
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'telephone' => $this->telephone,
+            'type_service' => $this->type_service,
+            'price' => $this->price,
+            'percent_accruals' => $this->percent_accruals,
+            'unit' => $this->unit,
         ]);
 
-        $query->andFilterWhere(['ilike', 'FIO', $this->FIO])
-            ->andFilterWhere(['ilike', 'street', $this->street])
-            ->andFilterWhere(['ilike', 'house', $this->house])
-            ->andFilterWhere(['ilike', 'porch', $this->porch])
-            ->andFilterWhere(['ilike', 'apartment', $this->apartment])
-            ->andFilterWhere(['ilike', 'comment', $this->comment]);
+        $query->andFilterWhere(['ilike', 'name', $this->name]);
 
         return $dataProvider;
     }

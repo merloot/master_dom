@@ -13,10 +13,15 @@ return [
     'modules' => [
         'gii'=> [
             'class' => 'yii\gii\Module',
-        ]
+        ],
+        'doors' => [
+            'class' => 'frontend\modules\doors\Module',
+        ],
     ],
+
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+        'db'    =>  require(__DIR__ . '/../../common/config/db.php'),
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],
@@ -45,9 +50,11 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'doors/create'  => 'doors/default/create'
             ],
         ],
 
     ],
+
     'params' => $params,
 ];
