@@ -26,9 +26,7 @@ class m190929_084249_createUserAdmin extends Migration
      */
     public function safeDown()
     {
-        echo "m190929_084249_createUserAdmin cannot be reverted.\n";
 
-        return false;
     }
 
     /*

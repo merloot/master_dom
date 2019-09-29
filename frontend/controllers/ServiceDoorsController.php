@@ -3,7 +3,7 @@
 namespace frontend\controllers;
 
 use Yii;
-use common\models\ServiceDoors;
+use frontend\modules\doors\models\ServiceDoors;
 use common\models\ServiceDoorsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

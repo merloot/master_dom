@@ -1,6 +1,7 @@
 <?php
 namespace common\models;
 
+use frontend\modules\doors\models\Doors;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
@@ -204,5 +205,9 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    public function getAuthor(){
+        return $this->hasMany(Doors::className(),['id'=>'user_id']);
     }
 }

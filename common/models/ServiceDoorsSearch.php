@@ -4,8 +4,7 @@ namespace common\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\ServiceDoors;
-
+use frontend\modules\doors\models\ServiceDoors;
 /**
  * ServiceDoorsSearch represents the model behind the search form of `common\models\ServiceDoors`.
  */

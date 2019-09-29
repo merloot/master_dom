@@ -35,7 +35,7 @@ class Clients extends \yii\db\ActiveRecord
     {
         return [
             [['telephone'], 'default', 'value' => null],
-            [['telephone'], 'integer'],
+            [['telephone'], 'integer','max'=>12],
             [['comment'], 'string'],
             [['FIO', 'street', 'house', 'porch', 'apartment'], 'string', 'max' => 255],
         ];
@@ -48,13 +48,13 @@ class Clients extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'FIO' => 'Fio',
-            'street' => 'Street',
-            'house' => 'House',
-            'porch' => 'Porch',
-            'apartment' => 'Apartment',
-            'telephone' => 'Telephone',
-            'comment' => 'Comment',
+            'FIO' => 'ФИО',
+            'street' => 'Улица',
+            'house' => 'Дом',
+            'porch' => 'Подъезд',
+            'apartment' => 'Квартира',
+            'telephone' => 'Телефон',
+            'comment' => 'Комментарий ',
         ];
     }
 

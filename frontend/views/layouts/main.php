@@ -5,10 +5,11 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
+use common\models\User;
 use yii\bootstrap\NavBar;
+use common\widgets\Alert;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
-use common\widgets\Alert;
 
 AppAsset::register($this);
 ?>
@@ -40,7 +41,7 @@ AppAsset::register($this);
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    } elseif (Yii::$app->user->identity->status === 10) {
+    } elseif (Yii::$app->user->identity->status === User::STATUS_ADMIN) {
         $menuItems[] = ['label'=> 'Пользователи', 'url' =>['users/index']];
         $menuItems[] = ['label' => 'Услуги', 'url' => ['/service-price/index']];
         $menuItems[] = ['label' => 'Создание нового пользователя', 'url' => ['/site/signup']];

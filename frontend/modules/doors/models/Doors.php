@@ -2,7 +2,9 @@
 
 namespace frontend\modules\doors\models;
 
+use common\models\User;
 use Yii;
+use common\interfaces\DoorsInterface;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -15,12 +17,13 @@ use yii\helpers\ArrayHelper;
  * @property bool $adherence Сторонность
  * @property int $type_opening Вид проема в плане
  * @property string $sum
+ * @property int user_id
  *
  * @property ClientsDoors[] $clientsDoors
  * @property ServiceDoors[] $serviceDoors
  * @property ServicePrice[] $services
  */
-class Doors extends \yii\db\ActiveRecord implements \DoorsInterface
+class Doors extends \yii\db\ActiveRecord implements DoorsInterface
 {
 
     public $service;
@@ -39,19 +42,22 @@ class Doors extends \yii\db\ActiveRecord implements \DoorsInterface
     {
         return [
             [['type_doors', 'type_opening'], 'default', 'value' => null],
-            [['type_doors', 'type_opening'], 'integer'],
+            [['type_doors', 'type_opening','user_id'], 'integer'],
             ['type_doors', 'in', 'range'=>[self::TYPE_DOORS_INTERIOR,self::TYPE_DOORS_IRON]],
 
 
 
             [['adherence'], 'boolean'],
-            ['adherence', 'in', 'range'=>[self::ADHERENCE_LEFT,self::ADHERENCE_RIGHT]],
+            ['adherence', 'in', 'range'=>[self::ADHERENCE_LEFT, self::ADHERENCE_RIGHT]],
 
             ['type_opening','in','range'=>[self::TYPE_OPENING_MID,self::TYPE_OPENING_LEFT,self::TYPE_OPENING_RIGHT]],
             [['sum'], 'number'],
 
             [['comment'], 'string'],
+
             [['wall_material'], 'string', 'max' => 255],
+
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id' => 'p_user_id']],
         ];
     }
 
@@ -62,13 +68,17 @@ class Doors extends \yii\db\ActiveRecord implements \DoorsInterface
     {
         return [
             'id' => 'ID',
-            'type_doors' => 'Type Doors',
-            'comment' => 'Comment',
-            'wall_material' => 'Wall Material',
-            'adherence' => 'Adherence',
-            'type_opening' => 'Type Opening',
-            'sum' => 'Sum',
+            'type_doors' => 'Тип устанавливаемой двери',
+            'comment' => 'Комментарий',
+            'wall_material' => 'Материал стен',
+            'adherence' => 'Сторонность',
+            'type_opening' => 'Вид проема в плане',
+            'sum' => 'Сумма',
         ];
+    }
+
+    public function getAuthor(){
+        return $this->hasOne(User::className(),['id'=>'user_id']);
     }
     public function getClientsDoors() {
         return $this->hasMany(ClientsDoors::className(), ['id_client' => 'id']);
@@ -86,6 +96,14 @@ class Doors extends \yii\db\ActiveRecord implements \DoorsInterface
      */
     public function getServices() {
         return $this->hasMany(ServicePrice::className(), ['id' => 'id_service'])->viaTable('ServiceDoors', ['id_doors' => 'id']);
+    }
+
+    public function beforeSave($insert) {
+        if (!parent::beforeSave($insert)) {
+            return false;
+        }
+        $this->user_id = Yii::$app->user->getId();
+        return parent::beforeSave($insert);
     }
 
     public function afterSave($insert, $changedAttributes) {

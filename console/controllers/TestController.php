@@ -4,12 +4,12 @@ namespace console\controllers;
 
 use Yii;
 use yii\console\Controller;
+use yii\helpers\Html;
 
 class TestController extends Controller {
 
     public function actionIndex(){
-        var_dump(1);
-//        $test = Yii::$app->db->getDriverName();
-//        var_dump($test);
+        $test =Html::img('@images'.'/left_doors.svg');
+        var_dump($test);
     }
 }

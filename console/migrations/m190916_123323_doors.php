@@ -19,8 +19,8 @@ class m190916_123323_doors extends Migration
            'wall_material'  =>$this->string()->comment(''),
            'adherence' => $this->boolean(),
            'type_opening' => $this->integer(),
+           'user_id' => $this->integer()->notNull(),
            'sum'=>$this->decimal(),
-
         ]);
     }
 
