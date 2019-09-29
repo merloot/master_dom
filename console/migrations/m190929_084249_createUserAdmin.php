@@ -13,8 +13,8 @@ class m190929_084249_createUserAdmin extends Migration
     public function safeUp()
     {
         $user = new \common\models\User();
-        $user->username = 'admin';
-        $user->setPassword('admin');
+        $user->username = getenv('ADMIN_NAME');
+        $user->setPassword(getenv('ADMIN_PASSWORD'));
         $user->status = \common\models\User::STATUS_ADMIN;
         $user->generateAuthKey();
         return $user->save();
