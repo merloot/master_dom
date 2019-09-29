@@ -12,7 +12,8 @@ class m190923_132339_foreign_key_price_doors extends Migration
      */
     public function safeUp()
     {
-        $this->addForeignKey('ServiceDoors','ServiceDoors','id_service','ServicePrice','id');
+        $this->addForeignKey('ServiceDoorsService','ServiceDoors','id_service','ServicePrice','id');
+        $this->addForeignKey('ServiceDoorsDoors','ServiceDoors','id_doors','Doors','id');
 
     }
 
@@ -21,7 +22,8 @@ class m190923_132339_foreign_key_price_doors extends Migration
      */
     public function safeDown()
     {
-        $this->dropForeignKey('ServiceDoors','ServiceDoors');
+        $this->dropForeignKey('ServiceDoorsService','ServiceDoors');
+        $this->dropForeignKey('ServiceDoorsDoors','ServiceDoors');
     }
 
     /*

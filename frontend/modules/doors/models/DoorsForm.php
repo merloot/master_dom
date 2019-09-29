@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: user14
- * Date: 28.09.19
- * Time: 16:52
+ * Date: 29.09.19
+ * Time: 12:39
  */
 
 namespace frontend\modules\doors\models;
@@ -11,34 +11,47 @@ namespace frontend\modules\doors\models;
 
 use yii\base\Model;
 
-class DoorsForm extends Model {
+class DoorsForm extends Model implements \DoorsInterface {
 
-    public $telefone;
-    public $FIO;
+    public $typeDoors;
+    public $typeOpening;
+    public $adherence;
+    public $sum;
     public $comment;
-    public $street;
-    public $house;
-    public $porch;
-    public $apartment;
+    public $walletMaterial;
 
-    public function rules() {
+    public function rules()
+    {
         return [
-            [['telephone'], 'default', 'value' => null],
-            [['telephone'], 'integer'],
+            [['typeDoors', 'typeOpening'], 'default', 'value' => null],
+            [['typeDoors', 'typeOpening'], 'integer'],
+
+            ['typeDoors', 'in', 'range'=>[self::TYPE_DOORS_INTERIOR,self::TYPE_DOORS_IRON]],
+
+            ['typeOpening','in','range'=>[self::TYPE_OPENING_MID,self::TYPE_OPENING_LEFT,self::TYPE_OPENING_RIGHT]],
+
+
+            [['adherence'], 'boolean'],
+            ['adherence', 'in', 'range'=>[self::ADHERENCE_LEFT,self::ADHERENCE_RIGHT]],
+
+
+            [['sum'], 'number'],
+
             [['comment'], 'string'],
-            [['FIO', 'street', 'house', 'porch', 'apartment'], 'string', 'max' => 255],
+            [['wall_material'], 'string', 'max' => 255],
         ];
     }
 
     public function run() {
-        $client = new Clients();
-        $client->FIO        = $this->FIO;
-        $client->telephone  = $this->telefone;
-        $client->comment    = $this->comment;
-        $client->street     = $this->street;
-        $client->house      = $this->house;
-        $client->porch      = $this->porch;
-        $client->apartment  = $this->apartment;
-        $client->save();
+        $doors = new Doors();
+        $doors->type_doors = $this->typeDoors;
+        $doors->type_opening = $this->typeOpening;
+        $doors->adherence =$this->adherence;
+        $doors->sum = $this->sum;
+        $doors->comment = $this->comment;
+        $doors->wall_material =$this->walletMaterial;
+        if (!$doors->save()) {
+            return $doors->getErrors();
+        }
     }
 }

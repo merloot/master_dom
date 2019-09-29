@@ -61,8 +61,7 @@ class Clients extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getClientsDoors()
-    {
+    public function getClientsDoors() {
         return $this->hasOne(ClientsDoors::className(), ['id_client' => 'id']);
     }
 }

@@ -3,8 +3,8 @@
 namespace frontend\controllers;
 
 use Yii;
-use common\models\ServicePrice;
-use common\models\ServicePriceSearch;
+use frontend\modules\doors\models\ServicePrice;
+use frontend\modules\doors\models\ServicePriceSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

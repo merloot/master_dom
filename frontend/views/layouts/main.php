@@ -42,6 +42,7 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } elseif (Yii::$app->user->identity->status === 10) {
         $menuItems[] = ['label'=> 'Пользователи', 'url' =>['users/index']];
+        $menuItems[] = ['label' => 'Услуги', 'url' => ['/service-price/index']];
         $menuItems[] = ['label' => 'Создание нового пользователя', 'url' => ['/site/signup']];
         $menuItems[] = '<li>'
                        . Html::beginForm(['/site/logout'], 'post')

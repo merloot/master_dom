@@ -13,12 +13,13 @@ class m190916_124754_clients_doors extends Migration
     public function safeUp()
     {
         $this->createTable('ClientsDoors',[
-           'id_clients_doors' =>$this->primaryKey(),
-           'id_client'  =>$this->integer()->unique(),
-           'id_doors'   => $this->integer()->unique(),
+           'id_client'  =>$this->integer(),
+           'id_doors'   => $this->integer(),
         ]);
 
-        $this->addForeignKey('ClientsDoors','ClientsDoors','id_client','Clients','idclients');
+        $this->addPrimaryKey('pk_ClientDoors', 'ClientsDoors', ['id_client', 'id_doors']);
+        $this->addForeignKey('ClientsDoorsClient','ClientsDoors','id_client','Clients','id');
+        $this->addForeignKey('ClientsDoorsDoors','ClientsDoors','id_doors','Doors','id');
     }
 
     /**
@@ -26,7 +27,10 @@ class m190916_124754_clients_doors extends Migration
      */
     public function safeDown()
     {
-        $this->dropForeignKey('ClientsDoors','ClientsDoors');
+        $this->dropPrimaryKey('pk_ClientDoors','ClientsDoors');
+        $this->dropForeignKey('ClientsDoorsClient','ClientsDoors');
+        $this->dropForeignKey('ClientsDoorsDoors','ClientsDoors');
+        $this->dropTable('ClientsDoors');
     }
 
     /*

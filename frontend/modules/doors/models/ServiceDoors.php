@@ -1,6 +1,6 @@
 <?php
 
-namespace common\models;
+namespace frontend\modules\doors\models;
 
 use Yii;
 
@@ -10,6 +10,9 @@ use Yii;
  * @property int $id_service
  * @property int $id_doors
  * @property int $count_service
+ *
+ * @property Doors $doors
+ * @property ServicePrice $service
  */
 class ServiceDoors extends \yii\db\ActiveRecord
 {
@@ -31,6 +34,8 @@ class ServiceDoors extends \yii\db\ActiveRecord
             [['id_service', 'id_doors', 'count_service'], 'default', 'value' => null],
             [['id_service', 'id_doors', 'count_service'], 'integer'],
             [['id_service', 'id_doors'], 'unique', 'targetAttribute' => ['id_service', 'id_doors']],
+            [['id_doors'], 'exist', 'skipOnError' => true, 'targetClass' => Doors::className(), 'targetAttribute' => ['id_doors' => 'id']],
+            [['id_service'], 'exist', 'skipOnError' => true, 'targetClass' => ServicePrice::className(), 'targetAttribute' => ['id_service' => 'id']],
         ];
     }
 
@@ -44,5 +49,21 @@ class ServiceDoors extends \yii\db\ActiveRecord
             'id_doors' => 'Id Doors',
             'count_service' => 'Count Service',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDoors()
+    {
+        return $this->hasOne(Doors::className(), ['id' => 'id_doors']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getService()
+    {
+        return $this->hasOne(ServicePrice::className(), ['id' => 'id_service']);
     }
 }

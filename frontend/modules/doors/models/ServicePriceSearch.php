@@ -1,13 +1,13 @@
 <?php
 
-namespace backend\modules\doors\models;
+namespace frontend\modules\doors\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use frontend\modules\doors\models\ServicePrice;
 
 /**
- * ServicePriceSearch represents the model behind the search form of ` frontend\modules\doors\models\ServicePrice`.
+ * ServicePriceSearch represents the model behind the search form of `frontend\modules\doors\models\ServicePrice`.
  */
 class ServicePriceSearch extends ServicePrice
 {

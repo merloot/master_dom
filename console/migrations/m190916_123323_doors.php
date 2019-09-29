@@ -29,9 +29,7 @@ class m190916_123323_doors extends Migration
      */
     public function safeDown()
     {
-        echo "m190916_123323_doors cannot be reverted.\n";
-
-        return false;
+        $this->dropTable('Doors');
     }
 
     /*
