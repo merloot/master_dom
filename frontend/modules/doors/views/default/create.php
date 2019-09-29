@@ -75,15 +75,17 @@ use yii\widgets\ActiveForm;
         ?>
 
     </div>
-    <?php
-    foreach ($service as $one){
-        echo $one['name'];
-
-    }
-    ?>
 
     <!--Сервисы-->
 
+    <?php
+    foreach ($service as $one){
+        echo Html::label($one['name']);
+        echo PHP_EOL;
+        echo Html::label($one['price'].'руб');
+        echo PHP_EOL;
+    }
+    ?>
 
 
     <div class="form-group">
