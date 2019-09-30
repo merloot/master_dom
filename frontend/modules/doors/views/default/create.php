@@ -10,28 +10,30 @@ use yii\widgets\ActiveForm;
 /* @var $doors frontend\modules\doors\models\Doors */
 /* @var $service frontend\modules\doors\models\ServicePrice*/
 /* @var $form yii\widgets\ActiveForm */
+
+$this->title = 'Установка дверей';
 ?>
 
 <div class="service-price-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <!--Клиенты-->
-    <div>
-        <h3>Общая информация о заказчике: </h3>
-        <?= $form->field($client, 'FIO')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($client, 'telephone')->textInput(['maxlength'=>11]) ?>
-
-        <?= $form->field($client, 'comment')->textInput() ?>
-
-        <?= $form->field($client, 'street')->textInput() ?>
-
-        <?= $form->field($client, 'house')->textInput() ?>
-
-        <?= $form->field($client, 'porch')->textInput() ?>
-
-        <?= $form->field($client, 'apartment')->textInput() ?>
+    <div class="container">
+        <div class="row">
+            <!--Клиенты-->
+            <div class="col-xs-12 col-sm-12 co12-md-12 col-lg-12">
+                <h3>Общая информация о заказчике: </h3>
+                <?= $form->field($client, 'street')->textInput() ?>
+            </div>
+            <div class="col-xs-12 col-sm-12 co12-md-6 col-lg-6">
+                <?= $form->field($client, 'FIO')->textInput(['maxlength' => true]) ?>
+            </div>
+            <div class="col-xs-12 col-sm-12 co12-md-6 col-lg-6">
+                <?= $form->field($client, 'telephone')->textInput(['maxlength'=>11]) ?>
+            </div>
+            <div class="col-xs-12 col-sm-12 co12-md-12 col-lg-12">
+                <?= $form->field($client, 'comment')->textarea() ?>
+            </div>
+        </div>
     </div>
 
 
@@ -89,7 +91,7 @@ use yii\widgets\ActiveForm;
 
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-master']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

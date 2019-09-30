@@ -3,6 +3,37 @@ body {
     height: 100%;
 }
 
+@media (min-width: 768px) and (max-width: 992px){
+    .nav > li > a{
+        padding: 10px 4px;
+    }
+}
+
+
+.navbar-nav .active a{
+    background-color: #4A4A4A!important;
+}
+.__web-inspector-hide-shortcut__{
+    visibility: visible!important;
+}
+
+.navbar-brand{
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+@media (max-width: 768px){
+    .navbar-brand{
+        padding: 10px;
+    }
+}
+
+.navbar-brand img{
+    max-width: 180px;
+    width: 100%;
+}
+
 .master-header{
     background-color: #C63318 !important;
     border-color:  #C63318;
@@ -40,6 +71,10 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.auth-block h4{
+    font-weight: 600;
 }
 
 .auth-block input {
@@ -84,6 +119,11 @@ body {
     padding-top: 50px;
     display: flex;
     justify-content: space-around;
+}
+
+.service-price-form h3{
+    text-align: center;
+    font-weight: 600;
 }
 
 .site-index h1{
@@ -225,3 +265,4 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
