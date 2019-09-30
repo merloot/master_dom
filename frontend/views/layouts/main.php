@@ -8,6 +8,7 @@ use yii\bootstrap\Nav;
 use common\models\User;
 use yii\bootstrap\NavBar;
 use common\widgets\Alert;
+use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 
@@ -20,6 +21,7 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="<?=Url::to('image/favicon.ico')?>">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?> | МастерДом</title>
     <?php $this->head() ?>
