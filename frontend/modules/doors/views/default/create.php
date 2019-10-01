@@ -89,9 +89,7 @@ $this->title = 'Установка дверей';
     </div>
 
     <!--Сервисы-->
-
-    <div>
-         <div class="table-responsive">
+     <div class="table-responsive">
                 <table class="table">
                     <thead>
                     <tr class="active">
