@@ -195,5 +195,6 @@ $this->title = 'Установка дверей';
     </div>
 
     <?php ActiveForm::end(); ?>
+    <?php print_r(\yii\helpers\ArrayHelper::map($doors->getServices()->all(),'id','name'))?>
 
 </div>

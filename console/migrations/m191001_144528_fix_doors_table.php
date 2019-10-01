@@ -15,6 +15,7 @@ class m191001_144528_fix_doors_table extends Migration
 
         $this->dropColumn('Doors','adherence');
         $this->addColumn('Doors','adherence',$this->integer()->comment('Сторонность'));
+        $this->addColumn('Doors','user_id',$this->integer());
     }
 
     /**
@@ -22,9 +23,9 @@ class m191001_144528_fix_doors_table extends Migration
      */
     public function safeDown()
     {
-        echo "m191001_144528_fix_doors_table cannot be reverted.\n";
+        $this->dropColumn('Doors',' adherence');
+        $this->addColumn('Doors','adherence',$this->integer());
 
-        return false;
     }
 
     /*

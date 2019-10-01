@@ -57,7 +57,7 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
 
             [['wall_material'], 'string', 'max' => 255],
 
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id' => 'p_user_id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id' => 'user_id']],
         ];
     }
 
@@ -102,7 +102,7 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
         if (!parent::beforeSave($insert)) {
             return false;
         }
-        $this->user_id = Yii::$app->user->getId();
+        $this->user_id = Yii::$app->user->id;
         return parent::beforeSave($insert);
     }
 
