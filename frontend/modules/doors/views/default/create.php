@@ -31,11 +31,11 @@ $this->title = 'Установка дверей';
             <div class="col-xs-12 col-sm-12 co12-md-6 col-lg-6">
                 <?= $form->field($client, 'telephone')->textInput(['maxlength'=>11]) ?>
             </div>
-            <div>
+            <div class="col-xs-12 col-sm-12 co12-md-12 col-lg-12">
                 <?=$form->field($client,'type_elevator')->dropDownList([
                           Clients::TYPE_ELEVATOR_PASSENGER    =>  'Пассажирский',
                           Clients::TYPE_ELEVATOR_GOODS        =>  'Грузовой',
-                          Clients::TYPE_ELEVATOR_FALSE        =>  'Нету',
+                          Clients::TYPE_ELEVATOR_FALSE        =>  'Лифт отсутствует',
                 ])?>
             </div>
             <div class="col-xs-12 col-sm-12 co12-md-12 col-lg-12">
@@ -43,6 +43,82 @@ $this->title = 'Установка дверей';
             </div>
         </div>
     </div>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 co12-md-12 col-lg-12">
+                <div class="door-header">
+                    <h1>Двери:</h1>
+                    <button class="btn btn-master">Добавить дверь</button>
+                </div>
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                    Дверь 1
+                                </a>
+                                <a>X</a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <?= $form->field($doors, 'type_doors')->dropDownList([
+                                    Doors::TYPE_DOORS_IRON =>'Металическая',
+                                    Doors::TYPE_DOORS_INTERIOR =>'Межкомнатная'
+                                ]) ?>
+
+                                <?= $form->field($doors, 'comment')->textarea() ?>
+
+                                <hr>
+
+                                <div>
+                                    <label>Материал стен:</label>
+                                    <?= $form->field($doors, 'wall_material')->radioList([
+                                        'Сибит'     =>   'Сибит',
+                                        'Кирпич'    =>   'Кирпич',
+                                        'Ж/Бетон'   =>   'Ж/Бетон',
+                                        'Дерево'    =>   'Дерево',
+                                        'Другое'    =>   Html::textInput( 'wall_material', [$doors], ['class' => 'form-control', 'placeholder' => 'Свой вариант']),
+                                    ], ['encode' => false])->label(false)
+                                    ?>
+                                </div>
+
+                                <hr>
+
+                                <div>
+                                    <label>Вид проема в плане:</label>
+                                    <?=$form->field($doors, 'type_opening')->radioList([
+                                        Doors::TYPE_OPENING_MID   => Html::img('/image/mid_doors.svg', ['width' => '100%', 'height' => 150]) ,
+                                        Doors::TYPE_OPENING_LEFT  => Html::img('/image/left_doors_1.svg',['width' => '100%', 'height' => 150]) ,
+                                        Doors::TYPE_OPENING_RIGHT => Html::img('/image/right_doors.svg' ,['width' => '100%', 'height' => 150])
+                                    ], ['encode' => false])->label(false)
+                                    ?>
+                                </div>
+
+                                <hr>
+
+                                <div>
+                                    <label>Сторонность:</label>
+                                    <?=$form->field($doors, 'adherence')->radioList([
+                                        Doors::ADHERENCE_INTERIOR_LEFT      => Html::img('/image/right_doors_1.svg', ['width' => '100%', 'height' => 150]),
+                                        Doors::ADHERENCE_INTERIOR_RIGHT     => Html::img('/image/left_doors.svg',['width' => '100%', 'height' => 150]),
+                                        Doors::ADHERENCE_OUTDOOR_LEFT       => Html::img('/image/right_doors_1.svg', ['width' => '100%', 'height' => 150]),
+                                        Doors::ADHERENCE_OUTDOOR_RIGHT      => Html::img('/image/left_doors.svg',['width' => '100%', 'height' => 150]),
+                                    ], ['encode' => false])->label(false)
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 
 
     <!--Двери-->

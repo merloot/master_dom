@@ -126,6 +126,33 @@ body {
     font-weight: 600;
 }
 
+.service-price-form .door-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.panel-title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.panel-title a{
+    cursor: pointer;
+}
+
+.field-doors-wall_material > div > label:last-child{
+    display: flex;
+    align-items: center;
+}
+
+.field-doors-type_opening > div > label,
+.field-doors-adherence > div > label{
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #EEEEEE;
+}
 .site-index h1{
     display: flex;
     justify-content: center;
