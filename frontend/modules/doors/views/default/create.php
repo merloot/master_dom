@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use frontend\modules\doors\models\Doors;
+use frontend\modules\doors\models\Clients;
 use frontend\modules\doors\models\ServicePrice;
 use yii\widgets\ActiveForm;
 
@@ -22,13 +23,20 @@ $this->title = 'Установка дверей';
             <!--Клиенты-->
             <div class="col-xs-12 col-sm-12 co12-md-12 col-lg-12">
                 <h3>Общая информация о заказчике: </h3>
-                <?= $form->field($client, 'street')->textInput() ?>
+                <?= $form->field($client, 'address')->textInput() ?>
             </div>
             <div class="col-xs-12 col-sm-12 co12-md-6 col-lg-6">
                 <?= $form->field($client, 'FIO')->textInput(['maxlength' => true]) ?>
             </div>
             <div class="col-xs-12 col-sm-12 co12-md-6 col-lg-6">
                 <?= $form->field($client, 'telephone')->textInput(['maxlength'=>11]) ?>
+            </div>
+            <div>
+                <?=$form->field($client,'type_elevator')->dropDownList([
+                          Clients::TYPE_ELEVATOR_PASSENGER    =>  'Пассажирский',
+                          Clients::TYPE_ELEVATOR_GOODS        =>  'Грузовой',
+                          Clients::TYPE_ELEVATOR_FALSE        =>  'Нету',
+                ])?>
             </div>
             <div class="col-xs-12 col-sm-12 co12-md-12 col-lg-12">
                 <?= $form->field($client, 'comment')->textarea() ?>

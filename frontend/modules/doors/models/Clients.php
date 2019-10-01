@@ -11,15 +11,15 @@ use Yii;
  * @property string $FIO Фамилия Имя Отчество
  * @property string $street Улица
  * @property string $house Дом
- * @property string $porch Подъезд
- * @property string $apartment Квартира
- * @property int $telephone Номер телефона
  * @property string $comment Комментарий к заказу
  *
  * @property ClientsDoors $clientsDoors
  */
 class Clients extends \yii\db\ActiveRecord
 {
+    const TYPE_ELEVATOR_FALSE       = 0;
+    const TYPE_ELEVATOR_PASSENGER   = 1;
+    const TYPE_ELEVATOR_GOODS       = 2;
     /**
      * {@inheritdoc}
      */
@@ -35,9 +35,10 @@ class Clients extends \yii\db\ActiveRecord
     {
         return [
             [['telephone'], 'default', 'value' => null],
-            [['telephone'], 'integer','max'=>12],
+            [['telephone','type_elevator'], 'integer','max'=>12],
             [['comment'], 'string'],
-            [['FIO', 'street', 'house', 'porch', 'apartment'], 'string', 'max' => 255],
+            [['type_elevator'],'in','range'=>[self::TYPE_ELEVATOR_FALSE, self::TYPE_ELEVATOR_PASSENGER, self::TYPE_ELEVATOR_GOODS]],
+            [['FIO', 'address'], 'string', 'max' => 255],
         ];
     }
 
@@ -49,12 +50,10 @@ class Clients extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'FIO' => 'ФИО',
-            'street' => 'Улица',
-            'house' => 'Дом',
-            'porch' => 'Подъезд',
-            'apartment' => 'Квартира',
+            'address' => 'Улица',
             'telephone' => 'Телефон',
             'comment' => 'Комментарий ',
+            'type_elevator' => 'Тип Лифта',
         ];
     }
 
