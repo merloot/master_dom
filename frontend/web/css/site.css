@@ -115,6 +115,15 @@ body {
     border: 2px solid darkred;
 }
 
+@media (max-width: 476px) {
+    .gabarits .row > div{
+        padding: 0!important;
+    }
+    .gabarits .row > div:first-child{
+        padding: 0 0 0 15px!important;
+    }
+}
+
 .specialization-block{
     padding-top: 50px;
     display: flex;
@@ -147,7 +156,7 @@ body {
 }
 
 .panel-body .services .counter{
-    max-width: 50px;
+    max-width: 100px;
 }
 
 .field-doors-wall_material > div > label:last-child{

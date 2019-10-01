@@ -65,7 +65,7 @@ $this->title = 'Установка дверей';
                         <div id="collapseOne" class="panel-collapse collapse in">
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class="col-xs-12 col-sm-12 co1 -md-6 col-lg-6">
+                                    <div class="col-xs-12 col-sm-12 co1-md-6 col-lg-6">
                                         <?= $form->field($doors, 'type_doors')->dropDownList([
                                             Doors::TYPE_DOORS_IRON =>'Металическая',
                                             Doors::TYPE_DOORS_INTERIOR =>'Межкомнатная'
@@ -117,6 +117,69 @@ $this->title = 'Установка дверей';
                                             ], ['encode' => false])->label(false)
                                             ?>
                                         </div>
+
+                                        <hr>
+
+                                        <label class="gabarits">
+                                            Габариты проёма, коробки, полотна
+                                            <div class="row">
+                                                <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
+
+                                                </div>
+                                                <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
+                                                    Высота
+                                                </div>
+                                                <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
+                                                    Ширина
+                                                </div>
+                                                <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
+                                                    Глубина
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
+                                                    Проём
+                                                </div>
+                                                <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
+                                                    <input type="text" class="form-control" placeholder="см">
+                                                </div>
+                                                <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
+                                                    <input type="text" class="form-control" placeholder="см">
+                                                </div>
+                                                <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
+                                                    <input type="text" class="form-control" placeholder="см">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
+                                                    Коробка
+                                                </div>
+                                                <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
+                                                    <input type="text" class="form-control" placeholder="см">
+                                                </div>
+                                                <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
+                                                    <input type="text" class="form-control" placeholder="см">
+                                                </div>
+                                                <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
+                                                    <input type="text" class="form-control" placeholder="см">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
+                                                    Полотно
+                                                </div>
+                                                <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
+                                                    <input type="text" class="form-control" placeholder="см">
+                                                </div>
+                                                <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
+                                                    <input type="text" class="form-control" placeholder="см">
+                                                </div>
+                                                <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
+                                                    <input type="text" class="form-control" placeholder="см">
+                                                </div>
+                                            </div>
+                                        </label>
+
                                     </div>
                                     <div class="col-xs-12 col-sm-12 co1 -md-6 col-lg-6">
                                         <label>
