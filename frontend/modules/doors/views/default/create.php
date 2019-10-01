@@ -125,9 +125,9 @@ $this->title = 'Установка дверей';
 
                                         <div class="form-group services">
                                             <select name="services" class="form-control">
-                                                <option value="1"></option>
-                                                <option value="1"></option>
-                                                <option value="1"></option>
+                                                <?php foreach ($service as $one):?>
+                                                <option value="<?=$one['id']?>>"><?=$one['name']?></option>
+                                                <?php endforeach;?>
                                             </select>
                                             <input class="form-control counter" type="number" placeholder="шт">
                                             <button class="btn btn-master">+</button>
