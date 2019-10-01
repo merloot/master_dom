@@ -67,8 +67,10 @@ $this->title = 'Установка дверей';
         <div>
             <label>Сторонность:</label>
             <?=$form->field($doors, 'adherence')->radioList([
-                Doors::ADHERENCE_RIGHT  => Html::img('/image/right_doors_1.svg', ['width' => 250, 'height' => 150]),
-                Doors::ADHERENCE_LEFT   => Html::img('/image/left_doors.svg',['width' => 250, 'height' => 150]),
+                Doors::ADHERENCE_INTERIOR_LEFT      => Html::img('/image/right_doors_1.svg', ['width' => 250, 'height' => 150]),
+                Doors::ADHERENCE_INTERIOR_RIGHT     => Html::img('/image/left_doors.svg',['width' => 250, 'height' => 150]),
+                Doors::ADHERENCE_OUTDOOR_LEFT       => Html::img('/image/right_doors_1.svg', ['width' => 250, 'height' => 150]),
+                Doors::ADHERENCE_OUTDOOR_RIGHT      => Html::img('/image/left_doors.svg',['width' => 250, 'height' => 150]),
             ], ['encode' => false])->label(false)
             ?>
         </div>
@@ -88,16 +90,35 @@ $this->title = 'Установка дверей';
 
     <!--Сервисы-->
 
-    <?php
-    foreach ($service as $one){
-        echo Html::label($one['name']);
-        echo PHP_EOL;
-        echo Html::label($one['price'].'руб');
-        echo PHP_EOL;
-    }
-    ?>
-
-
+    <div>
+         <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr class="active">
+                        <th>Наименование</th>
+                        <th>Кол-во</th>
+                        <th>Цена</th>
+                        <th>Сумма</th>
+                        <th><i aria-hidden="true">&times;</i></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach($service as $item): ?>
+                        <tr>
+                            <td><a><?= $item['name']?></a></td>
+                            <td><?=$item['price']?></td>
+                            <td><a href="<?=\yii\helpers\Url::to(['cart/remove', 'id' => $item->id])?>">Удалить</a></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    <tr class="active">
+                        <td colspan="4">Общее кол-во:</td>
+                    </tr>
+                    <tr class="active">
+                        <td colspan="4">Общая сумма:</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-master']) ?>
     </div>
