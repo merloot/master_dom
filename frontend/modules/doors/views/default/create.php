@@ -80,8 +80,14 @@ $this->title = 'Установка дверей';
                                         'Кирпич'    =>   'Кирпич',
                                         'Ж/Бетон'   =>   'Ж/Бетон',
                                         'Дерево'    =>   'Дерево',
-                                        'Другое'    =>   Html::textInput( 'wall_material',Yii::$app->request->post('wall_material'),['class' => 'form-control', 'placeholder' => 'Свой вариант']),
-                                    ], ['encode' => false])->label(false)
+                                        'Другое'    =>   Html::textInput( 'wall_material',
+                                            Yii::$app->request->post('wall_material'),
+                                            [
+                                                'class' => 'form-control', 'placeholder' => 'Свой вариант'
+                                            ]),
+                                    ], [
+                                            'encode' => false
+                                    ])->label(false)
                                     ?>
                                 </div>
 

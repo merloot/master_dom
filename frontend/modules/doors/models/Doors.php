@@ -47,7 +47,7 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
 
 
 
-            [['adherence'], 'boolean'],
+            [['adherence'], 'integer'],
             ['adherence', 'in', 'range'=>[self::ADHERENCE_INTERIOR_LEFT, self::ADHERENCE_INTERIOR_RIGHT, self::ADHERENCE_OUTDOOR_LEFT,self::ADHERENCE_OUTDOOR_RIGHT]],
 
             ['type_opening','in','range'=>[self::TYPE_OPENING_MID,self::TYPE_OPENING_LEFT,self::TYPE_OPENING_RIGHT]],
