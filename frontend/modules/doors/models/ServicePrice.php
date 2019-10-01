@@ -2,6 +2,7 @@
 
 namespace frontend\modules\doors\models;
 
+use common\interfaces\ServicePricesInterface;
 use Yii;
 
 /**
@@ -17,15 +18,9 @@ use Yii;
  * @property ServiceDoors[] $serviceDoors
  * @property Doors[] $doors
  */
-class ServicePrice extends \yii\db\ActiveRecord
+class ServicePrice extends \yii\db\ActiveRecord implements ServicePricesInterface
 {
-    const TYPE_SERVICE_DEMONTAG = 0;
-    const TYPE_SERVICE_PREPARATORY_WORK = 1;
-    const TYPE_SERVICE_BOXED_PRODUCT = 2;
-    const TYPE_SERVICE_OTHER = 3;
 
-    const TYPE_UNIT_PIECE = 0;
-    const TYPE_UNIT_SET = 1;
     /**
      * {@inheritdoc}
      */

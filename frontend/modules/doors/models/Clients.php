@@ -2,6 +2,7 @@
 
 namespace frontend\modules\doors\models;
 
+use common\interfaces\ClientsInterface;
 use Yii;
 
 /**
@@ -15,11 +16,9 @@ use Yii;
  *
  * @property ClientsDoors $clientsDoors
  */
-class Clients extends \yii\db\ActiveRecord
+class Clients extends \yii\db\ActiveRecord implements ClientsInterface
 {
-    const TYPE_ELEVATOR_FALSE       = 0;
-    const TYPE_ELEVATOR_PASSENGER   = 1;
-    const TYPE_ELEVATOR_GOODS       = 2;
+
     /**
      * {@inheritdoc}
      */
