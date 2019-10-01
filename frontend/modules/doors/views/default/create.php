@@ -21,24 +21,24 @@ $this->title = 'Установка дверей';
     <div class="container">
         <div class="row">
             <!--Клиенты-->
-            <div class="col-xs-12 col-sm-12 co12-md-12 col-lg-12">
+            <div class="col-xs-12 col-sm-12 co1-md-12 col-lg-12">
                 <h3>Общая информация о заказчике: </h3>
                 <?= $form->field($client, 'address')->textInput() ?>
             </div>
-            <div class="col-xs-12 col-sm-12 co12-md-6 col-lg-6">
+            <div class="col-xs-12 col-sm-12 co1-md-6 col-lg-6">
                 <?= $form->field($client, 'FIO')->textInput(['maxlength' => true]) ?>
             </div>
-            <div class="col-xs-12 col-sm-12 co12-md-6 col-lg-6">
+            <div class="col-xs-12 col-sm-12 co1-md-6 col-lg-6">
                 <?= $form->field($client, 'telephone')->textInput(['maxlength'=>11]) ?>
             </div>
-            <div class="col-xs-12 col-sm-12 co12-md-12 col-lg-12">
+            <div class="col-xs-12 col-sm-12 co1-md-12 col-lg-12">
                 <?=$form->field($client,'type_elevator')->dropDownList([
                           Clients::TYPE_ELEVATOR_PASSENGER    =>  'Пассажирский',
                           Clients::TYPE_ELEVATOR_GOODS        =>  'Грузовой',
                           Clients::TYPE_ELEVATOR_FALSE        =>  'Лифт отсутствует',
                 ])?>
             </div>
-            <div class="col-xs-12 col-sm-12 co12-md-12 col-lg-12">
+            <div class="col-xs-12 col-sm-12 co1-md-12 col-lg-12">
                 <?= $form->field($client, 'comment')->textarea() ?>
             </div>
         </div>
@@ -47,7 +47,7 @@ $this->title = 'Установка дверей';
     <div class="container">
 
         <div class="row">
-            <div class="col-xs-12 col-sm-12 co12-md-12 col-lg-12">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="door-header">
                     <h1>Двери:</h1>
                     <button class="btn btn-master">Добавить дверь</button>
@@ -64,14 +64,16 @@ $this->title = 'Установка дверей';
                         </div>
                         <div id="collapseOne" class="panel-collapse collapse in">
                             <div class="panel-body">
-                                <?= $form->field($doors, 'type_doors')->dropDownList([
-                                    Doors::TYPE_DOORS_IRON =>'Металическая',
-                                    Doors::TYPE_DOORS_INTERIOR =>'Межкомнатная'
-                                ]) ?>
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 co1 -md-6 col-lg-6">
+                                        <?= $form->field($doors, 'type_doors')->dropDownList([
+                                            Doors::TYPE_DOORS_IRON =>'Металическая',
+                                            Doors::TYPE_DOORS_INTERIOR =>'Межкомнатная'
+                                        ]) ?>
 
-                                <?= $form->field($doors, 'comment')->textarea() ?>
+                                        <?= $form->field($doors, 'comment')->textarea() ?>
 
-                                <hr>
+                                        <hr>
 
                                 <div>
                                     <label>Материал стен:</label>
@@ -91,116 +93,122 @@ $this->title = 'Установка дверей';
                                     ?>
                                 </div>
 
-                                <hr>
+                                        <hr>
+
+                                        <div>
+                                            <label>Вид проема в плане:</label>
+                                            <?=$form->field($doors, 'type_opening')->radioList([
+                                                Doors::TYPE_OPENING_MID   => Html::img('/image/mid_doors.svg', ['width' => '100%', 'height' => 150]) ,
+                                                Doors::TYPE_OPENING_LEFT  => Html::img('/image/left_doors_1.svg',['width' => '100%', 'height' => 150]) ,
+                                                Doors::TYPE_OPENING_RIGHT => Html::img('/image/right_doors.svg' ,['width' => '100%', 'height' => 150])
+                                            ], ['encode' => false])->label(false)
+                                            ?>
+                                        </div>
+
+                                        <hr>
+
+                                        <div>
+                                            <label>Сторонность:</label>
+                                            <?=$form->field($doors, 'adherence')->radioList([
+                                                Doors::ADHERENCE_INTERIOR_LEFT      => Html::img('/image/right_doors_1.svg', ['width' => '100%', 'height' => 150]),
+                                                Doors::ADHERENCE_INTERIOR_RIGHT     => Html::img('/image/left_doors.svg',['width' => '100%', 'height' => 150]),
+                                                Doors::ADHERENCE_OUTDOOR_LEFT       => Html::img('/image/right_doors_1.svg', ['width' => '100%', 'height' => 150]),
+                                                Doors::ADHERENCE_OUTDOOR_RIGHT      => Html::img('/image/left_doors.svg',['width' => '100%', 'height' => 150]),
+                                            ], ['encode' => false])->label(false)
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 co1 -md-6 col-lg-6">
+                                        <label>
+                                            Дополнительные услуги:
+                                        </label>
+
+                                        <div class="form-group services">
+                                            <select name="services" class="form-control">
+                                                <option value="1"></option>
+                                                <option value="1"></option>
+                                                <option value="1"></option>
+                                            </select>
+                                            <input class="form-control counter" type="number" placeholder="шт">
+                                            <button class="btn btn-master">+</button>
+                                        </div>
+                                        <ul class="list-group">
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                Первая услуга
+                                                <span class="badge badge-primary badge-pill">
+                                                    <span id="serviceCounter-1">14</span>
+                                                    X
+                                                    <span id="priceCounter-1">500</span> Р
+                                                </span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                Вторая услуга
+                                                <span class="badge badge-primary badge-pill">
+                                                    <span id="serviceCounter-2">3</span>
+                                                    X
+                                                    <span id="priceCounter-2">2</span> Р
+                                            </li>
+                                        </ul>
+                                        <?= $form->field($doors, 'type_doors')->dropDownList([
+                                            Doors::TYPE_DOORS_IRON =>'Металическая',
+                                            Doors::TYPE_DOORS_INTERIOR =>'Межкомнатная'
+                                        ]) ?>
+
+                                        <?= $form->field($doors, 'comment')->textarea() ?>
+
+                                        <hr>
 
                                 <div>
-                                    <label>Вид проема в плане:</label>
-                                    <?=$form->field($doors, 'type_opening')->radioList([
-                                        Doors::TYPE_OPENING_MID   => Html::img('/image/mid_doors.svg', ['width' => '100%', 'height' => 150]) ,
-                                        Doors::TYPE_OPENING_LEFT  => Html::img('/image/left_doors_1.svg',['width' => '100%', 'height' => 150]) ,
-                                        Doors::TYPE_OPENING_RIGHT => Html::img('/image/right_doors.svg' ,['width' => '100%', 'height' => 150])
-                                    ], ['encode' => false])->label(false)
+                                    <label>Материал стен:</label>
+                                    <?= $form->field($doors, 'wall_material')->radioList([
+                                        'Сибит'     =>   'Сибит',
+                                        'Кирпич'    =>   'Кирпич',
+                                        'Ж/Бетон'   =>   'Ж/Бетон',
+                                        'Дерево'    =>   'Дерево',
+                                        'Другое'    =>   Html::textInput( 'wall_material',
+                                            Yii::$app->request->post('wall_material'),
+                                            [
+                                                'class' => 'form-control', 'placeholder' => 'Свой вариант'
+                                            ]),
+                                    ], [
+                                            'encode' => false
+                                    ])->label(false)
                                     ?>
                                 </div>
 
-                                <hr>
+                                        <hr>
 
-                                <div>
-                                    <label>Сторонность:</label>
-                                    <?=$form->field($doors, 'adherence')->radioList([
-                                        Doors::ADHERENCE_INTERIOR_LEFT      => Html::img('/image/right_doors_1.svg', ['width' => '100%', 'height' => 150]),
-                                        Doors::ADHERENCE_INTERIOR_RIGHT     => Html::img('/image/left_doors.svg',['width' => '100%', 'height' => 150]),
-                                        Doors::ADHERENCE_OUTDOOR_LEFT       => Html::img('/image/right_doors_1.svg', ['width' => '100%', 'height' => 150]),
-                                        Doors::ADHERENCE_OUTDOOR_RIGHT      => Html::img('/image/left_doors.svg',['width' => '100%', 'height' => 150]),
-                                    ], ['encode' => false])->label(false)
-                                    ?>
+                                        <div>
+                                            <label>Вид проема в плане:</label>
+                                            <?=$form->field($doors, 'type_opening')->radioList([
+                                                Doors::TYPE_OPENING_MID   => Html::img('/image/mid_doors.svg', ['width' => '100%', 'height' => 150]) ,
+                                                Doors::TYPE_OPENING_LEFT  => Html::img('/image/left_doors_1.svg',['width' => '100%', 'height' => 150]) ,
+                                                Doors::TYPE_OPENING_RIGHT => Html::img('/image/right_doors.svg' ,['width' => '100%', 'height' => 150])
+                                            ], ['encode' => false])->label(false)
+                                            ?>
+                                        </div>
+
+                                        <hr>
+
+                                        <div>
+                                            <label>Сторонность:</label>
+                                            <?=$form->field($doors, 'adherence')->radioList([
+                                                Doors::ADHERENCE_INTERIOR_LEFT      => Html::img('/image/right_doors_1.svg', ['width' => '100%', 'height' => 150]),
+                                                Doors::ADHERENCE_INTERIOR_RIGHT     => Html::img('/image/left_doors.svg',['width' => '100%', 'height' => 150]),
+                                                Doors::ADHERENCE_OUTDOOR_LEFT       => Html::img('/image/right_doors_1.svg', ['width' => '100%', 'height' => 150]),
+                                                Doors::ADHERENCE_OUTDOOR_RIGHT      => Html::img('/image/left_doors.svg',['width' => '100%', 'height' => 150]),
+                                            ], ['encode' => false])->label(false)
+                                            ?>
+                                        </div>
+                                    </div>
                                 </div>
+                                <?= Html::submitButton('Сохранить', ['class' => 'btn btn-master']) ?>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-
-
-
-
-    <!--Двери-->
-    <div>
-        <h3>Размеры дверей: </h3>
-        <?= $form->field($doors, 'type_doors')->radioList([
-            Doors::TYPE_DOORS_IRON =>'Металическая',
-            Doors::TYPE_DOORS_INTERIOR =>'Межкомнатная'
-        ]) ?>
-
-        <div>
-            <label>Вид проема в плане:</label>
-            <?=$form->field($doors, 'type_opening')->radioList([
-                Doors::TYPE_OPENING_MID   => Html::img('/image/mid_doors.svg', ['width' => 250, 'height' => 150]) ,
-                Doors::TYPE_OPENING_LEFT  => Html::img('/image/left_doors_1.svg',['width' => 250, 'height' => 150]) ,
-                Doors::TYPE_OPENING_RIGHT => Html::img('/image/right_doors.svg' ,['width' => 250, 'height' => 150])
-            ], ['encode' => false])->label(false)
-            ?>
-        </div>
-
-        <br>
-        <div>
-            <label>Сторонность:</label>
-            <?=$form->field($doors, 'adherence')->radioList([
-                Doors::ADHERENCE_INTERIOR_LEFT      => Html::img('/image/right_doors_1.svg', ['width' => 250, 'height' => 150]),
-                Doors::ADHERENCE_INTERIOR_RIGHT     => Html::img('/image/left_doors.svg',['width' => 250, 'height' => 150]),
-                Doors::ADHERENCE_OUTDOOR_LEFT       => Html::img('/image/right_doors_1.svg', ['width' => 250, 'height' => 150]),
-                Doors::ADHERENCE_OUTDOOR_RIGHT      => Html::img('/image/left_doors.svg',['width' => 250, 'height' => 150]),
-            ], ['encode' => false])->label(false)
-            ?>
-        </div>
-
-        <?= $form->field($doors, 'comment')->textInput() ?>
-
-        <?= $form->field($doors, 'wall_material')->radioList([
-            'Сибит'     =>   'Сибит',
-            'Кирпич'    =>   'Кирпич',
-            'Ж/Бетон'   =>   'Ж/Бетон',
-            'Дерево'    =>   'Дерево',
-            'Другое'    =>   Html::textInput('wall_material'),
-        ], ['encode' => false])->label(false)
-        ?>
-
-    </div>
-
-    <!--Сервисы-->
-     <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                    <tr class="active">
-                        <th>Наименование</th>
-                        <th>Кол-во</th>
-                        <th>Цена</th>
-                        <th>Сумма</th>
-                        <th><i aria-hidden="true">&times;</i></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach($service as $item): ?>
-                        <tr>
-                            <td><a><?= $item['name']?></a></td>
-                            <td><?=$item['price']?></td>
-                            <td><a href="<?=\yii\helpers\Url::to(['cart/remove', 'id' => $item->id])?>">Удалить</a></td>
-                        </tr>
-                    <?php endforeach; ?>
-                    <tr class="active">
-                        <td colspan="4">Общее кол-во:</td>
-                    </tr>
-                    <tr class="active">
-                        <td colspan="4">Общая сумма:</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-    <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-master']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

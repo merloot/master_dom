@@ -142,9 +142,21 @@ body {
     cursor: pointer;
 }
 
+.panel-body .services{
+    display: flex;
+}
+
+.panel-body .services .counter{
+    max-width: 50px;
+}
+
 .field-doors-wall_material > div > label:last-child{
     display: flex;
     align-items: center;
+}
+
+.field-doors-wall_material > div > label:last-child > .form-control{
+    margin-left: 5px;
 }
 
 .field-doors-type_opening > div > label,
