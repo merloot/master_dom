@@ -110,9 +110,9 @@ $this->title = 'Установка дверей';
                                         <div>
                                             <label>Сторонность:</label>
                                             <?=$form->field($doors, 'adherence')->radioList([
-                                                Doors::ADHERENCE_INTERIOR_LEFT      => Html::img('/image/right_doors_1.svg', ['width' => '100%', 'height' => 150]),
+                                                Doors::ADHERENCE_INTERIOR_LEFT      => Html::img('/image/left_doors.svg', ['width' => '100%', 'height' => 150]),
                                                 Doors::ADHERENCE_INTERIOR_RIGHT     => Html::img('/image/left_doors.svg',['width' => '100%', 'height' => 150]),
-                                                Doors::ADHERENCE_OUTDOOR_LEFT       => Html::img('/image/right_doors_1.svg', ['width' => '100%', 'height' => 150]),
+                                                Doors::ADHERENCE_OUTDOOR_LEFT       => Html::img('/image/left_doors.svg', ['width' => '100%', 'height' => 150]),
                                                 Doors::ADHERENCE_OUTDOOR_RIGHT      => Html::img('/image/left_doors.svg',['width' => '100%', 'height' => 150]),
                                             ], ['encode' => false])->label(false)
                                             ?>
@@ -248,7 +248,9 @@ $this->title = 'Установка дверей';
                                         </ul>
                                     </div>
                                 </div>
-                                <?= Html::submitButton('Сохранить', ['class' => 'btn btn-master']) ?>
+                                <div class="save-door__button">
+                                    <?= Html::submitButton('Сохранить настройки двери', ['class' => 'btn btn-master']) ?>
+                                </div>
                             </div>
                         </div>
                     </div>

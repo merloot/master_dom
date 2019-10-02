@@ -123,6 +123,9 @@ body {
         padding: 0 0 0 15px!important;
     }
 }
+.save-door__button{
+    text-align: right;
+}
 
 .specialization-block{
     padding-top: 50px;
@@ -173,6 +176,64 @@ body {
     border-radius: 5px;
     padding: 5px;
     background-color: #EEEEEE;
+}
+
+.field-doors-type_opening label:first-child input[type="radio"]::after{
+    content: '#1';
+    margin-left: 25px;
+}
+.field-doors-type_opening label:nth-child(2) input[type="radio"]::after{
+    content: '#2';
+    margin-left: 25px;
+}
+.field-doors-type_opening label:last-child input[type="radio"]::after{
+    content: '#3';
+    margin-left: 25px;
+}
+
+.field-doors-adherence label:first-child input[type="radio"]::after{
+    content: 'Левая внутренняя';
+    white-space: nowrap;
+    margin-left: 25px;
+}
+.field-doors-adherence label:first-child img {
+    -moz-transform: scale(-1);
+    -webkit-transform: scale(-1);
+    -o-transform: scale(-1);
+    transform: scale(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+.field-doors-adherence label:nth-child(2) input[type="radio"]::after{
+    content: 'Правая внутренняя';
+    white-space: nowrap;
+    margin-left: 25px;
+}
+.field-doors-adherence label:nth-child(2) img {
+    -moz-transform: scale(1,-1);
+    -webkit-transform: scale(1, -1);
+    -o-transform: scale(1, -1);
+    transform: scale(1, -1);
+    filter: FlipV;
+    -ms-filter: "FlipV";
+}
+.field-doors-adherence label:nth-child(3) input[type="radio"]::after{
+    content: 'Левая наружняя';
+    white-space: nowrap;
+    margin-left: 25px;
+}
+.field-doors-adherence label:last-child input[type="radio"]::after{
+    content: 'Правая наружняя';
+    white-space: nowrap;
+    margin-left: 25px;
+}
+.field-doors-adherence label:last-child img {
+    -moz-transform: scale(-1, 1);
+    -webkit-transform: scale(-1, 1);
+    -o-transform: scale(-1, 1);
+    transform: scale(-1, 1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
 }
 .site-index h1{
     display: flex;
