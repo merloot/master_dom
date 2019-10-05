@@ -49,18 +49,20 @@ $this->title = 'Установка дверей';
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="door-header">
                     <h1>Двери:</h1>
-                    <button class="btn btn-master">Добавить дверь</button>
+                    <button class="btn btn-master" id="addDoor">Добавить дверь</button>
                 </div>
                 <div class="panel-group" id="accordion">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
+                                <!-- #collapseOne ты должен заменить на #collapseID, где ID = любому уникальному значению, этот href должен соответствовать id на строке ~66 -->
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
                                     Дверь 1
                                 </a>
                                 <a>X</a>
                             </h4>
                         </div>
+                        <!-- ВОТ ЭТОМУ ID   -->
                         <div id="collapseOne" class="panel-collapse collapse in">
                             <div class="panel-body">
                                 <div class="row">
@@ -297,6 +299,12 @@ $this->title = 'Установка дверей';
 
 <script>
     let serviceList = [];
+    let doorsCounter = 1;
+    // клик по Добавить дверь
+    $( "#addDoor" ).click( function() {
+        doorsCounter++;
+        console.log(doorsCounter)
+    });
     // клик по услугам
     $( "#dop_service" ).click( function() {
         let serviceId = $('#serviceId').val();
