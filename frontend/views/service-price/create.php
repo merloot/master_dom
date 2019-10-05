@@ -6,8 +6,6 @@ use yii\helpers\Html;
 /* @var $model frontend\modules\doors\models\ServicePrice */
 
 $this->title = 'Создание новой услуги';
-$this->params['breadcrumbs'][] = ['label' => 'Service Prices', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="service-price-create">
 

@@ -48,7 +48,6 @@ body {
     min-height: 100%;
     height: auto;
     margin: 0 auto -60px;
-    padding: 0 0 60px;
 }
 
 .wrap > .container {
@@ -375,3 +374,34 @@ a.desc:after {
     outline: none;
 }
 
+
+.doors-list .doors-list__item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 15px 0;
+    padding: 15px;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.doors-list .doors-list__item h4{
+    font-weight: bold;
+}
+
+.doors-list .doors-list__item div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.doors-list .doors-list__item h4 strong a{
+    color: #C63318;
+}
+
+.doors-list .doors-list__item:hover{
+    transform: scale(1.1);
+    transition: 0.5s;
+}
