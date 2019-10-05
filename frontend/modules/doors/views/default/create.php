@@ -140,13 +140,13 @@ $this->title = 'Установка дверей';
                                                     Проём
                                                 </div>
                                                 <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
-                                                    <input type="text" class="form-control" placeholder="см">
+                                                    <input type="text" class="form-control" placeholder="мм">
                                                 </div>
                                                 <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
-                                                    <input type="text" class="form-control" placeholder="см">
+                                                    <input type="text" class="form-control" placeholder="мм">
                                                 </div>
                                                 <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
-                                                    <input type="text" class="form-control" placeholder="см">
+                                                    <input type="text" class="form-control" placeholder="мм">
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -154,13 +154,13 @@ $this->title = 'Установка дверей';
                                                     Коробка
                                                 </div>
                                                 <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
-                                                    <input type="text" class="form-control" placeholder="см">
+                                                    <input type="text" class="form-control" placeholder="мм">
                                                 </div>
                                                 <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
-                                                    <input type="text" class="form-control" placeholder="см">
+                                                    <input type="text" class="form-control" placeholder="мм">
                                                 </div>
                                                 <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
-                                                    <input type="text" class="form-control" placeholder="см">
+                                                    <input type="text" class="form-control" placeholder="мм">
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -168,13 +168,13 @@ $this->title = 'Установка дверей';
                                                     Полотно
                                                 </div>
                                                 <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
-                                                    <input type="text" class="form-control" placeholder="см">
+                                                    <input type="text" class="form-control" placeholder="мм">
                                                 </div>
                                                 <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
-                                                    <input type="text" class="form-control" placeholder="см">
+                                                    <input type="text" class="form-control" placeholder="мм">
                                                 </div>
                                                 <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
-                                                    <input type="text" class="form-control" placeholder="см">
+                                                    <input type="text" class="form-control" placeholder="мм">
                                                 </div>
                                             </div>
                                         </label>
