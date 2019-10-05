@@ -185,12 +185,12 @@ $this->title = 'Установка дверей';
                                            Коробочный продукт:
                                         </label>
                                         <div class="form-group services">
-                                            <select name="services" class="form-control" id="selesdfsdfsdfsctor">
+                                            <select name="services" class="form-control" id="boxId">
                                                 <?php foreach ($serviceBox as $one):?>
                                                     <option value="<?=$one['id']?>"> <?=$one['name']?></option>
                                                 <?php endforeach;?>
                                             </select>
-                                            <input class="form-control counter" type="number" placeholder="шт" id="how_masdfsdfdsny">
+                                            <input class="form-control counter" type="number" placeholder="шт" id="boxCounter">
                                             <?= Html::button('+', ['class' => 'btn btn-master', 'id' => 's-service'])?>
                                         </div>
                                         <ul class="list-group">
@@ -218,12 +218,12 @@ $this->title = 'Установка дверей';
                                         </label>
 
                                         <div class="form-group services">
-                                            <select name="services" class="form-control" id="selector">
+                                            <select name="services" class="form-control" id="serviceId">
                                                 <?php foreach ($service as $one):?>
                                                 <option value="<?=$one['id']?>"> <?=$one['name']?></option>
                                                 <?php endforeach;?>
                                             </select>
-                                            <input class="form-control counter" type="number" placeholder="шт" id="how_many">
+                                            <input class="form-control counter" type="number" placeholder="шт" id="serviceCounter">
                                             <?= Html::button('+', ['class' => 'btn btn-master', 'id' => 'dop_service'])?>
                                         </div>
                                         <ul class="list-group">
@@ -251,13 +251,13 @@ $this->title = 'Установка дверей';
                                         </label>
 
                                         <div class="form-group services">
-                                            <select name="services" class="form-control">
+                                            <select name="services" class="form-control" id="materialId">
                                                 <?php foreach ($other as $one):?>
                                                 <option value="<?=$one['id']?>"><?=$one->name?></option>
                                                 <?php endforeach;?>
                                                 <option value="1"></option>
                                             </select>
-                                            <input class="form-control counter" type="number" placeholder="шт">
+                                            <input class="form-control counter" type="number" placeholder="шт" id="materialCounter">
                                             <?= Html::button('+', ['class' => 'btn btn-master', 'id' => 'p-service'])?>
                                         </div>
 
@@ -296,13 +296,41 @@ $this->title = 'Установка дверей';
 </div>
 
 <script>
+    let serviceList = [];
+    // клик по услугам
     $( "#dop_service" ).click( function() {
-        $( "#doors-servicedoors" ).val(
-            $( "#doors-servicedoors" ).val()+
-            $( "#selector" ).val()+','+
-            $( "#how_many" ).val()+','
-        );
-        console.log(  $( "#doors-servicedoors" ).val()  )
+        let serviceId = $('#serviceId').val();
+        let serviceCounter = $('#serviceCounter').val();
+        if (parseInt(serviceCounter) > 0) {
+            serviceList.push({
+                id: serviceId,
+                value: serviceCounter
+            })
+        }
+        console.log(serviceList)
     });
-
+    // клик по материалам
+    $( "#p-service" ).click( function() {
+        let materialId = $('#materialId').val();
+        let materialCounter = $('#materialCounter').val();
+        if (parseInt(materialCounter) > 0) {
+            serviceList.push({
+                id: materialId,
+                value: materialCounter
+            })
+        }
+        console.log(serviceList)
+    });
+    // клик по коробочному продукту
+    $( "#s-service" ).click( function() {
+        let boxId = $('#boxId').val();
+        let boxCounter = $('#boxCounter').val();
+        if (parseInt(boxCounter) > 0) {
+            serviceList.push({
+                id: boxId,
+                value: boxCounter
+            })
+        }
+        console.log(serviceList)
+    });
 </script>
