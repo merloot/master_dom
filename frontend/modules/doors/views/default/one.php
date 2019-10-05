@@ -5,9 +5,15 @@ $this->title = 'Заказ № ';
 <div class="ticket-info">
     <div class="container">
         <div class="row">
+
+            <div class="col-xs-12 col-sm-12 co1-md-12 col-lg-12">
+                <div class="ticket-info__button">
+                    <button class="btn btn-master">Редактировать</button>
+                </div>
+            </div>
             <div class="col-xs-12 col-sm-12 co1-md-6 col-lg-6">
                 <div class="ticket-info__personal">
-                    <h4>Общая информация о заказчике</h4>
+                    <h3>Общая информация о заказчике</h3>
                     <div>
                         <strong>Заказ №: </strong><span>12345</span>
                     </div>
@@ -33,7 +39,7 @@ $this->title = 'Заказ № ';
             </div>
             <div class="col-xs-12 col-sm-12 co1-md-6 col-lg-6">
                 <div class="ticket-info__personal">
-                    <h4>Информация о дверях</h4>
+                    <h3>Информация о дверях</h3>
                     <div>
                         <strong>Тип устанавливаемой двери: </strong> металлическая
                     </div>
