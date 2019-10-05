@@ -61,34 +61,3 @@ $this->title = 'Готовые замеры';
             ]); ?>
         </div>
     </div>
-
-    <style>
-        .show{
-            display: block;
-        }
-        .hide{
-            display: none;
-        }
-        .post{
-            height: 300px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .post-about{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-        .div-img img{
-            max-height: 150px;
-            max-width: 200px;
-        }
-        h1{
-            margin-top: -50px;
-            margin-bottom: -40px;
-        }
-    </style>
