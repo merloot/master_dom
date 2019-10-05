@@ -50,7 +50,10 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'doors/create'  => 'doors/default/create'
+                'doors/one/<id>'=>'doors/one',
+                'doors/all'  => 'doors/default/all',
+                'doors/index'  => 'doors/default/index',
+                'doors/create'  => 'doors/default/create',
             ],
         ],
 

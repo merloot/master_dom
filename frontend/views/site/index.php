@@ -19,7 +19,7 @@ $this->title = 'Специализация';
                         </a>
                     </div>
                     <div class="specialization-block__item">
-                        <a href="<?=Url::to('doors/create')?>">
+                        <a href="<?=Url::to('doors/all')?>">
                             <?=Html::img('/image/finished_doors_icon.svg')?>
                             <h2>Готовые замеры [Двери]</h2>
                         </a>

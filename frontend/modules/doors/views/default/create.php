@@ -1,10 +1,9 @@
 <?php
 
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 use frontend\modules\doors\models\Doors;
 use frontend\modules\doors\models\Clients;
-use frontend\modules\doors\models\ServicePrice;
-use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $client frontend\modules\doors\models\Clients*/
@@ -183,25 +182,57 @@ $this->title = 'Установка дверей';
                                     </div>
                                     <div class="col-xs-12 col-sm-12 co1 -md-6 col-lg-6">
                                         <label>
-                                            Дополнительные услуги:
+                                           Коробочный продукт:
                                         </label>
-
                                         <div class="form-group services">
-                                            <select name="services" class="form-control">
-                                                <?php foreach ($service as $one):?>
-                                                <option value="<?=$one['id']?>>"><?=$one['name']?></option>
+                                            <select name="services" class="form-control" id="selesdfsdfsdfsctor">
+                                                <?php foreach ($serviceBox as $one):?>
+                                                    <option value="<?=$one['id']?>"> <?=$one['name']?></option>
                                                 <?php endforeach;?>
                                             </select>
-                                            <input class="form-control counter" type="number" placeholder="шт">
-                                            <button class="btn btn-master">+</button>
+                                            <input class="form-control counter" type="number" placeholder="шт" id="how_masdfsdfdsny">
+                                            <?= Html::button('+', ['class' => 'btn btn-master', 'id' => 's-service'])?>
                                         </div>
                                         <ul class="list-group">
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 Первая услуга
                                                 <span class="badge badge-primary badge-pill">
-                                                    <span id="serviceCounter-1">14</span>
+                                                    <span id="serviceCounter-1"></span>
                                                     X
-                                                    <span id="priceCounter-1">500</span> Р
+                                                    <span id="priceCounter-1"></span>
+                                                </span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                Вторая услуга
+                                                <span class="badge badge-primary badge-pill">
+                                                    <span id="serviceCounter-2">3</span>
+                                                    X
+                                                    <span id="priceCounter-2">2</span> Р
+                                            </li>
+                                        </ul>
+
+                                        <hr>
+
+                                        <label>
+                                            Дополнительные услуги:
+                                        </label>
+
+                                        <div class="form-group services">
+                                            <select name="services" class="form-control" id="selector">
+                                                <?php foreach ($service as $one):?>
+                                                <option value="<?=$one['id']?>"> <?=$one['name']?></option>
+                                                <?php endforeach;?>
+                                            </select>
+                                            <input class="form-control counter" type="number" placeholder="шт" id="how_many">
+                                            <?= Html::button('+', ['class' => 'btn btn-master', 'id' => 'dop_service'])?>
+                                        </div>
+                                        <ul class="list-group">
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                Первая услуга
+                                                <span class="badge badge-primary badge-pill">
+                                                    <span id="serviceCounter-1"></span>
+                                                    X
+                                                    <span id="priceCounter-1"></span>
                                                 </span>
                                             </li>
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -221,12 +252,13 @@ $this->title = 'Установка дверей';
 
                                         <div class="form-group services">
                                             <select name="services" class="form-control">
-                                                <option value="1"></option>
-                                                <option value="1"></option>
+                                                <?php foreach ($other as $one):?>
+                                                <option value="<?=$one['id']?>"><?=$one->name?></option>
+                                                <?php endforeach;?>
                                                 <option value="1"></option>
                                             </select>
                                             <input class="form-control counter" type="number" placeholder="шт">
-                                            <button class="btn btn-master">+</button>
+                                            <?= Html::button('+', ['class' => 'btn btn-master', 'id' => 'p-service'])?>
                                         </div>
 
                                         <ul class="list-group">
@@ -249,7 +281,7 @@ $this->title = 'Установка дверей';
                                     </div>
                                 </div>
                                 <div class="save-door__button">
-                                    <?= Html::submitButton('Сохранить настройки двери', ['class' => 'btn btn-master']) ?>
+                                    <?= Html::submitButton('Сохранить настройки двери', ['class' => 'btn btn-master', 'id' => 'go_go_go']) ?>
                                 </div>
                             </div>
                         </div>
@@ -258,8 +290,19 @@ $this->title = 'Установка дверей';
             </div>
         </div>
     </div>
+    <?= $form->field($doors, 'serviceDoors')->hiddenInput()->label(false) ?>
 
     <?php ActiveForm::end(); ?>
-    <?php print_r(\yii\helpers\ArrayHelper::map($doors->getServices()->all(),'id','name'))?>
-
 </div>
+
+<script>
+    $( "#dop_service" ).click( function() {
+        $( "#doors-servicedoors" ).val(
+            $( "#doors-servicedoors" ).val()+
+            $( "#selector" ).val()+','+
+            $( "#how_many" ).val()+','
+        );
+        console.log(  $( "#doors-servicedoors" ).val()  )
+    });
+
+</script>
