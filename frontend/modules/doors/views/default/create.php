@@ -60,13 +60,13 @@ $this->title = 'Установка дверей';
                             <h4 class="panel-title">
                                 <!-- #collapseOne ты должен заменить на #collapseID, где ID = любому уникальному значению, этот href должен соответствовать id на строке ~66 -->
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?=$k?>">
-                                    Дверь 1
+                                    Дверь <?=$k?>
                                 </a>
                                 <a>X</a>
                             </h4>
                         </div>
                         <!-- ВОТ ЭТОМУ ID   -->
-                        <div id="collapseOne" class="panel-collapse collapse in">
+                        <div id="collapse<?=$k?>" class="panel-collapse collapse in">
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 co1-md-6 col-lg-6">
