@@ -60,7 +60,7 @@ $this->title = 'Установка дверей';
                             <h4 class="panel-title">
                                 <!-- #collapseOne ты должен заменить на #collapseID, где ID = любому уникальному значению, этот href должен соответствовать id на строке ~66 -->
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?=$k?>">
-                                    Дверь <?=$k?>
+                                    Дверь <?=$k+1?>
                                 </a>
                                 <a>X</a>
                             </h4>
