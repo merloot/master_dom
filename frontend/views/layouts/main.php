@@ -42,15 +42,14 @@ AppAsset::register($this);
 
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+        $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
     } elseif (Yii::$app->user->identity->status === User::STATUS_ADMIN) {
         $menuItems[] = ['label'=> 'Пользователи', 'url' =>['users/index']];
         $menuItems[] = ['label' => 'Услуги', 'url' => ['/service-price/index']];
-        $menuItems[] = ['label' => 'Создание нового пользователя', 'url' => ['/site/signup']];
         $menuItems[] = '<li>'
                        . Html::beginForm(['/site/logout'], 'post')
                        . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
+                'Выйти (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout']
             )
                        . Html::endForm()
@@ -59,7 +58,7 @@ AppAsset::register($this);
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
+                'Выйти (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout']
             )
             . Html::endForm()

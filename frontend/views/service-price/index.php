@@ -8,14 +8,13 @@ use yii\widgets\Pjax;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Прайс услуг';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="service-price-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h3><?= Html::encode($this->title) ?></h3>
 
     <p>
-        <?= Html::a('Create Service Price', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить услугу', ['create'], ['class' => 'btn btn-master']) ?>
     </p>
 
     <?php Pjax::begin(); ?>

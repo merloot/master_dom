@@ -8,11 +8,14 @@ use yii\widgets\Pjax;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Пользователи';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
+
+    <p>
+        <?= Html::a('Добавить пользователя', ['site/signup'], ['class' => 'btn btn-master']) ?>
+    </p>
 
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

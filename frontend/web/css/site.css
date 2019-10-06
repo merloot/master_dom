@@ -13,6 +13,12 @@ body {
 .navbar-nav .active a{
     background-color: #4A4A4A!important;
 }
+
+.navbar-nav li:hover a,
+.navbar-nav li:hover button{
+    background-color: #4A4A4A!important;
+}
+
 .__web-inspector-hide-shortcut__{
     visibility: visible!important;
 }
