@@ -24,6 +24,11 @@ class DefaultController extends Controller
 
     public function actionCreate()
     {
+//        if (\Yii::$app->request->isPost) {
+//            \Yii::$app->response->format = 'json';
+//            echo(json_encode($_POST));die();
+//        }
+
         $client   = new Clients();
         $allDoors = [
             new Doors(),
@@ -50,16 +55,29 @@ class DefaultController extends Controller
                                           ->all();
 
 
-//                if ($client->load(\Yii::$app->request->post()) && $doors->load(\Yii::$app->request->post())){
-//            $doors->serviceDoors = \Yii::$app->request->post()['Doors']['serviceDoors'];
-//            $doors->save();
-//            $client->save();
-//        }
+        if ($client->load(\Yii::$app->request->post()) ){
+            $count = count(\Yii::$app->request->post('Doors', []));
+            $settings = [new Doors()];
+            for($i = 1; $i < $count; $i++) {
+                $settings[] = new Doors();
+                var_dump($settings);
+                die();
+            }
+//            foreach ($allDoors as $door){
+//                if ($door->load(\Yii::$app->request->post())){
+//                    $door = new Doors();
+//                    $door->save();
+//                }
+//                die();
+//                $door->load(\Yii::$app->request->post());
+                //                $door->serviceDoors = \Yii::$app->request->post()['Doors']['serviceDoors'];
+//            }
+            $client->save();
+        }
 
         return $this->render('create', [
             'allDoors'          => $allDoors,
             'client'            => $client,
-//            'doors'             => $doors,
             'service'           => $service,
             'serviceBox'        => $serviceBox,
             'other'             => $serviceOther,

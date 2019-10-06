@@ -73,9 +73,9 @@ $this->title = 'Установка дверей';
                                         <?= $form->field($door, 'type_doors')->dropDownList([
                                             Doors::TYPE_DOORS_IRON =>'Металическая',
                                             Doors::TYPE_DOORS_INTERIOR =>'Межкомнатная'
-                                        ],['name' =>"Doors[type_doors{$k}"]) ?>
+                                        ],['name' =>"Doors[type_doors{$k}]"]) ?>
 
-                                        <?= $form->field($door, 'comment')->textarea(['name' => "Doors[xer{$k}]"]) ?>
+                                        <?= $form->field($door, 'comment')->textarea(['name' => "Doors[comment{$k}]"]) ?>
 
                                         <hr>
 
@@ -100,7 +100,7 @@ $this->title = 'Установка дверей';
                                                 Doors::TYPE_OPENING_MID   => Html::img('/image/mid_doors.svg', ['width' => '100%', 'height' => 150]) ,
                                                 Doors::TYPE_OPENING_LEFT  => Html::img('/image/left_doors_1.svg',['width' => '100%', 'height' => 150]) ,
                                                 Doors::TYPE_OPENING_RIGHT => Html::img('/image/right_doors.svg' ,['width' => '100%', 'height' => 150])
-                                            ], ['encode' => false,'name'=>""])->label(false)
+                                            ], ['encode' => false,'name'=>"Doors[type_opening{$k}]"])->label(false)
                                             ?>
                                         </div>
 
@@ -113,7 +113,7 @@ $this->title = 'Установка дверей';
                                                 Doors::ADHERENCE_INTERIOR_RIGHT     => Html::img('/image/left_doors.svg',['width' => '100%', 'height' => 150]),
                                                 Doors::ADHERENCE_OUTDOOR_LEFT       => Html::img('/image/left_doors.svg', ['width' => '100%', 'height' => 150]),
                                                 Doors::ADHERENCE_OUTDOOR_RIGHT      => Html::img('/image/left_doors.svg',['width' => '100%', 'height' => 150]),
-                                            ], ['encode' => false])->label(false)
+                                            ], ['encode' => false,'name'=>"Doors[adherence{$k}]"])->label(false)
                                             ?>
                                         </div>
 
