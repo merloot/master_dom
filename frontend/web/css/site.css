@@ -149,14 +149,15 @@ body {
     justify-content: space-between;
 }
 
+.panel-default a{
+    text-decoration: none;
+    color: black;
+}
+
 .panel-title{
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-
-.panel-title a{
-    cursor: pointer;
 }
 
 .panel-body .services{

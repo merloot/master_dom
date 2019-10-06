@@ -56,13 +56,13 @@ $this->title = 'Установка дверей';
                     
                     <?php foreach ($allDoors as $k => $door) : ?>
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?=$k?>">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?=$k?>">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
                                     Дверь <?=$k+1?>
-                                </a>
-                            </h4>
-                        </div>
+                                </h4>
+                            </div>
+                        </a>
                         <div id="collapse<?=$k?>" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <div class="row">
