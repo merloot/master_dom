@@ -54,7 +54,7 @@ class DefaultController extends Controller
                                           ->where(['type_service'=>ServicePrice::TYPE_SERVICE_BOXED_PRODUCT])
                                           ->all();
 
-
+        {
 //            foreach ($allDoors as $door){
 //                if ($door->load(\Yii::$app->request->post())){
 //                    $door = new Doors();
