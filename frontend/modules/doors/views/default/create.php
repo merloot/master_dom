@@ -58,15 +58,12 @@ $this->title = 'Установка дверей';
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <!-- #collapseOne ты должен заменить на #collapseID, где ID = любому уникальному значению, этот href должен соответствовать id на строке ~66 -->
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?=$k?>">
                                     Дверь <?=$k+1?>
                                 </a>
-                                <a>X</a>
                             </h4>
                         </div>
-                        <!-- ВОТ ЭТОМУ ID   -->
-                        <div id="collapse<?=$k?>" class="panel-collapse collapse in">
+                        <div id="collapse<?=$k?>" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 co1-md-6 col-lg-6">
@@ -185,13 +182,13 @@ $this->title = 'Установка дверей';
                                            Коробочный продукт:
                                         </label>
                                         <div class="form-group services">
-                                            <select name="services" class="form-control" id="boxId">
+                                            <select name="services" class="form-control" id="boxId<?=$k?>">
                                                 <?php foreach ($serviceBox as $one):?>
                                                     <option value="<?=$one['id']?>"> <?=$one['name']?></option>
                                                 <?php endforeach;?>
                                             </select>
-                                            <input class="form-control counter" type="number" placeholder="шт" id="boxCounter">
-                                            <?= Html::button('+', ['class' => 'btn btn-master', 'id' => 's-service'])?>
+                                            <input class="form-control counter" type="number" placeholder="шт" id="boxCounter<?=$k?>">
+                                            <?= Html::button('+', ['class' => 'btn btn-master s-service', 'id' => 's-service', 'data-index' => $k])?>
                                         </div>
                                         <ul class="list-group">
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -218,13 +215,13 @@ $this->title = 'Установка дверей';
                                         </label>
 
                                         <div class="form-group services">
-                                            <select name="services" class="form-control" id="serviceId">
+                                            <select name="services" class="form-control" id="serviceId<?=$k?>">
                                                 <?php foreach ($service as $one):?>
                                                 <option value="<?=$one['id']?>"> <?=$one['name']?></option>
                                                 <?php endforeach;?>
                                             </select>
-                                            <input class="form-control counter" type="number" placeholder="шт" id="serviceCounter">
-                                            <?= Html::button('+', ['class' => 'btn btn-master', 'id' => 'dop_service'])?>
+                                            <input class="form-control counter" type="number" placeholder="шт" id="serviceCounter<?=$k?>">
+                                            <?= Html::button('+', ['class' => 'btn btn-master dop_service', 'id' => 'dop_service', 'data-index' => $k])?>
                                         </div>
                                         <ul class="list-group">
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -251,13 +248,13 @@ $this->title = 'Установка дверей';
                                         </label>
 
                                         <div class="form-group services">
-                                            <select name="services" class="form-control" id="materialId">
+                                            <select name="services" class="form-control" id="materialId<?=$k?>">
                                                 <?php foreach ($other as $one):?>
                                                 <option value="<?=$one['id']?>"><?=$one->name?></option>
                                                 <?php endforeach;?>
                                             </select>
-                                            <input class="form-control counter" type="number" placeholder="шт" id="materialCounter">
-                                            <?= Html::button('+', ['class' => 'btn btn-master', 'id' => 'p-service'])?>
+                                            <input class="form-control counter" type="number" placeholder="шт" id="materialCounter<?=$k?>">
+                                            <?= Html::button('+', ['class' => 'btn btn-master p-service', 'id' => 'p-service', 'data-index' => $k])?>
                                         </div>
 
                                         <ul class="list-group">
@@ -283,72 +280,87 @@ $this->title = 'Установка дверей';
                             </div>
                         </div>
                     </div>
-                        <?= $form->field($door, 'serviceDoors')->hiddenInput(['name' =>"Doors[serviceDoors{$k}]"])->label(false) ?>
+                        <?= $form->field($door, 'serviceDoors')->hiddenInput(['name' =>"Doors[serviceDoors{$k}]", 'class' => 'doors-servicedoors'])->label(false) ?>
                     <?php endforeach;?>
                     <div class="save-door__button">
-                        <?= Html::submitButton('Сохранить настройки двери', ['class' => 'btn btn-master', 'id' => 'go_go_go']) ?>
+<!--                        --><?//= Html::submitButton('Сохранить настройки двери', ['class' => 'btn btn-master', 'id' => 'go_go_go']) ?>
                     </div>
                     <?php ActiveForm::end(); ?>
                 </div>
             </div>
         </div>
+        <h1 id="go_go_go">1234</h1>
     </div>
 
 </div>
 
 <script>
-    let serviceList = [];
+    let serviceList = [
+        {serviceList: []},
+        {serviceList: []},
+        {serviceList: []},
+        {serviceList: []},
+        {serviceList: []},
+        {serviceList: []},
+        {serviceList: []},
+        {serviceList: []},
+        {serviceList: []},
+        {serviceList: []},
+    ];
 
     $( document ).ready(function() {
-        let doorsList = $('#accordion').children()
-        console.log($('#accordion').children()[doorsList.length - 1].innerHTML)
+        $('#collapse0').addClass('in')
     });
 
     // клик по Добавить дверь
-    $( "#addDoor" ).click( function() {
-        $('#accordion').append('<p>Меня тут не было!</p>');
-
-    });
+    // $( "#addDoor" ).click( function() {
+    //     $('#accordion').append('<p>Меня тут не было!</p>');
+    //
+    // });
     // клик по услугам
-    $( "#dop_service" ).click( function() {
-        let serviceId = $('#serviceId').val();
-        let serviceCounter = $('#serviceCounter').val();
+    $( ".dop_service" ).click( function() {
+        let elemIndex = this.getAttribute('data-index');
+        let serviceId = $('#serviceId' + elemIndex).val();
+        let serviceCounter = $('#serviceCounter' + elemIndex).val();
         if (parseInt(serviceCounter) > 0) {
-            serviceList.push({
+            serviceList[elemIndex].serviceList.push({
                 id: serviceId,
                 value: serviceCounter
             })
         }
-        console.log(serviceList)
     });
     // клик по материалам
-    $( "#p-service" ).click( function() {
-        let materialId = $('#materialId').val();
-        let materialCounter = $('#materialCounter').val();
+    $( ".p-service" ).click( function() {
+        let elemIndex = this.getAttribute('data-index');
+        let materialId = $('#materialId' + elemIndex).val();
+        let materialCounter = $('#materialCounter' + elemIndex).val();
         if (parseInt(materialCounter) > 0) {
-            serviceList.push({
+            serviceList[elemIndex].serviceList.push({
                 id: materialId,
                 value: materialCounter
             })
         }
-        console.log(serviceList)
     });
     // клик по коробочному продукту
-    $( "#s-service" ).click( function() {
-        let boxId = $('#boxId').val();
-        let boxCounter = $('#boxCounter').val();
+    $( ".s-service" ).click( function() {
+        let elemIndex = this.getAttribute('data-index');
+        let boxId = $('#boxId' + elemIndex).val();
+        let boxCounter = $('#boxCounter' + elemIndex).val();
         if (parseInt(boxCounter) > 0) {
-            serviceList.push({
+            serviceList[elemIndex].serviceList.push({
                 id: boxId,
                 value: boxCounter
             })
         }
-        console.log(serviceList)
     });
-    // клик по материалам
+    // клик по сохранить
     $( "#go_go_go" ).click( function() {
-        let elem = $('#doors-servicedoors')
-        elem.val(JSON.stringify(serviceList))
+        let hiddenInputs = $('.doors-servicedoors');
+        for (let i = 0; i < 10; i++) {
+            if (serviceList[i].serviceList.length > 0){
+                hiddenInputs[i].value = JSON.stringify(serviceList[i].serviceList)
+            }
+        }
     });
 
 </script>
