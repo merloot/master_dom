@@ -191,21 +191,7 @@ $this->title = 'Установка дверей';
                                             <?= Html::button('+', ['class' => 'btn btn-master s-service', 'id' => 's-service', 'data-index' => $k])?>
                                         </div>
                                         <ul class="list-group">
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                Первая услуга
-                                                <span class="badge badge-primary badge-pill">
-                                                    <span id="serviceCounter-1"></span>
-                                                    X
-                                                    <span id="priceCounter-1"></span>
-                                                </span>
-                                            </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                Вторая услуга
-                                                <span class="badge badge-primary badge-pill">
-                                                    <span id="serviceCounter-2">3</span>
-                                                    X
-                                                    <span id="priceCounter-2">2</span> Р
-                                            </li>
+                                            <!-- cюда генерятся итемы -->
                                         </ul>
 
                                         <hr>
@@ -224,21 +210,7 @@ $this->title = 'Установка дверей';
                                             <?= Html::button('+', ['class' => 'btn btn-master dop_service', 'id' => 'dop_service', 'data-index' => $k])?>
                                         </div>
                                         <ul class="list-group">
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                Первая услуга
-                                                <span class="badge badge-primary badge-pill">
-                                                    <span id="serviceCounter-1"></span>
-                                                    X
-                                                    <span id="priceCounter-1"></span>
-                                                </span>
-                                            </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                Вторая услуга
-                                                <span class="badge badge-primary badge-pill">
-                                                    <span id="serviceCounter-2">3</span>
-                                                    X
-                                                    <span id="priceCounter-2">2</span> Р
-                                            </li>
+                                            <!-- cюда генерятся итемы -->
                                         </ul>
 
                                         <hr>
@@ -258,21 +230,14 @@ $this->title = 'Установка дверей';
                                         </div>
 
                                         <ul class="list-group">
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                Первый материал
-                                                <span class="badge badge-primary badge-pill">
-                                                    <span id="materialCounter-1">14</span>
-                                                    X
-                                                    <span id="materialPriceCounter-1">500</span> Р
-                                                </span>
-                                            </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                Второй материал
-                                                <span class="badge badge-primary badge-pill">
-                                                    <span id="materialCounter-2">3</span>
-                                                    X
-                                                    <span id="materialPriceCounter-2">2</span> Р
-                                            </li>
+                                            <!-- cюда генерятся итемы -->
+<!--                                            <li class="list-group-item d-flex justify-content-between align-items-center">-->
+<!--                                                Второй материал-->
+<!--                                                <span class="badge badge-primary badge-pill">-->
+<!--                                                    <span id="materialCounter-2">3</span>-->
+<!--                                                    X-->
+<!--                                                    <span id="materialPriceCounter-2">2</span> Р-->
+<!--                                            </li>-->
                                         </ul>
                                     </div>
                                 </div>
@@ -283,13 +248,12 @@ $this->title = 'Установка дверей';
                         <?= $form->field($door, 'serviceDoors')->hiddenInput(['name' =>"Doors[serviceDoors{$k}]", 'class' => 'doors-servicedoors'])->label(false) ?>
                     <?php endforeach;?>
                     <div class="save-door__button">
-<!--                        --><?//= Html::submitButton('Сохранить настройки двери', ['class' => 'btn btn-master', 'id' => 'go_go_go']) ?>
+                        <?= Html::submitButton('Сохранить заказ', ['class' => 'btn btn-master', 'id' => 'go_go_go']) ?>
                     </div>
                     <?php ActiveForm::end(); ?>
                 </div>
             </div>
         </div>
-        <h1 id="go_go_go">1234</h1>
     </div>
 
 </div>
@@ -320,37 +284,58 @@ $this->title = 'Установка дверей';
     // клик по услугам
     $( ".dop_service" ).click( function() {
         let elemIndex = this.getAttribute('data-index');
-        let serviceId = $('#serviceId' + elemIndex).val();
+        let elem = $('#serviceId' + elemIndex)
+        let serviceId = elem.val();
+        let serviceText = elem.find('option:selected').text();
         let serviceCounter = $('#serviceCounter' + elemIndex).val();
         if (parseInt(serviceCounter) > 0) {
             serviceList[elemIndex].serviceList.push({
                 id: serviceId,
                 value: serviceCounter
             })
+            let list = this.parentNode.parentNode.children[6]
+            $(list).append('<li class="list-group-item d-flex justify-content-between align-items-center">\n' + serviceText +
+                '                                <span class="badge badge-primary badge-pill">\n' +
+                '                                  <span>' + serviceCounter +'</span>\n' +
+                '                            </li>');
         }
     });
     // клик по материалам
     $( ".p-service" ).click( function() {
         let elemIndex = this.getAttribute('data-index');
-        let materialId = $('#materialId' + elemIndex).val();
+        let elem = $('#materialId' + elemIndex);
+        let materialId = elem.val();
+        let materialText = elem.find('option:selected').text();
         let materialCounter = $('#materialCounter' + elemIndex).val();
         if (parseInt(materialCounter) > 0) {
             serviceList[elemIndex].serviceList.push({
                 id: materialId,
                 value: materialCounter
             })
+            let list = this.parentNode.parentNode.children[10]
+            $(list).append('<li class="list-group-item d-flex justify-content-between align-items-center">\n' + materialText +
+                '                                <span class="badge badge-primary badge-pill">\n' +
+                '                                  <span>' + materialCounter +'</span>\n' +
+                '                            </li>');
         }
     });
     // клик по коробочному продукту
     $( ".s-service" ).click( function() {
         let elemIndex = this.getAttribute('data-index');
-        let boxId = $('#boxId' + elemIndex).val();
+        let elem = $('#boxId' + elemIndex);
+        let boxId = elem.val();
+        let boxText = elem.find('option:selected').text();
         let boxCounter = $('#boxCounter' + elemIndex).val();
         if (parseInt(boxCounter) > 0) {
             serviceList[elemIndex].serviceList.push({
                 id: boxId,
                 value: boxCounter
             })
+            let list = this.parentNode.parentNode.children[2]
+            $(list).append('<li class="list-group-item d-flex justify-content-between align-items-center">\n' + boxText +
+'                                <span class="badge badge-primary badge-pill">\n' +
+'                                  <span>' + boxCounter +'</span>\n' +
+'                            </li>');
         }
     });
     // клик по сохранить
