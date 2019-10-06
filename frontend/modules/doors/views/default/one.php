@@ -52,8 +52,8 @@ $this->title = 'Заказ № ';
                     <div>
                         <strong>Материал стен: </strong>ж/бетон
                     </div>
-                    <!--НУЖНО ВСТАВЛЯТЬ ВМЕСТО КЛАССА storonnst - УНИКАЛЬНЫЙ ПАРАМЕТР, ПО КОТОРОМУ Я БУДУ ОПРЕДЕЛЯТЬ, КАКАЯ СТОРОННОСТЬ  -->
-                    <div class="storonnost">
+                    <!-- НУЖНО В DATA-STORONA ПЕРЕДАВАТЬ ПАРАМЕТР  -->
+                    <div data-storona="0">
                         <strong>Сторонность: </strong>
                         Левая наружняя
                         <?= \yii\helpers\Html::img('/image/left_doors.svg')?>
