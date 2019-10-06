@@ -24,10 +24,10 @@ class DefaultController extends Controller
 
     public function actionCreate()
     {
-//        if (\Yii::$app->request->isPost) {
-//            \Yii::$app->response->format = 'json';
-//            echo(json_encode($_POST));die();
-//        }
+        if (\Yii::$app->request->isPost) {
+            \Yii::$app->response->format = 'json';
+            echo(json_encode($_POST));die();
+        }
 
         $client   = new Clients();
         $allDoors = [
@@ -55,14 +55,6 @@ class DefaultController extends Controller
                                           ->all();
 
 
-        if ($client->load(\Yii::$app->request->post()) ){
-            $count = count(\Yii::$app->request->post('Doors', []));
-            $settings = [new Doors()];
-            for($i = 1; $i < $count; $i++) {
-                $settings[] = new Doors();
-                var_dump($settings);
-                die();
-            }
 //            foreach ($allDoors as $door){
 //                if ($door->load(\Yii::$app->request->post())){
 //                    $door = new Doors();
