@@ -73,7 +73,7 @@ $this->title = 'Установка дверей';
                                         <?= $form->field($door, 'type_doors')->dropDownList([
                                             Doors::TYPE_DOORS_IRON =>'Металическая',
                                             Doors::TYPE_DOORS_INTERIOR =>'Межкомнатная'
-                                        ]) ?>
+                                        ],['name' =>"Doors[type_doors{$k}"]) ?>
 
                                         <?= $form->field($door, 'comment')->textarea(['name' => "Doors[xer{$k}]"]) ?>
 
@@ -88,7 +88,7 @@ $this->title = 'Установка дверей';
                                         'Ж/Бетон'   =>   'Ж/Бетон',
                                         'Дерево'    =>   'Дерево',
                                         'Другое'    => 'fd'
-                                        ]);
+                                        ],['name' =>"Doors[wall_material{$k}]"]);
                                     ?>
                                 </div>
 
@@ -100,7 +100,7 @@ $this->title = 'Установка дверей';
                                                 Doors::TYPE_OPENING_MID   => Html::img('/image/mid_doors.svg', ['width' => '100%', 'height' => 150]) ,
                                                 Doors::TYPE_OPENING_LEFT  => Html::img('/image/left_doors_1.svg',['width' => '100%', 'height' => 150]) ,
                                                 Doors::TYPE_OPENING_RIGHT => Html::img('/image/right_doors.svg' ,['width' => '100%', 'height' => 150])
-                                            ], ['encode' => false])->label(false)
+                                            ], ['encode' => false,'name'=>""])->label(false)
                                             ?>
                                         </div>
 
@@ -283,7 +283,7 @@ $this->title = 'Установка дверей';
                             </div>
                         </div>
                     </div>
-                        <?= $form->field($door, 'serviceDoors')->hiddenInput()->label(false) ?>
+                        <?= $form->field($door, 'serviceDoors')->hiddenInput(['name' =>"Doors[serviceDoors{$k}]"])->label(false) ?>
                     <?php endforeach;?>
                     <div class="save-door__button">
                         <?= Html::submitButton('Сохранить настройки двери', ['class' => 'btn btn-master', 'id' => 'go_go_go']) ?>

@@ -35,7 +35,6 @@ class DefaultController extends Controller
             new Doors(),
             new Doors(),
             new Doors(),
-            new Doors(),
             new Doors()
         ];
         $service            = ServicePrice::find()
