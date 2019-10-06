@@ -7,7 +7,7 @@ use frontend\modules\doors\models\Clients;
 
 /* @var $this yii\web\View */
 /* @var $client frontend\modules\doors\models\Clients*/
-/* @var $doors frontend\modules\doors\models\Doors */
+/* @var $door frontend\modules\doors\models\Doors */
 /* @var $service frontend\modules\doors\models\ServicePrice*/
 /* @var $form yii\widgets\ActiveForm */
 
@@ -44,7 +44,6 @@ $this->title = 'Установка дверей';
     </div>
 
     <div class="container">
-
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="door-header">
@@ -52,11 +51,15 @@ $this->title = 'Установка дверей';
                     <button class="btn btn-master" id="addDoor">Добавить дверь</button>
                 </div>
                 <div class="panel-group" id="accordion">
+                    
+                    
+                    
+                    <?php foreach ($allDoors as $k => $door) : ?>
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <!-- #collapseOne ты должен заменить на #collapseID, где ID = любому уникальному значению, этот href должен соответствовать id на строке ~66 -->
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?=$k?>">
                                     Дверь 1
                                 </a>
                                 <a>X</a>
@@ -67,30 +70,25 @@ $this->title = 'Установка дверей';
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 co1-md-6 col-lg-6">
-                                        <?= $form->field($doors, 'type_doors')->dropDownList([
+                                        <?= $form->field($door, 'type_doors')->dropDownList([
                                             Doors::TYPE_DOORS_IRON =>'Металическая',
                                             Doors::TYPE_DOORS_INTERIOR =>'Межкомнатная'
                                         ]) ?>
 
-                                        <?= $form->field($doors, 'comment')->textarea() ?>
+                                        <?= $form->field($door, 'comment')->textarea(['name' => "Doors[xer{$k}]"]) ?>
 
                                         <hr>
 
                                 <div>
                                     <label>Материал стен:</label>
-                                    <?= $form->field($doors, 'wall_material')->radioList([
+                                    <?=
+                                    $form->field($door, 'wall_material')->radioList([
                                         'Сибит'     =>   'Сибит',
                                         'Кирпич'    =>   'Кирпич',
                                         'Ж/Бетон'   =>   'Ж/Бетон',
                                         'Дерево'    =>   'Дерево',
-                                        'Другое'    =>   Html::textInput( 'wall_material',
-                                            Yii::$app->request->post('wall_material'),
-                                            [
-                                                'class' => 'form-control', 'placeholder' => 'Свой вариант'
-                                            ]),
-                                    ], [
-                                            'encode' => false
-                                    ])->label(false)
+                                        'Другое'    => 'fd'
+                                        ]);
                                     ?>
                                 </div>
 
@@ -98,7 +96,7 @@ $this->title = 'Установка дверей';
 
                                         <div>
                                             <label>Вид проема в плане:</label>
-                                            <?=$form->field($doors, 'type_opening')->radioList([
+                                            <?=$form->field($door, 'type_opening')->radioList([
                                                 Doors::TYPE_OPENING_MID   => Html::img('/image/mid_doors.svg', ['width' => '100%', 'height' => 150]) ,
                                                 Doors::TYPE_OPENING_LEFT  => Html::img('/image/left_doors_1.svg',['width' => '100%', 'height' => 150]) ,
                                                 Doors::TYPE_OPENING_RIGHT => Html::img('/image/right_doors.svg' ,['width' => '100%', 'height' => 150])
@@ -110,7 +108,7 @@ $this->title = 'Установка дверей';
 
                                         <div>
                                             <label>Сторонность:</label>
-                                            <?=$form->field($doors, 'adherence')->radioList([
+                                            <?=$form->field($door, 'adherence')->radioList([
                                                 Doors::ADHERENCE_INTERIOR_LEFT      => Html::img('/image/left_doors.svg', ['width' => '100%', 'height' => 150]),
                                                 Doors::ADHERENCE_INTERIOR_RIGHT     => Html::img('/image/left_doors.svg',['width' => '100%', 'height' => 150]),
                                                 Doors::ADHERENCE_OUTDOOR_LEFT       => Html::img('/image/left_doors.svg', ['width' => '100%', 'height' => 150]),
@@ -257,7 +255,6 @@ $this->title = 'Установка дверей';
                                                 <?php foreach ($other as $one):?>
                                                 <option value="<?=$one['id']?>"><?=$one->name?></option>
                                                 <?php endforeach;?>
-                                                <option value="1"></option>
                                             </select>
                                             <input class="form-control counter" type="number" placeholder="шт" id="materialCounter">
                                             <?= Html::button('+', ['class' => 'btn btn-master', 'id' => 'p-service'])?>
@@ -282,28 +279,35 @@ $this->title = 'Установка дверей';
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="save-door__button">
-                                    <?= Html::submitButton('Сохранить настройки двери', ['class' => 'btn btn-master', 'id' => 'go_go_go']) ?>
-                                </div>
+
                             </div>
                         </div>
                     </div>
+                        <?= $form->field($door, 'serviceDoors')->hiddenInput()->label(false) ?>
+                    <?php endforeach;?>
+                    <div class="save-door__button">
+                        <?= Html::submitButton('Сохранить настройки двери', ['class' => 'btn btn-master', 'id' => 'go_go_go']) ?>
+                    </div>
+                    <?php ActiveForm::end(); ?>
                 </div>
             </div>
         </div>
     </div>
-    <?= $form->field($doors, 'serviceDoors')->hiddenInput()->label(false) ?>
 
-    <?php ActiveForm::end(); ?>
 </div>
 
 <script>
     let serviceList = [];
-    let doorsCounter = 1;
+
+    $( document ).ready(function() {
+        let doorsList = $('#accordion').children()
+        console.log($('#accordion').children()[doorsList.length - 1].innerHTML)
+    });
+
     // клик по Добавить дверь
     $( "#addDoor" ).click( function() {
-        doorsCounter++;
-        console.log(doorsCounter)
+        $('#accordion').append('<p>Меня тут не было!</p>');
+
     });
     // клик по услугам
     $( "#dop_service" ).click( function() {
@@ -341,4 +345,10 @@ $this->title = 'Установка дверей';
         }
         console.log(serviceList)
     });
+    // клик по материалам
+    $( "#go_go_go" ).click( function() {
+        let elem = $('#doors-servicedoors')
+        elem.val(JSON.stringify(serviceList))
+    });
+
 </script>

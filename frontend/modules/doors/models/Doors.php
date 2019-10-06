@@ -6,6 +6,7 @@ use common\models\User;
 use Yii;
 use common\interfaces\DoorsInterface;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
 
 /**
  * This is the model class for table "Doors".
@@ -28,6 +29,7 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
     public $serviceDoors;
 
     public $service;
+
     /**
      * {@inheritdoc}
      */
@@ -143,24 +145,23 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
 
     public function afterSave($insert, $changedAttributes) {
         parent::afterSave($insert, $changedAttributes);
-        if (is_array($this->serviceDoors)){
-            foreach ($this->serviceDoors as $value){
+        $array = Json::decode($this->serviceDoors);
+        if (is_array($array)){
+            foreach ($array as $value){
                 $this->createNewsServices($value);
             }
         }
     }
 
-    public function createNewsServices($value)
-    {
-        if ($service = ServicePrice::findOne($value)) {
+    public function createNewsServices($value) {
             $serviceDoors = new ServiceDoors();
             $serviceDoors->id_doors = $this->id;
-            $serviceDoors->id_service = $service->id;
-            $serviceDoors->count_service = $value->count;
+            $serviceDoors->id_service = $value['id'];
+            $serviceDoors->count_service = $value['value'];
             if ($serviceDoors->save()) {
-                return false;
+                return true;
             }
-        }
+//        }
         return false;
     }
 }
