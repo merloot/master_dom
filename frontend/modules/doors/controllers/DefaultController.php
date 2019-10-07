@@ -42,6 +42,8 @@ class DefaultController extends Controller
             new Doors(),
             new Doors()
         ];
+        $doors              = new Doors();
+
         $service            = ServicePrice::find()
                                           ->where(['type_service'=>ServicePrice::TYPE_SERVICE_DEMONTAG])
                                           ->orWhere(['type_service'=>ServicePrice::TYPE_SERVICE_PREPARATORY_WORK])
@@ -64,10 +66,16 @@ class DefaultController extends Controller
 //                $door->load(\Yii::$app->request->post());
                 //                $door->serviceDoors = \Yii::$app->request->post()['Doors']['serviceDoors'];
 //            }
-            $client->save();
+            if ($client->load(\Yii::$app->request->post()) && $doors->load(\Yii::$app->request->post())){
+                $doors->serviceDoors = \Yii::$app->request->post()['Doors']['serviceDoors'];
+                $doors->save();
+                $client->save();
+                var_dump($doors->getErrors());
+            }
         }
 
         return $this->render('create', [
+            'doors'             => $doors,
             'allDoors'          => $allDoors,
             'client'            => $client,
             'service'           => $service,

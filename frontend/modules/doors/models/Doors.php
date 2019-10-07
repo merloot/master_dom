@@ -20,9 +20,19 @@ use yii\helpers\Json;
  * @property string $sum
  * @property int user_id
  * @property integer $date_create
+ * @property integer $height_box
+ * @property integer $depth_box
+ * @property integer $width_box
+ * @property integer $height_aperture
+ * @property integer $depth_aperture
+ * @property integer $width_aperture
+ * @property integer $height_canvas
+ * @property integer $depth_canvas
+ * @property integer $width_canvas
  *
  * @property ClientsDoors[] $clientsDoors
  * @property ServicePrice[] $services
+ * @property ServiceDoors[] $servicesDoors
  */
 class Doors extends \yii\db\ActiveRecord implements DoorsInterface
 {
@@ -104,14 +114,22 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
 //    public function getTest() {
 //        return $this->hasMany(ClientsDoors::className(), ['id_client' => 'id']);
 //    }
-    public function getTest() {
-        return $this->hasMany(ClientsDoors::className(), ['id_client' => 'id']);
+    public function getClients() {
+        return $this->hasMany(Clients::className(),
+            [
+            'id' => 'id_client'
+            ]
+        )->viaTable('ClientsDoors',
+            [
+            'id_doors' =>'id'
+            ]
+        );
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getServiceDoors() {
+    public function getServicesDoors() {
         return $this->hasMany(ServiceDoors::className(), ['id_doors' => 'id']);
     }
 
@@ -138,10 +156,10 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
             return false;
         }
     }
-
-    public function afterFind() {
-        $this->service = ArrayHelper::map($this->services,'name','name');
-    }
+//
+//    public function afterFind() {
+//        $this->service = ArrayHelper::map($this->services,'name','name');
+//    }
 
     public function afterSave($insert, $changedAttributes) {
         parent::afterSave($insert, $changedAttributes);
@@ -154,14 +172,17 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
     }
 
     public function createNewsServices($value) {
-            $serviceDoors = new ServiceDoors();
-            $serviceDoors->id_doors = $this->id;
-            $serviceDoors->id_service = $value['id'];
-            $serviceDoors->count_service = $value['value'];
-            if ($serviceDoors->save()) {
-                return true;
-            }
-//        }
+        $door = self::findOne($this->id);
+        $service = ServicePrice::findOne($value['id']);
+        $serviceDoors = new ServiceDoors();
+        $serviceDoors->id_doors = $this->id;
+        $serviceDoors->id_service = $value['id'];
+        $serviceDoors->count_service = $value['value'];
+        $door->sum += (float)$service->price * (int)$value['value'];
+
+        if ($serviceDoors->save() && $door->save()) {
+            return true;
+        }
         return false;
     }
 }

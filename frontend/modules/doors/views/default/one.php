@@ -1,6 +1,9 @@
 <?php
+
+/* @var $door frontend\modules\doors\models\Doors*/
 use yii\bootstrap\Html;
-$this->title = 'Заказ № ';
+$this->title = "Заказ № {$door->id}";
+$date = strtotime($door->date_create)
 ?>
 <div class="ticket-info">
     <div class="container">
@@ -13,47 +16,49 @@ $this->title = 'Заказ № ';
             </div>
             <div class="col-xs-12 col-sm-12 co1-md-6 col-lg-6">
                 <div class="ticket-info__personal">
+                    <?php foreach ($door->clients as $client):?>
                     <h3>Общая информация о заказчике</h3>
                     <div>
-                        <strong>Заказ №: </strong><span>12345</span>
+                        <strong>Заказ №: </strong><span><?=$door->id?></span>
                     </div>
                     <div>
-                        <strong>Cотрудник: </strong>Загребин Герман Сергеевич
+                        <strong>Cотрудник: </strong><?=$door->author->username?>
                     </div>
                     <div>
-                        <strong>Дата оформления:</strong>05.10.2019
+                        <strong>Дата оформления:</strong><?=date('Y-m-d',$date)?>
                     </div>
                     <div>
-                        <strong>Заказчик:</strong>Архипов Максим Сергеевич
+                        <strong>Заказчик:</strong><?=$client->FIO?>
                     </div>
                     <div>
-                        <strong>Телефон:</strong>89529095459
+                        <strong>Телефон:</strong><?=$client->telephone?>
                     </div>
                     <div>
-                        <strong>Адрес: </strong>г. Томск ул. Пушкина дом Колотушкина подьезд 35
+                        <strong>Адрес: </strong><?=$client->address?>
                     </div>
                     <div>
-                        <strong>Тип лифта: </strong>Грузовой
+                        <strong>Тип лифта: </strong><?=$client->type_elevator?>
                     </div>
                     <div>
-                        <strong>Комментарий: </strong>Йобаный рот этого казино блять Йобаный рот этого казино блять Йобаный рот этого казино блять Йобаный рот этого казино блять Йобаный рот этого казино блять
+                        <strong>Комментарий: </strong><?=$client->comment?>
                     </div>
                 </div>
+                <?php endforeach;?>
             </div>
             <div class="col-xs-12 col-sm-12 co1-md-6 col-lg-6">
                 <div class="ticket-info__personal">
                     <h3>Информация о дверях</h3>
                     <div>
-                        <strong>Тип устанавливаемой двери: </strong> металлическая
+                        <strong>Тип устанавливаемой двери: </strong> <?=$door->type_doors?>
                     </div>
                     <div>
-                        <strong>Комментарий: </strong> АААААА КОММЕНТАРИЙ У НИХ ТАМ ПРОЕМЫ КОСЫЕ ШО ДЕЛАТЬ БУДЕМ НЕ ЗНАЮ
+                        <strong>Комментарий: </strong> <?=$door->comment?>
                     </div>
                     <div>
-                        <strong>Материал стен: </strong>ж/бетон
+                        <strong>Материал стен: </strong><?=$door->wall_material?>
                     </div>
                     <!-- НУЖНО В DATA-STORONA ПЕРЕДАВАТЬ ПАРАМЕТР  -->
-                    <div data-storona="0">
+                    <div data-storona="<?=$door->adherence?>">
                         <strong>Сторонность: </strong>
                         Левая наружняя
                         <?= \yii\helpers\Html::img('/image/left_doors.svg')?>
@@ -66,30 +71,23 @@ $this->title = 'Заказ № ';
                     </div>
                     <div>
                         <strong>Доп услуги: </strong>
+                        <?php foreach ($door->services as $service):?>
                         <ul>
-                            <!--ТУТ МОЖНО ОПУСТИТЬ КАКИЕ-ТО ПОЛЯ, ШТ, ЦЕНУ ИЛИ СУММУ-->
-                            <li>Что-то там этакое (2 шт Х 150р) [300]</li>
+                            <?php foreach ($door->servicesDoors as $value):?>
+
+                            <?php endforeach;?>
+                            <li><?=$service->name?>(<?=$value->count_service?> шт Х <?=$service->price?>р) [<?=$service->price * $value->count_service?>]</li>
                         </ul>
-                    </div>
-                    <div>
-                        <strong>Расходные материалы: </strong>
-                        <ul>
-                            <!--ТУТ МОЖНО ОПУСТИТЬ КАКИЕ-ТО ПОЛЯ, ШТ, ЦЕНУ ИЛИ СУММУ-->
-                            <li>Что-то там этакое (2 шт Х 150р) [300]</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <strong>Коробочный продукт: </strong>
-                        <ul>
-                            <!--ТУТ МОЖНО ОПУСТИТЬ КАКИЕ-ТО ПОЛЯ, ШТ, ЦЕНУ ИЛИ СУММУ-->
-                            <li>Что-то там этакое (2 шт Х 150р) [300]</li>
-                        </ul>
+                        <?php endforeach;?>
                     </div>
                     <div>
                         <strong>Габариты проёма, коробки, полотна (ВхШхГ): </strong>
-                        <div>Проём : 400 x 500 x 150 мм</div>
-                        <div>Коробка: 400 x 500 x 150 мм</div>
-                        <div>Полотно : 400 x 500 x 150 мм</div>
+                        <div>Проём : <?=$door->height_aperture?> x <?=$door->width_aperture?> x <?=$door->depth_aperture?> мм</div>
+                        <div>Коробка: <?=$door->height_box?>x <?=$door->width_box?>x <?=$door->depth_box?> мм</div>
+                        <div>Полотно : <?=$door->height_canvas?> x <?=$door->width_canvas?> x <?=$door->depth_canvas?> мм</div>
+                    </div>
+                    <div>
+                        <strong>Цена: <?=$door->sum?></strong>
                     </div>
                 </div>
             </div>
