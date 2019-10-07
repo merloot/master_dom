@@ -8,7 +8,6 @@ $date = strtotime($door->date_create)
 <div class="ticket-info">
     <div class="container">
         <div class="row">
-
             <div class="col-xs-12 col-sm-12 co1-md-12 col-lg-12">
                 <div class="ticket-info__button">
                     <button class="btn btn-master">Редактировать</button>
@@ -42,8 +41,8 @@ $date = strtotime($door->date_create)
                     <div>
                         <strong>Комментарий: </strong><?=$client->comment?>
                     </div>
-                </div>
                 <?php endforeach;?>
+                </div>
             </div>
             <div class="col-xs-12 col-sm-12 co1-md-6 col-lg-6">
                 <div class="ticket-info__personal">
@@ -91,6 +90,6 @@ $date = strtotime($door->date_create)
                     </div>
                 </div>
             </div>
-    </div>
+        </div>
     </div>
 </div>
