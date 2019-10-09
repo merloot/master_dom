@@ -14,7 +14,6 @@ use Yii;
  * @property string $house Дом
  * @property string $comment Комментарий к заказу
  *
- * @property ClientsDoors $clientsDoors
  */
 class Clients extends \yii\db\ActiveRecord implements ClientsInterface
 {
@@ -33,11 +32,12 @@ class Clients extends \yii\db\ActiveRecord implements ClientsInterface
     public function rules()
     {
         return [
-            [['telephone'], 'default', 'value' => null],
-            [['telephone','type_elevator'], 'integer','max'=>12],
+            ['FIO','required'],
+            ['FIO','unique'],
+            [['type_elevator'], 'integer'],
             [['comment'], 'string'],
             [['type_elevator'],'in','range'=>[self::TYPE_ELEVATOR_FALSE, self::TYPE_ELEVATOR_PASSENGER, self::TYPE_ELEVATOR_GOODS]],
-            [['FIO', 'address'], 'string', 'max' => 255],
+            [['FIO', 'address','telephone'], 'string', 'max' => 255],
         ];
     }
 
@@ -59,7 +59,9 @@ class Clients extends \yii\db\ActiveRecord implements ClientsInterface
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getClientsDoors() {
-        return $this->hasOne(ClientsDoors::className(), ['id_client' => 'id']);
+    public function getDoors() {
+        return $this->hasMany(Doors::className(),[
+            'client_id'=>'id'
+        ]);
     }
 }

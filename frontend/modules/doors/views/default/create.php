@@ -67,25 +67,23 @@ $this->title = 'Установка дверей';
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 co1-md-6 col-lg-6">
-                                        <?= $form->field($door, 'type_doors')->dropDownList([
+                                        <?= $form->field($door, "[{$k}]type_doors")->dropDownList([
                                             Doors::TYPE_DOORS_IRON =>'Металическая',
                                             Doors::TYPE_DOORS_INTERIOR =>'Межкомнатная'
-                                        ],['name' =>"Doors[type_doors{$k}]"]) ?>
-
-                                        <?= $form->field($door, 'comment')->textarea(['name' => "Doors[comment{$k}]"]) ?>
+                                        ]) ?>
+                                        <?= $form->field($door, "[{$k}]comment")->textarea() ?>
 
                                         <hr>
 
                                 <div>
                                     <label>Материал стен:</label>
-                                    <?=
-                                    $form->field($door, 'wall_material')->radioList([
+                                    <?= $form->field($door, "[{$k}]wall_material")->radioList([
                                         'Сибит'     =>   'Сибит',
                                         'Кирпич'    =>   'Кирпич',
                                         'Ж/Бетон'   =>   'Ж/Бетон',
                                         'Дерево'    =>   'Дерево',
                                         'Другое'    => 'fd'
-                                        ],['name' =>"Doors[wall_material{$k}]"]);
+                                        ]);
                                     ?>
                                 </div>
 
@@ -93,11 +91,11 @@ $this->title = 'Установка дверей';
 
                                         <div>
                                             <label>Вид проема в плане:</label>
-                                            <?=$form->field($door, 'type_opening')->radioList([
+                                            <?=$form->field($door, "[{$k}]type_opening")->radioList([
                                                 Doors::TYPE_OPENING_MID   => Html::img('/image/mid_doors.svg', ['width' => '100%', 'height' => 150]) ,
                                                 Doors::TYPE_OPENING_LEFT  => Html::img('/image/left_doors_1.svg',['width' => '100%', 'height' => 150]) ,
                                                 Doors::TYPE_OPENING_RIGHT => Html::img('/image/right_doors.svg' ,['width' => '100%', 'height' => 150])
-                                            ], ['encode' => false,'name'=>"Doors[type_opening{$k}]"])->label(false)
+                                            ], ['encode' => false,])->label(false)
                                             ?>
                                         </div>
 
@@ -105,12 +103,12 @@ $this->title = 'Установка дверей';
 
                                         <div>
                                             <label>Сторонность:</label>
-                                            <?=$form->field($door, 'adherence')->radioList([
+                                            <?=$form->field($door, "[{$k}]adherence")->radioList([
                                                 Doors::ADHERENCE_INTERIOR_LEFT      => Html::img('/image/left_doors.svg', ['width' => '100%', 'height' => 150]),
                                                 Doors::ADHERENCE_INTERIOR_RIGHT     => Html::img('/image/left_doors.svg',['width' => '100%', 'height' => 150]),
                                                 Doors::ADHERENCE_OUTDOOR_LEFT       => Html::img('/image/left_doors.svg', ['width' => '100%', 'height' => 150]),
                                                 Doors::ADHERENCE_OUTDOOR_RIGHT      => Html::img('/image/left_doors.svg',['width' => '100%', 'height' => 150]),
-                                            ], ['encode' => false,'name'=>"Doors[adherence{$k}]"])->label(false)
+                                            ], ['encode' => false])->label(false)
                                             ?>
                                         </div>
 
@@ -137,13 +135,13 @@ $this->title = 'Установка дверей';
                                                     Проём
                                                 </div>
                                                 <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
-                                                    <input type="text" class="form-control" placeholder="мм">
+                                                    <?=$form->field($door, "[{$k}]height_aperture")->textInput(['placeholder'=>'мм'])->label(false)?>
                                                 </div>
                                                 <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
-                                                    <input type="text" class="form-control" placeholder="мм">
+                                                    <?=$form->field($door, "[{$k}]width_aperture")->textInput(['placeholder'=>'мм'])->label(false)?>
                                                 </div>
                                                 <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
-                                                    <input type="text" class="form-control" placeholder="мм">
+                                                    <?=$form->field($door, "[{$k}]depth_aperture")->textInput(['placeholder'=>'мм'])->label(false)?>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -151,13 +149,13 @@ $this->title = 'Установка дверей';
                                                     Коробка
                                                 </div>
                                                 <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
-                                                    <input type="text" class="form-control" placeholder="мм">
+                                                    <?=$form->field($door, "[{$k}]height_box")->textInput(['placeholder'=>'мм'])->label(false)?>
                                                 </div>
                                                 <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
-                                                    <input type="text" class="form-control" placeholder="мм">
+                                                    <?=$form->field($door, "[{$k}]width_box")->textInput(['placeholder'=>'мм'])->label(false)?>
                                                 </div>
                                                 <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
-                                                    <input type="text" class="form-control" placeholder="мм">
+                                                    <?=$form->field($door, "[{$k}]depth_box")->textInput(['placeholder'=>'мм'])->label(false)?>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -165,13 +163,13 @@ $this->title = 'Установка дверей';
                                                     Полотно
                                                 </div>
                                                 <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
-                                                    <input type="text" class="form-control" placeholder="мм">
+                                                    <?=$form->field($door, "[{$k}]height_canvas")->textInput(['placeholder'=>'мм'])->label(false)?>
                                                 </div>
                                                 <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
-                                                    <input type="text" class="form-control" placeholder="мм">
+                                                    <?=$form->field($door, "[{$k}]width_canvas")->textInput(['placeholder'=>'мм'])->label(false)?>
                                                 </div>
                                                 <div class="col-xs-3 col-sm-3 co1-md-3 col-lg-3">
-                                                    <input type="text" class="form-control" placeholder="мм">
+                                                    <?=$form->field($door, "[{$k}]depth_canvas")->textInput(['placeholder'=>'мм'])->label(false)?>
                                                 </div>
                                             </div>
                                         </label>
@@ -245,10 +243,13 @@ $this->title = 'Установка дверей';
                             </div>
                         </div>
                     </div>
-                        <?= $form->field($door, 'serviceDoors')->hiddenInput(['name' =>"Doors[serviceDoors{$k}]", 'class' => 'doors-servicedoors'])->label(false) ?>
+                        <?= $form->field($door, "[{$k}]serviceDoors[]")->hiddenInput(['class' => 'doors-servicedoors'])->label(false) ?>
+
                     <?php endforeach;?>
                     <div class="save-door__button">
                         <?= Html::submitButton('Сохранить заказ', ['class' => 'btn btn-master', 'id' => 'go_go_go']) ?>
+                        <?php $form->field($door, 'clientName')->hiddenInput(['value' => 'hidden value']); ?>
+<!--                        --><?//= $form->field($door, "clientName")->hiddenInput(['value'=>Yii::$app->request->post('FIO'),'class' => 'clients-doors'])->label(false) ?>
                     </div>
                     <?php ActiveForm::end(); ?>
                 </div>
@@ -341,6 +342,8 @@ $this->title = 'Установка дверей';
     // клик по сохранить
     $( "#go_go_go" ).click( function() {
         let hiddenInputs = $('.doors-servicedoors');
+//        let hiddenInputClient = $('.clients-doors');
+//        hiddenInputClient.value =
         for (let i = 0; i < 10; i++) {
             if (serviceList[i].serviceList.length > 0){
                 hiddenInputs[i].value = JSON.stringify(serviceList[i].serviceList)

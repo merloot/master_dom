@@ -5,6 +5,7 @@ namespace frontend\modules\doors\models;
 use common\models\User;
 use Yii;
 use common\interfaces\DoorsInterface;
+use yii\db\Exception;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
@@ -40,6 +41,7 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
 
     public $service;
 
+    public $clientName;
     /**
      * {@inheritdoc}
      */
@@ -54,12 +56,14 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
     public function rules()
     {
         return [
+            [['type_doors','adherence','type_opening'],'required'],
             [['serviceDoors'], 'safe'],
+            [['sum'],'default','value' => 0],
             [['type_doors', 'type_opening'], 'default', 'value' => null],
             [['type_doors', 'type_opening','user_id'], 'integer'],
             ['type_doors', 'in', 'range' => [self::TYPE_DOORS_INTERIOR, self::TYPE_DOORS_IRON]],
 
-            [['adherence'], 'integer'],
+            [['adherence','client_id'], 'integer'],
             ['adherence', 'in', 'range' => [self::ADHERENCE_INTERIOR_LEFT, self::ADHERENCE_INTERIOR_RIGHT, self::ADHERENCE_OUTDOOR_LEFT,self::ADHERENCE_OUTDOOR_RIGHT]],
 
             ['type_opening','in','range' => [self::TYPE_OPENING_MID,self::TYPE_OPENING_LEFT,self::TYPE_OPENING_RIGHT]],
@@ -79,14 +83,15 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
                 'number'
             ],
 
-            [['date_create'], 'date', 'format' => 'php:Y-m-d'],
+//            [['date_create'], 'date', 'format' => 'php:Y-m-d'],
             [['date_create'], 'default', 'value' => date('Y-m-d')],
 
             [['comment'], 'string'],
 
             [['wall_material'], 'string', 'max' => 255],
 
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id' => 'user_id']],
+//            [['client_id'],'exist', 'skipOnError' =>true, 'targetClass' => Clients::className(), 'targetAttribute' => ['id' => 'client_id']]
+//            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id' => 'user_id']],
         ];
     }
 
@@ -107,25 +112,13 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
         ];
     }
 
-    public function getAuthor(){
+    public function getAuthor() {
         return $this->hasOne(User::className(),['id'=>'user_id']);
     }
 
-//    public function getTest() {
-//        return $this->hasMany(ClientsDoors::className(), ['id_client' => 'id']);
-//    }
-    public function getClients() {
-        return $this->hasMany(Clients::className(),
-            [
-            'id' => 'id_client'
-            ]
-        )->viaTable('ClientsDoors',
-            [
-            'id_doors' =>'id'
-            ]
-        );
+    public function getClient() {
+        return $this->hasOne(Clients::className(),['id'=>'client_id']);
     }
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -144,7 +137,7 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
         if (!parent::beforeSave($insert)) {
             return false;
         }
-        $this->user_id = Yii::$app->user->id;
+        $this->user_id = Yii::$app->user->getId();
         return parent::beforeSave($insert);
     }
 
@@ -156,33 +149,57 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
             return false;
         }
     }
-//
-//    public function afterFind() {
-//        $this->service = ArrayHelper::map($this->services,'name','name');
-//    }
 
     public function afterSave($insert, $changedAttributes) {
         parent::afterSave($insert, $changedAttributes);
-        $array = Json::decode($this->serviceDoors);
+//        if (isset($this->clientName)){
+//            $this->addClient($this->clientName);
+//        }
+        $array = $this->serviceDoors;
         if (is_array($array)){
             foreach ($array as $value){
-                $this->createNewsServices($value);
+                $this->createNewsServices(Json::decode($value));
+            }
+        }if (empty($array)){
+            return false;
+        }
+    }
+
+    public function createNewsServices($array) {
+        $door = self::findOne($this->id);
+        if (is_array($array)){
+            foreach ($array as $value){
+                $service = ServicePrice::findOne($value['id']);
+                $serviceDoors = new ServiceDoors();
+                $serviceDoors->id_doors = $this->id;
+                $serviceDoors->id_service = $value['id'];
+                $serviceDoors->count_service = $value['value'];
+                if ($serviceDoors->save()){
+                    $door->sum += (float)$service->price * (int)$value['value'];
+                    if ($door->save()){
+                    }
+                    var_dump($door->getErrors());
+                }
+            }
+        } else {
+            $door = self::findOne($this->id);
+            $service = ServicePrice::findOne($array['id']);
+            $serviceDoors = new ServiceDoors();
+            $serviceDoors->id_doors = $this->id;
+            $serviceDoors->id_service = $array['id'];
+            $serviceDoors->count_service = $array['value'];
+            if ($serviceDoors->save()){
+                $door->sum += (float)$service->price * (int)$array['value'];
+                $door->save();
             }
         }
     }
 
-    public function createNewsServices($value) {
-        $door = self::findOne($this->id);
-        $service = ServicePrice::findOne($value['id']);
-        $serviceDoors = new ServiceDoors();
-        $serviceDoors->id_doors = $this->id;
-        $serviceDoors->id_service = $value['id'];
-        $serviceDoors->count_service = $value['value'];
-        $door->sum += (float)$service->price * (int)$value['value'];
-
-        if ($serviceDoors->save() && $door->save()) {
-            return true;
-        }
-        return false;
+    public function addClient($clientName){
+        $client = Clients::find()->where(['FIO'=>$clientName])->one();
+        $clientDoors = new ClientsDoors();
+        $clientDoors->id_doors = $this->id;
+        $clientDoors->id_client = $client->id;
+        return $clientDoors->save();
     }
 }

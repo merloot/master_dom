@@ -15,7 +15,6 @@ $date = strtotime($door->date_create)
             </div>
             <div class="col-xs-12 col-sm-12 co1-md-6 col-lg-6">
                 <div class="ticket-info__personal">
-                    <?php foreach ($door->clients as $client):?>
                     <h3>Общая информация о заказчике</h3>
                     <div>
                         <strong>Заказ №: </strong><span><?=$door->id?></span>
@@ -27,21 +26,20 @@ $date = strtotime($door->date_create)
                         <strong>Дата оформления:</strong><?=date('Y-m-d',$date)?>
                     </div>
                     <div>
-                        <strong>Заказчик:</strong><?=$client->FIO?>
+                        <strong>Заказчик:</strong><?=$door->client->FIO?>
                     </div>
                     <div>
-                        <strong>Телефон:</strong><?=$client->telephone?>
+                        <strong>Телефон:</strong><?=$door->client->telephone?>
                     </div>
                     <div>
-                        <strong>Адрес: </strong><?=$client->address?>
+                        <strong>Адрес: </strong><?=$door->client->address?>
                     </div>
                     <div>
-                        <strong>Тип лифта: </strong><?=$client->type_elevator?>
+                        <strong>Тип лифта: </strong><?=$door->client->type_elevator?>
                     </div>
                     <div>
-                        <strong>Комментарий: </strong><?=$client->comment?>
+                        <strong>Комментарий: </strong><?=$door->client->comment?>
                     </div>
-                <?php endforeach;?>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 co1-md-6 col-lg-6">
@@ -59,10 +57,9 @@ $date = strtotime($door->date_create)
                     <!-- НУЖНО В DATA-STORONA ПЕРЕДАВАТЬ ПАРАМЕТР  -->
                     <div data-storona="<?=$door->adherence?>">
                         <strong>Сторонность: </strong>
-                        Левая наружняя
                         <?= \yii\helpers\Html::img('/image/left_doors.svg')?>
                     </div>
-                    <div>
+                    <div data-storona="<?=$door->type_opening?>">
                         <strong>Вид проема: </strong>
                         <!--НУЖНО ВСТАВЛЯТЬ КАРТИНКУ В ЗАВИСИМОСТИ ОТ ВЫБРАННОГО ПРОЕМА  -->
                         #1

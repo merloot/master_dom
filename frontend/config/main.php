@@ -54,6 +54,8 @@ return [
                 'doors/all'  => 'doors/default/all',
                 'doors/index'  => 'doors/default/index',
                 'doors/create'  => 'doors/default/create',
+                'doors/update/<id>'  => 'doors/default/update',
+                'doors/count-doors'  => 'doors/default/count-doors',
             ],
         ],
 
