@@ -177,32 +177,32 @@ body {
     margin-left: 5px;
 }
 
-.field-doors-type_opening > div > label,
-.field-doors-adherence > div > label{
+.max-slomal-stili > .form-group label,
+.max-slomal-stili2 > .form-group label{
     border-radius: 5px;
     padding: 5px;
     background-color: #EEEEEE;
 }
 
-.field-doors-type_opening label:first-child input[type="radio"]::after{
+.max-slomal-stili label:first-child input[type="radio"]::after{
     content: '#1';
     margin-left: 25px;
 }
-.field-doors-type_opening label:nth-child(2) input[type="radio"]::after{
+.max-slomal-stili label:nth-child(2) input[type="radio"]::after{
     content: '#2';
     margin-left: 25px;
 }
-.field-doors-type_opening label:last-child input[type="radio"]::after{
+.max-slomal-stili label:last-child input[type="radio"]::after{
     content: '#3';
     margin-left: 25px;
 }
 
-.field-doors-adherence label:first-child input[type="radio"]::after{
+.max-slomal-stili2 label:first-child input[type="radio"]::after{
     content: 'Левая внутренняя';
     white-space: nowrap;
     margin-left: 25px;
 }
-.field-doors-adherence label:first-child img {
+.max-slomal-stili2 label:first-child img {
     -moz-transform: scale(-1);
     -webkit-transform: scale(-1);
     -o-transform: scale(-1);
@@ -210,12 +210,12 @@ body {
     filter: FlipH;
     -ms-filter: "FlipH";
 }
-.field-doors-adherence label:nth-child(2) input[type="radio"]::after{
+.max-slomal-stili2 label:nth-child(2) input[type="radio"]::after{
     content: 'Правая внутренняя';
     white-space: nowrap;
     margin-left: 25px;
 }
-.field-doors-adherence label:nth-child(2) img {
+.max-slomal-stili2 label:nth-child(2) img {
     -moz-transform: scale(1,-1);
     -webkit-transform: scale(1, -1);
     -o-transform: scale(1, -1);
@@ -223,17 +223,17 @@ body {
     filter: FlipV;
     -ms-filter: "FlipV";
 }
-.field-doors-adherence label:nth-child(3) input[type="radio"]::after{
+.max-slomal-stili2 label:nth-child(3) input[type="radio"]::after{
     content: 'Левая наружняя';
     white-space: nowrap;
     margin-left: 25px;
 }
-.field-doors-adherence label:last-child input[type="radio"]::after{
+.max-slomal-stili2 label:last-child input[type="radio"]::after{
     content: 'Правая наружняя';
     white-space: nowrap;
     margin-left: 25px;
 }
-.field-doors-adherence label:last-child img {
+.max-slomal-stili2 label:last-child img {
     -moz-transform: scale(-1, 1);
     -webkit-transform: scale(-1, 1);
     -o-transform: scale(-1, 1);

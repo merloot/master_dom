@@ -89,19 +89,19 @@ $this->title = 'Установка дверей';
 
                                         <hr>
 
-                                        <div>
+                                        <div class="max-slomal-stili">
                                             <label>Вид проема в плане:</label>
                                             <?=$form->field($door, "[{$k}]type_opening")->radioList([
                                                 Doors::TYPE_OPENING_MID   => Html::img('/image/mid_doors.svg', ['width' => '100%', 'height' => 150]) ,
                                                 Doors::TYPE_OPENING_LEFT  => Html::img('/image/left_doors_1.svg',['width' => '100%', 'height' => 150]) ,
                                                 Doors::TYPE_OPENING_RIGHT => Html::img('/image/right_doors.svg' ,['width' => '100%', 'height' => 150])
-                                            ], ['encode' => false,])->label(false)
+                                            ], ['encode' => false])->label(false)
                                             ?>
                                         </div>
 
                                         <hr>
 
-                                        <div>
+                                        <div class="max-slomal-stili2">
                                             <label>Сторонность:</label>
                                             <?=$form->field($door, "[{$k}]adherence")->radioList([
                                                 Doors::ADHERENCE_INTERIOR_LEFT      => Html::img('/image/left_doors.svg', ['width' => '100%', 'height' => 150]),
