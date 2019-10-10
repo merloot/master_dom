@@ -57,7 +57,7 @@ class DoorsSearch extends Doors
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['ilike', 'date_create', $this->comment]);
+        $query->andFilterWhere(['ilike', 'date_create', $this->date_create]);
 
         return $dataProvider;
     }

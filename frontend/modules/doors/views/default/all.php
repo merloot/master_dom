@@ -40,7 +40,7 @@ $this->title = 'Готовые замеры';
                                 <strong>Адрес: </strong><?= !empty($one->client->address) ? $one->client->address : '' ?>
                             </div>
                             <div>
-                                <strong>Комментарий: </strong><?= !empty($one->client->comment) ? $one->client->comment : '' ?>
+                                <strong>Комментарий: </strong><br>  <?= !empty($one->client->comment) ? $one->client->comment : '' ?>
                             </div>
                         </div>
                     </div>
