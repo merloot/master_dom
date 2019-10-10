@@ -48,7 +48,6 @@ $this->title = 'Установка дверей';
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="door-header">
                     <h1>Двери:</h1>
-                    <button class="btn btn-master" id="addDoor">Добавить дверь</button>
                 </div>
                 <div class="panel-group" id="accordion">
                     
