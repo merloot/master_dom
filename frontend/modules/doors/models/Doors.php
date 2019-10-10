@@ -154,7 +154,6 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
     public function afterSave($insert, $changedAttributes) {
         parent::afterSave($insert, $changedAttributes);
         $array = $this->serviceDoors;
-        $this->addClient($this->clientName);
         if (is_array($array)){
             foreach ($array as $value){
                 $this->createNewsServices(Json::decode($value));
@@ -192,12 +191,5 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
                 $door->save();
             }
         }
-    }
-
-    public function addClient($clientName){
-        $client = Clients::find()->where(['FIO'=>$clientName])->asArray()->one();
-        $door = self::findOne($this->id);
-        $door->client_id = $client['id'];
-        $door->save();
     }
 }

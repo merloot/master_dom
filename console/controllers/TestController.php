@@ -14,9 +14,8 @@ use yii\helpers\Json;
 class TestController extends Controller {
 
     public function actionIndex($clientName='asdasdasdsadasdsa'){
-        $client = Clients::find()->where(['FIO'=>$clientName])->asArray()->one();
-        var_dump($clientName);
-        var_dump($client['id']);
+        $client = Clients::find()->where(['FIO'=>$clientName])->one();
+        var_dump($client->id);
         die();
     }
 }

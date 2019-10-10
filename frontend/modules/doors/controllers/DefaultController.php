@@ -65,6 +65,7 @@ class DefaultController extends Controller
                 $client->save();
                 if (Model::loadMultiple($allDoors,\Yii::$app->request->post()) && Model::validateMultiple($allDoors)){
                     foreach ($allDoors as  $key => $door){
+                        $door->client_id = $client->id;
                         $door->save();
                     }
                     return $this->redirect('all');
