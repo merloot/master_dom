@@ -2,9 +2,9 @@
 
 namespace frontend\modules\doors\controllers;
 
+use common\models\User;
 use frontend\modules\doors\Module;
 use yii\base\Model;
-use yii\helpers\Url;
 use yii\web\Controller;
 use yii\data\Pagination;
 use frontend\modules\doors\models\Doors;
@@ -26,85 +26,96 @@ class DefaultController extends Controller
 
     public function actionCreate()
     {
+
 //                if (\Yii::$app->request->isPost) {
 //            \Yii::$app->response->format = 'json';
 //            echo(json_encode($_POST));die();
 //        }
-        $client   = new Clients();
+        if (\Yii::$app->user->isGuest || \Yii::$app->user->identity->status === User::STATUS_MANAGER){
+            return $this->goHome();
+        }elseif (\Yii::$app->user->identity->status === User::STATUS_ADMIN || \Yii::$app->user->identity->status === User::STATUS_WORKER){
 
-        $service            = ServicePrice::find()
-                                          ->where(['type_service'=>ServicePrice::TYPE_SERVICE_DEMONTAG])
-                                          ->orWhere(['type_service'=>ServicePrice::TYPE_SERVICE_PREPARATORY_WORK])
-                                          ->all();
-        $serviceOther       = ServicePrice::find()
-                                          ->where(['type_service'=>ServicePrice::TYPE_SERVICE_OTHER])
-                                          ->all();
+            $client   = new Clients();
 
-        $serviceBox         = ServicePrice::find()
-                                          ->where(['type_service'=>ServicePrice::TYPE_SERVICE_BOXED_PRODUCT])
-                                          ->all();
+            $service            = ServicePrice::find()
+                                              ->where(['type_service'=>ServicePrice::TYPE_SERVICE_DEMONTAG])
+                                              ->orWhere(['type_service'=>ServicePrice::TYPE_SERVICE_PREPARATORY_WORK])
+                                              ->all();
+            $serviceOther       = ServicePrice::find()
+                                              ->where(['type_service'=>ServicePrice::TYPE_SERVICE_OTHER])
+                                              ->all();
 
-        $allDoors =[];
+            $serviceBox         = ServicePrice::find()
+                                              ->where(['type_service'=>ServicePrice::TYPE_SERVICE_BOXED_PRODUCT])
+                                              ->all();
 
-        $count = \Yii::$app->request->post('count');
-        if (!isset($count)) {
-            for ($i=0; $i < 2; $i++){
-                $allDoors[] = new Doors();
-            }
-        }
-        for ($i=0; $i < \Yii::$app->request->post('count'); $i++){
-            $allDoors[] = new Doors();
-        }
+            $allDoors =[];
 
-        if ($client->load(\Yii::$app->request->post())&& $client->validate()) {
-            if ($client->save()){
-                if (Model::loadMultiple($allDoors,\Yii::$app->request->post()) && Model::validateMultiple($allDoors)){
-                    foreach ($allDoors as  $door){
-                        $door->save();
-                    }
-                    return $this->redirect('all');
+            $count = \Yii::$app->request->post('count');
+            if (!isset($count)) {
+                for ($i=0; $i < 2; $i++){
+                    $allDoors[] = new Doors();
                 }
             }
+            for ($i=0; $i < \Yii::$app->request->post('count'); $i++){
+                $allDoors[] = new Doors();
+            }
+
+            if ($client->load(\Yii::$app->request->post())&& $client->validate()) {
+                if ($client->save()){
+                    if (Model::loadMultiple($allDoors,\Yii::$app->request->post()) && Model::validateMultiple($allDoors)){
+                        foreach ($allDoors as  $door){
+                            $door->save();
+                        }
+                        return $this->redirect('all');
+                    }
+                }
+            }
+
+            return $this->render('create', [
+                'allDoors'          => $allDoors,
+                'client'            => $client,
+                'service'           => $service,
+                'serviceBox'        => $serviceBox,
+                'other'             => $serviceOther,
+            ]);
         }
-
-
-        return $this->render('create', [
-            'allDoors'          => $allDoors,
-            'client'            => $client,
-            'service'           => $service,
-            'serviceBox'        => $serviceBox,
-            'other'             => $serviceOther,
-        ]);
     }
 
     public function actionOne($id) {
-        $door= Doors::findOne($id);
+        if (!\Yii::$app->user->isGuest){
 
-        return $this->render('one',[
-            'door'=>$door
-        ]);
+            $door= Doors::findOne($id);
 
+            return $this->render('one',[
+                'door'=>$door
+            ]);
+        }
+        return $this->goHome();
     }
 
     public function actionAll() {
-        $searchModel = new DoorsSearch();
-        $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
-        $pages = new Pagination([
-            'totalCount' => $dataProvider
+        if (!\Yii::$app->user->isGuest){
+            $searchModel = new DoorsSearch();
+            $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
+            $pages = new Pagination([
+                'totalCount' => $dataProvider
+                    ->query
+                    ->count(),
+                'pageSize'=>6]);
+            $doors= $dataProvider
                 ->query
-                ->count(),
-            'pageSize'=>6]);
-        $doors= $dataProvider
-            ->query
-            ->offset($pages->offset)
-            ->limit($pages->limit)
-            ->orderBy('date_create')
-            ->all();
-        return $this->render('all',[
-            'doors'=>$doors,
-            'searchModel' => $searchModel,
-            'pages'=>$pages
-        ]);
+                ->offset($pages->offset)
+                ->limit($pages->limit)
+                ->orderBy('date_create')
+                ->all();
+            return $this->render('all',[
+                'doors'=>$doors,
+                'searchModel' => $searchModel,
+                'pages'=>$pages
+            ]);
+        }
+        return $this->goHome();
     }
 
     public function actionCountDoors(){
