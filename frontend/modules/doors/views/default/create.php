@@ -244,7 +244,7 @@ $this->title = 'Установка дверей';
                         </div>
                     </div>
                         <?= $form->field($door, "[{$k}]serviceDoors[]")->hiddenInput(['class' => 'doors-servicedoors'])->label(false) ?>
-                        <?php $form->field($door, 'clientName')->hiddenInput(['сlass' => 'client-doors']); ?>
+                        <?php $form->field($door, "[{$k}]clientName")->hiddenInput(['сlass' => 'client-doors']); ?>
 
                     <?php endforeach;?>
                     <div class="save-door__button">
