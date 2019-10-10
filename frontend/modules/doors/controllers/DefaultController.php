@@ -53,7 +53,7 @@ class DefaultController extends Controller
 
             $count = \Yii::$app->request->post('count');
             if (!isset($count)) {
-                for ($i=0; $i < 2; $i++){
+                for ($i=0; $i < 1; $i++){
                     $allDoors[] = new Doors();
                 }
             }
@@ -61,17 +61,15 @@ class DefaultController extends Controller
                 $allDoors[] = new Doors();
             }
 
-            if ($client->load(\Yii::$app->request->post())&& $client->validate()) {
-                if ($client->save()){
-                    if (Model::loadMultiple($allDoors,\Yii::$app->request->post()) && Model::validateMultiple($allDoors)){
-                        foreach ($allDoors as  $door){
-                            $door->save();
-                        }
-                        return $this->redirect('all');
+            if ($client->load(\Yii::$app->request->post())&& $client->validate()){
+                $client->save();
+                if (Model::loadMultiple($allDoors,\Yii::$app->request->post()) && Model::validateMultiple($allDoors)){
+                    foreach ($allDoors as  $key => $door){
+                        $door->save();
                     }
+                    return $this->redirect('all');
                 }
             }
-
             return $this->render('create', [
                 'allDoors'          => $allDoors,
                 'client'            => $client,
@@ -80,6 +78,7 @@ class DefaultController extends Controller
                 'other'             => $serviceOther,
             ]);
         }
+        return $this->goHome();
     }
 
     public function actionOne($id) {

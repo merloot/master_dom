@@ -3,7 +3,6 @@
 namespace frontend\modules\doors\models;
 
 use common\interfaces\ClientsInterface;
-use Yii;
 
 /**
  * This is the model class for table "Clients".
@@ -37,6 +36,8 @@ class Clients extends \yii\db\ActiveRecord implements ClientsInterface
             [['comment'], 'string'],
             [['type_elevator'],'in','range'=>[self::TYPE_ELEVATOR_FALSE, self::TYPE_ELEVATOR_PASSENGER, self::TYPE_ELEVATOR_GOODS]],
             [['FIO', 'address','telephone'], 'string', 'max' => 255],
+            [['FIO','address', 'telephone','comment'], 'filter','filter'=>'\yii\helpers\HtmlPurifier::process'],
+
         ];
     }
 

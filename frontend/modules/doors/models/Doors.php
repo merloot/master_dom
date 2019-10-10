@@ -58,6 +58,7 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
         return [
             [['type_doors','adherence','type_opening'],'required'],
             [['serviceDoors'], 'safe'],
+            [['clientName'], 'safe'],
             [['sum'],'default','value' => 0],
             [['type_doors', 'type_opening'], 'default', 'value' => null],
             [['type_doors', 'type_opening','user_id'], 'integer'],
@@ -152,9 +153,9 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
 
     public function afterSave($insert, $changedAttributes) {
         parent::afterSave($insert, $changedAttributes);
-//        if (isset($this->clientName)){
-//            $this->addClient($this->clientName);
-//        }
+        if (isset($this->clientName)){
+            $this->addClient( $this->clientName);
+        }
         $array = $this->serviceDoors;
         if (is_array($array)){
             foreach ($array as $value){
@@ -196,9 +197,8 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
     }
 
     public function addClient($clientName){
-        $client = Clients::find()->where(['FIO'=>$clientName])->one();
-        $door = self::findOne($this->id);
-        $door->client_id = $client->id;
-        $door->save();
+        $client = Clients::find()->where(['FIO'=>$clientName])->asArray()->one();
+        $this->user_id = $client['id'];
+        $this->save();
     }
 }

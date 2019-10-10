@@ -7,6 +7,7 @@ use yii\widgets\LinkPager;
 
 
 $this->title = 'Готовые замеры';
+
 ?>
 <div class="site-index">
     <div class="container">
@@ -25,20 +26,24 @@ $this->title = 'Готовые замеры';
         <div class="doors-list">
             <div class="row">
                 <?php foreach ($doors as $one):?>
+                    <?php $date = strtotime($one->date_create)?>
                     <div class="col-xs-12 col-sm-6 co1-md-4 col-lg-4">
                         <div class="doors-list__item">
                             <h4>№ Заказа: <strong><?= yii\bootstrap\Html::a($one->id,['one','id'=>$one->id])?></strong></h4>
                             <div>
-                                <strong>Заказчик:</strong>Архипов Максим Сергеевич
+                                <strong>Заказчик:</strong><?=$one->client->FIO?>
                             </div>
                             <div>
-                                <strong>Телефон:</strong>89529095459
+                                <strong>Телефон:</strong><?=$one->client->telephone?>
                             </div>
                             <div>
-                                <strong>Адрес: </strong>г. Томск ул. Пушкина дом Колотушкина подьезд 35
+                                <strong>Адрес: </strong><?=$one->client->address?>
                             </div>
                             <div>
-                                <strong>Комментарий: </strong>Йобаный рот этого казино блять Йобаный рот этого казино блять Йобаный рот этого казино блять Йобаный рот этого казино блять Йобаный рот этого казино блять
+                                <strong>Комментарий: </strong><?=$one->client->comment?>
+                            </div>
+                            <div>
+                                <strong>Дата замеров: </strong><?= date('Y-m-d',$date)?>
                             </div>
                         </div>
                     </div>
