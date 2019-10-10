@@ -30,8 +30,8 @@ use yii\helpers\Json;
  * @property integer $height_canvas
  * @property integer $depth_canvas
  * @property integer $width_canvas
+ * @property integer $client_id
  *
- * @property ClientsDoors[] $clientsDoors
  * @property ServicePrice[] $services
  * @property ServiceDoors[] $servicesDoors
  */
@@ -197,9 +197,8 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
 
     public function addClient($clientName){
         $client = Clients::find()->where(['FIO'=>$clientName])->one();
-        $clientDoors = new ClientsDoors();
-        $clientDoors->id_doors = $this->id;
-        $clientDoors->id_client = $client->id;
-        return $clientDoors->save();
+        $door = self::findOne($this->id);
+        $door->client_id = $client->id;
+        $door->save();
     }
 }

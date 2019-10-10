@@ -244,11 +244,11 @@ $this->title = 'Установка дверей';
                         </div>
                     </div>
                         <?= $form->field($door, "[{$k}]serviceDoors[]")->hiddenInput(['class' => 'doors-servicedoors'])->label(false) ?>
+                        <?php $form->field($door, 'clientName')->hiddenInput(['сlass' => 'client-doors']); ?>
 
                     <?php endforeach;?>
                     <div class="save-door__button">
                         <?= Html::submitButton('Сохранить заказ', ['class' => 'btn btn-master', 'id' => 'go_go_go']) ?>
-                        <?php $form->field($door, 'clientName')->hiddenInput(['value' => 'hidden value']); ?>
 <!--                        --><?//= $form->field($door, "clientName")->hiddenInput(['value'=>Yii::$app->request->post('FIO'),'class' => 'clients-doors'])->label(false) ?>
                     </div>
                     <?php ActiveForm::end(); ?>
