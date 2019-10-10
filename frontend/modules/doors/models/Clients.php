@@ -10,8 +10,7 @@ use Yii;
  *
  * @property int $id
  * @property string $FIO Фамилия Имя Отчество
- * @property string $street Улица
- * @property string $house Дом
+ * @property string $address
  * @property string $comment Комментарий к заказу
  *
  */
@@ -49,7 +48,7 @@ class Clients extends \yii\db\ActiveRecord implements ClientsInterface
         return [
             'id' => 'ID',
             'FIO' => 'ФИО',
-            'address' => 'Улица',
+            'address' => 'Адрес',
             'telephone' => 'Телефон',
             'comment' => 'Комментарий ',
             'type_elevator' => 'Тип Лифта',
