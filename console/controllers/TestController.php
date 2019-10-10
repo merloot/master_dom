@@ -13,10 +13,10 @@ use yii\helpers\Json;
 
 class TestController extends Controller {
 
-    public function actionIndex($clientName=222222){
-        $client = Clients::find()->where(['FIO'=>$clientName])->one();
+    public function actionIndex($clientName='asdasdasdsadasdsa'){
+        $client = Clients::find()->where(['FIO'=>$clientName])->asArray()->one();
         var_dump($clientName);
-        var_dump($client);
+        var_dump($client['id']);
         die();
     }
 }

@@ -188,8 +188,6 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
             $serviceDoors->id_service = $array['id'];
             $serviceDoors->count_service = $array['value'];
             if ($serviceDoors->save()){
-//                $client = Clients::find()->where(['FIO'=>$this->clientName])->asArray()->one();
-//                $door->client_id = $client
                 $door->sum += (float)$service->price * (int)$array['value'];
                 $door->save();
             }
