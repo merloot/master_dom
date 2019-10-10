@@ -21,6 +21,10 @@ $this->title = 'Кол-во дверей';
 
 <style>
 
+    .container-doors-counter__block h3{
+        text-align: center;
+    }
+
     .container-doors-counter__block{
         display: flex;
         justify-content: center;
