@@ -82,8 +82,14 @@ $this->title = 'Установка дверей';
                                         'Кирпич'    =>   'Кирпич',
                                         'Ж/Бетон'   =>   'Ж/Бетон',
                                         'Дерево'    =>   'Дерево',
-                                        'Другое'    => 'fd'
-                                        ]);
+                                        'Другое'    =>   Html::textInput( 'wall_material',
+                                            Yii::$app->request->post('wall_material'),
+                                            [
+                                                'class' => 'form-control', 'placeholder' => 'Свой вариант'
+                                            ]),
+                                    ], [
+                                            'encode' => false
+                                    ])->label(false)
                                     ?>
                                 </div>
 
@@ -249,7 +255,6 @@ $this->title = 'Установка дверей';
                     <?php endforeach;?>
                     <div class="save-door__button">
                         <?= Html::submitButton('Сохранить заказ', ['class' => 'btn btn-master', 'id' => 'go_go_go']) ?>
-<!--                        --><?//= $form->field($door, "clientName")->hiddenInput(['value'=>Yii::$app->request->post('FIO'),'class' => 'clients-doors'])->label(false) ?>
                     </div>
                     <?php ActiveForm::end(); ?>
                 </div>

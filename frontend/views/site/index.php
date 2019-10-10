@@ -13,7 +13,7 @@ $this->title = 'Специализация';
                 <h1>Выберите специализацию:</h1>
                 <div class="specialization-block">
                     <div class="specialization-block__item">
-                        <a href="<?=Url::to('doors/create')?>">
+                        <a href="<?=Url::to('doors/count-doors')?>">
                             <?=Html::img('/image/doors_icon.svg')?>
                             <h2>Новый замер [Двери]</h2>
                         </a>

@@ -26,10 +26,10 @@ class DefaultController extends Controller
 
     public function actionCreate()
     {
-                if (\Yii::$app->request->isPost) {
-            \Yii::$app->response->format = 'json';
-            echo(json_encode($_POST));die();
-        }
+//                if (\Yii::$app->request->isPost) {
+//            \Yii::$app->response->format = 'json';
+//            echo(json_encode($_POST));die();
+//        }
         $client   = new Clients();
 
         $service            = ServicePrice::find()
@@ -48,7 +48,7 @@ class DefaultController extends Controller
 
         $count = \Yii::$app->request->post('count');
         if (!isset($count)) {
-            for ($i=0; $i < 1; $i++){
+            for ($i=0; $i < 2; $i++){
                 $allDoors[] = new Doors();
             }
         }
