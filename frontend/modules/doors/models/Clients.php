@@ -31,7 +31,6 @@ class Clients extends \yii\db\ActiveRecord implements ClientsInterface
     {
         return [
             ['FIO','required'],
-            ['FIO','unique'],
             [['type_elevator'], 'integer'],
             [['comment'], 'string'],
             [['type_elevator'],'in','range'=>[self::TYPE_ELEVATOR_FALSE, self::TYPE_ELEVATOR_PASSENGER, self::TYPE_ELEVATOR_GOODS]],

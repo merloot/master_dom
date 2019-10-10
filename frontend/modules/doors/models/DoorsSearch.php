@@ -57,6 +57,7 @@ class DoorsSearch extends Doors
             'id' => $this->id,
         ]);
 
+//        $query->andFilterWhere(['iLike','address',$this->address]);
         $query->andFilterWhere(['ilike', 'date_create', $this->date_create]);
 
         return $dataProvider;
