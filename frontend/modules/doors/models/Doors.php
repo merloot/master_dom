@@ -153,10 +153,8 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
 
     public function afterSave($insert, $changedAttributes) {
         parent::afterSave($insert, $changedAttributes);
-        if (isset($this->clientName)){
-            $this->addClient( $this->clientName);
-        }
         $array = $this->serviceDoors;
+        $this->addClient($this->clientName);
         if (is_array($array)){
             foreach ($array as $value){
                 $this->createNewsServices(Json::decode($value));
@@ -190,6 +188,8 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
             $serviceDoors->id_service = $array['id'];
             $serviceDoors->count_service = $array['value'];
             if ($serviceDoors->save()){
+//                $client = Clients::find()->where(['FIO'=>$this->clientName])->asArray()->one();
+//                $door->client_id = $client
                 $door->sum += (float)$service->price * (int)$array['value'];
                 $door->save();
             }
@@ -198,7 +198,8 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
 
     public function addClient($clientName){
         $client = Clients::find()->where(['FIO'=>$clientName])->asArray()->one();
-        $this->user_id = $client['id'];
-        $this->save();
+        $door = self::findOne($this->id);
+        $door->client_id = $client['id'];
+        $door->save();
     }
 }
