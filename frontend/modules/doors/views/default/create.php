@@ -48,7 +48,6 @@ $this->title = 'Установка дверей';
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="door-header">
                     <h1>Двери:</h1>
-                    <button class="btn btn-master" id="addDoor">Добавить дверь</button>
                 </div>
                 <div class="panel-group" id="accordion">
                     
@@ -250,8 +249,9 @@ $this->title = 'Установка дверей';
                         </div>
                     </div>
                         <?= $form->field($door, "[{$k}]serviceDoors[]")->hiddenInput(['class' => 'doors-servicedoors'])->label(false) ?>
-                        <?php $form->field($door, "[{$k}]clientName")->hiddenInput(['сlass' => 'client-doors']); ?>
-
+                    <div class="doors-for-fio" style="visibility: hidden">
+                        <?= $form->field($door, "[{$k}]clientName")->hiddenInput(['сlass' => 'client-doors doors-for-fio'])->label(false) ?>
+                    </div>
                     <?php endforeach;?>
                     <div class="save-door__button">
                         <?= Html::submitButton('Сохранить заказ', ['class' => 'btn btn-master', 'id' => 'go_go_go']) ?>
@@ -300,6 +300,7 @@ $this->title = 'Установка дверей';
                 value: serviceCounter
             })
             let list = this.parentNode.parentNode.children[6]
+            console.log(this.parentNode.parentNode.children)
             $(list).append('<li class="list-group-item d-flex justify-content-between align-items-center">\n' + serviceText +
                 '                                <span class="badge badge-primary badge-pill">\n' +
                 '                                  <span>' + serviceCounter +'</span>\n' +
@@ -347,11 +348,18 @@ $this->title = 'Установка дверей';
     // клик по сохранить
     $( "#go_go_go" ).click( function() {
         let hiddenInputs = $('.doors-servicedoors');
-//        let hiddenInputClient = $('.clients-doors');
-//        hiddenInputClient.value =
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < hiddenInputs.length; i++) {
             if (serviceList[i].serviceList.length > 0){
                 hiddenInputs[i].value = JSON.stringify(serviceList[i].serviceList)
+            }
+        }
+
+        let clientFio = $('#clients-fio');
+
+        let hiddenInputsFio = $('.doors-for-fio').children().children()
+        for (let i = 0; i < hiddenInputsFio.length; i++) {
+            if (i % 2 === 0){
+                hiddenInputsFio[i].value = JSON.stringify(clientFio[0].value)
             }
         }
     });
