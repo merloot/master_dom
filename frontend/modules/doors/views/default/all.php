@@ -31,7 +31,7 @@ $this->title = 'Готовые замеры';
                         <div class="doors-list__item">
                             <h4>№ Заказа: <strong><?= yii\bootstrap\Html::a($one->id,['one','id'=>$one->id])?></strong></h4>
                             <div>
-                                <strong>Заказчик:</strong><?=$one->client->FIO?>
+                                <strong>Заказчик:</strong><?= !empty($one->client->FIO) ? $one->client->FIO : '' ?>
                             </div>
                             <div>
                                 <strong>Телефон:</strong><?=$one->client->telephone?>
