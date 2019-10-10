@@ -107,7 +107,7 @@ class DefaultController extends Controller
                 ->query
                 ->offset($pages->offset)
                 ->limit($pages->limit)
-                ->orderBy(['date_create DESC','id DESC'])
+                ->orderBy(['date_create','id'])
                 ->all();
             return $this->render('all',[
                 'doors'=>$doors,
