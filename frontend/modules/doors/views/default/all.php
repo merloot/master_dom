@@ -34,16 +34,13 @@ $this->title = 'Готовые замеры';
                                 <strong>Заказчик:</strong><?= !empty($one->client->FIO) ? $one->client->FIO : '' ?>
                             </div>
                             <div>
-                                <strong>Телефон:</strong><?=$one->client->telephone?>
+                                <strong>Телефон:</strong><?= !empty($one->client->telephone) ? $one->client->telephone: '' ?>
                             </div>
                             <div>
-                                <strong>Адрес: </strong><?=$one->client->address?>
+                                <strong>Адрес: </strong><?= !empty($one->client->address) ? $one->client->address : '' ?>
                             </div>
                             <div>
-                                <strong>Комментарий: </strong><?=$one->client->comment?>
-                            </div>
-                            <div>
-                                <strong>Дата замеров: </strong><?= date('Y-m-d',$date)?>
+                                <strong>Комментарий: </strong><?= !empty($one->client->comment) ? $one->client->comment : '' ?>
                             </div>
                         </div>
                     </div>
