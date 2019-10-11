@@ -50,9 +50,6 @@ $this->title = 'Установка дверей';
                     <h1>Двери:</h1>
                 </div>
                 <div class="panel-group" id="accordion">
-                    
-                    
-                    
                     <?php foreach ($allDoors as $k => $door) : ?>
                     <div class="panel panel-default">
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?=$k?>">
@@ -193,7 +190,7 @@ $this->title = 'Установка дверей';
                                             <input class="form-control counter" type="number" placeholder="шт" id="boxCounter<?=$k?>">
                                             <?= Html::button('+', ['class' => 'btn btn-master s-service', 'id' => 's-service', 'data-index' => $k])?>
                                         </div>
-                                        <ul class="list-group">
+                                        <ul class="list-group" data-list="<?=$k?>"         >
                                             <!-- cюда генерятся итемы -->
                                         </ul>
 
@@ -212,7 +209,7 @@ $this->title = 'Установка дверей';
                                             <input class="form-control counter" type="number" placeholder="шт" id="serviceCounter<?=$k?>">
                                             <?= Html::button('+', ['class' => 'btn btn-master dop_service', 'id' => 'dop_service', 'data-index' => $k])?>
                                         </div>
-                                        <ul class="list-group">
+                                        <ul class="list-group" data-list="<?=$k?>">
                                             <!-- cюда генерятся итемы -->
                                         </ul>
 
@@ -232,15 +229,8 @@ $this->title = 'Установка дверей';
                                             <?= Html::button('+', ['class' => 'btn btn-master p-service', 'id' => 'p-service', 'data-index' => $k])?>
                                         </div>
 
-                                        <ul class="list-group">
+                                        <ul class="list-group" data-list="<?=$k?>">
                                             <!-- cюда генерятся итемы -->
-<!--                                            <li class="list-group-item d-flex justify-content-between align-items-center">-->
-<!--                                                Второй материал-->
-<!--                                                <span class="badge badge-primary badge-pill">-->
-<!--                                                    <span id="materialCounter-2">3</span>-->
-<!--                                                    X-->
-<!--                                                    <span id="materialPriceCounter-2">2</span> Р-->
-<!--                                            </li>-->
                                         </ul>
                                     </div>
                                 </div>
@@ -282,11 +272,21 @@ $this->title = 'Установка дверей';
         $('#collapse0').addClass('in')
     });
 
-    // клик по Добавить дверь
-    // $( "#addDoor" ).click( function() {
-    //     $('#accordion').append('<p>Меня тут не было!</p>');
-    //
-    // });
+    // клик по X
+
+    $('.list-group').on('click', '.badge-master', function() {
+        // узнаем какая дверь
+        let doorIndex = $(this).parent().parent().attr('data-list')
+        // узнаем id удаленной услуги
+        let deletedServiceId = $(this).attr('data-click')
+        let currentServicesList = serviceList[doorIndex];
+        for (let i = 0; i < currentServicesList.serviceList.length; i++){
+            if (currentServicesList.serviceList[i].id === deletedServiceId) {
+                serviceList[doorIndex].serviceList.splice(i, 1)
+            }
+        }
+        $(this).parent().remove();
+    });
     // клик по услугам
     $( ".dop_service" ).click( function() {
         let elemIndex = this.getAttribute('data-index');
@@ -299,9 +299,11 @@ $this->title = 'Установка дверей';
                 id: serviceId,
                 value: serviceCounter
             })
+            console.log(serviceList)
             let list = this.parentNode.parentNode.children[6]
-            console.log(this.parentNode.parentNode.children)
             $(list).append('<li class="list-group-item d-flex justify-content-between align-items-center">\n' + serviceText +
+                '                                <span data-click="' + serviceId + '" class="badge badge-primary badge-master badge-pill">\n' +
+                '                                  <span>' + 'X' +'</span></span>\n' +
                 '                                <span class="badge badge-primary badge-pill">\n' +
                 '                                  <span>' + serviceCounter +'</span>\n' +
                 '                            </li>');
@@ -321,8 +323,10 @@ $this->title = 'Установка дверей';
             })
             let list = this.parentNode.parentNode.children[10]
             $(list).append('<li class="list-group-item d-flex justify-content-between align-items-center">\n' + materialText +
+                '                                <span data-click="' + materialId + '"  class="badge badge-primary badge-master badge-pill">\n' +
+                '                                  <span>' + 'X' +'</span></span>\n' +
                 '                                <span class="badge badge-primary badge-pill">\n' +
-                '                                  <span>' + materialCounter +'</span>\n' +
+                '                                  <span>' + materialCounter +'</span></span>\n' +
                 '                            </li>');
         }
     });
@@ -340,6 +344,8 @@ $this->title = 'Установка дверей';
             })
             let list = this.parentNode.parentNode.children[2]
             $(list).append('<li class="list-group-item d-flex justify-content-between align-items-center">\n' + boxText +
+                '                                <span  data-click="' + boxId + '" class="badge badge-primary badge-master badge-pill">\n' +
+                '                                  <span>' + 'X' +'</span></span>\n' +
 '                                <span class="badge badge-primary badge-pill">\n' +
 '                                  <span>' + boxCounter +'</span>\n' +
 '                            </li>');
@@ -347,6 +353,7 @@ $this->title = 'Установка дверей';
     });
     // клик по сохранить
     $( "#go_go_go" ).click( function() {
+
         let hiddenInputs = $('.doors-servicedoors');
         for (let i = 0; i < hiddenInputs.length; i++) {
             if (serviceList[i].serviceList.length > 0){

@@ -94,7 +94,6 @@ body {
 .auth-block input[type="checkbox"]{
     height: 20px;
     margin-top: 0;
-    margin-left: 20px;
 }
 
 
@@ -382,11 +381,16 @@ a.desc:after {
     outline: none;
 }
 
+.badge-master{
+    background-color: #C63318;
+    cursor: pointer;
+}
 
 .doors-list .doors-list__item {
     min-width: 300px;
     max-width: 300px;
-    max-height: 450px;
+    min-height: 230px;
+    max-height: 230px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
