@@ -54,15 +54,14 @@ $date = strtotime($door->date_create)
                     <div>
                         <strong>Материал стен: </strong><?=$door->wall_material?>
                     </div>
-                    <!-- НУЖНО В DATA-STORONA ПЕРЕДАВАТЬ ПАРАМЕТР  -->
-                    <div data-storona="<?=$door->adherence?>">
+                    <div class="storona storona-<?=$door->adherence?>">
                         <strong>Сторонность: </strong>
                         <?= \yii\helpers\Html::img('/image/left_doors.svg')?>
                     </div>
-                    <div data-storona="<?=$door->type_opening?>">
+                    <div class="proem proem-<?=$door->type_opening?>">
                         <strong>Вид проема: </strong>
                         <!--НУЖНО ВСТАВЛЯТЬ КАРТИНКУ В ЗАВИСИМОСТИ ОТ ВЫБРАННОГО ПРОЕМА  -->
-                        #1
+                        #<?=$door->type_opening?> ТУТ НУЖНО ПРИБАВЛЯТЬ ЕДИНИЦУ маааааааааааааааааааааааааааааааакс
                         <?= \yii\helpers\Html::img('/image/mid_doors.svg')?>
                     </div>
                     <div>

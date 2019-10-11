@@ -437,6 +437,31 @@ a.desc:after {
     margin: 15px 0 0 0;
 }
 
+.ticket-info__personal .storona.storona-0 img{
+    -moz-transform: scale(-1);
+    -webkit-transform: scale(-1);
+    -o-transform: scale(-1);
+    transform: scale(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+.ticket-info__personal .storona.storona-1 img{
+    -moz-transform: scale(1,-1);
+    -webkit-transform: scale(1, -1);
+    -o-transform: scale(1, -1);
+    transform: scale(1, -1);
+    filter: FlipV;
+    -ms-filter: "FlipV";
+}
+.ticket-info__personal .storona.storona-3 img{
+    -moz-transform: scale(-1, 1);
+    -webkit-transform: scale(-1, 1);
+    -o-transform: scale(-1, 1);
+    transform: scale(-1, 1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+
 .ticket-info h3{
     font-weight: bold;
 }
