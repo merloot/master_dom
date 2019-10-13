@@ -44,7 +44,7 @@ AppAsset::register($this);
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
     } elseif (Yii::$app->user->identity->status === User::STATUS_ADMIN) {
-        $menuItems[] = ['label'=> 'Пользователи', 'url' =>['users/index']];
+        $menuItems[] = ['label'=> 'Пользователи', 'url' =>['../users/index']];
         $menuItems[] = ['label' => 'Услуги', 'url' => ['/service-price/index']];
         $menuItems[] = '<li>'
                        . Html::beginForm(['/site/logout'], 'post')
