@@ -1,18 +1,25 @@
 <?php
 
 /* @var $door frontend\modules\doors\models\Doors*/
-use yii\bootstrap\Html;
+
+use common\models\User;
+use frontend\modules\doors\models\Doors;
+use \frontend\modules\doors\models\Clients;
 use frontend\modules\doors\models\ServicePrice;
+
 $this->title = "Заказ № {$door->id}";
 $date = strtotime($door->date_create);
+
 ?>
 <div class="ticket-info">
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-12 co1-md-12 col-lg-12">
+                <?php if (Yii::$app->user->identity->status === User::STATUS_ADMIN):?>
                 <div class="ticket-info__button">
                     <button class="btn btn-master">Редактировать</button>
                 </div>
+                <?php endif?>
             </div>
             <div class="col-xs-12 col-sm-12 co1-md-6 col-lg-6">
                 <div class="ticket-info__personal">
@@ -36,7 +43,11 @@ $date = strtotime($door->date_create);
                         <strong>Адрес: </strong><?=$door->client->address?>
                     </div>
                     <div>
-                        <strong>Тип лифта: </strong><?=$door->client->type_elevator?>
+                        <strong>Тип лифта: </strong><?php if ($door->client->type_elevator===Clients::TYPE_ELEVATOR_FALSE){
+                            echo "Лифт отсутствует";
+                        }elseif ($door->client->type_elevator===Clients::TYPE_ELEVATOR_PASSENGER){
+                            echo "Пассажирский";
+                        }else echo 'Грузовой'?>
                     </div>
                     <div>
                         <strong>Комментарий: </strong><?=$door->client->comment?>
@@ -47,7 +58,7 @@ $date = strtotime($door->date_create);
                 <div class="ticket-info__personal">
                     <h3>Информация о дверях</h3>
                     <div>
-                        <strong>Тип устанавливаемой двери: </strong> <?=$door->type_doors?>
+                        <strong>Тип устанавливаемой двери: </strong> <?= $door->type_doors ==Doors::TYPE_DOORS_INTERIOR ?  "Межкомнатная" : "Металлическая"?>
                     </div>
                     <div>
                         <strong>Комментарий: </strong> <?=$door->comment?>
@@ -62,14 +73,14 @@ $date = strtotime($door->date_create);
                     <div class="proem proem-<?=$door->type_opening?>">
                         <strong>Вид проема: </strong>
                         <!--НУЖНО ВСТАВЛЯТЬ КАРТИНКУ В ЗАВИСИМОСТИ ОТ ВЫБРАННОГО ПРОЕМА  -->
-                        #<?=$door->type_opening +1?> ТУТ НУЖНО ПРИБАВЛЯТЬ ЕДИНИЦУ маааааааааааааааааааааааааааааааакс
+                        <?=$door->type_opening +1?>
                         <?= \yii\helpers\Html::img('/image/mid_doors.svg')?>
                     </div>
                     <div>
                         <strong>Доп услуги: </strong>
                         <ul>
                             <?php foreach ($door->servicesDoors as $value):?>
-                                <?php $service =ServicePrice::findOne($value['id_service'])?>
+                                <?php $service = ServicePrice::findOne($value['id_service'])?>
                             <li><?=$service->name?>(<?=$value->count_service?> шт Х <?=$service->price?>р) [<?=$service->price * $value->count_service?>]</li>
                             <?php endforeach;?>
                         </ul>
