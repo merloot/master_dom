@@ -21,7 +21,7 @@ class DefaultController extends Controller
     }
 
     public function actionIndex() {
-        return $this->render('index');
+                return $this->render('index');
     }
 
     public function actionCreate()
@@ -58,7 +58,7 @@ class DefaultController extends Controller
                     $allDoors[] = new Doors();
                 }
             }
-            for ($i=0; $i < \Yii::$app->request->post('count'); $i++){
+            for ($i=0; $i < $count; $i++){
                 $allDoors[] = new Doors();
             }
 
@@ -104,12 +104,14 @@ class DefaultController extends Controller
                     ->query
                     ->count(),
                 'pageSize'=>6]);
+
             $doors= $dataProvider
                 ->query
                 ->offset($pages->offset)
                 ->limit($pages->limit)
                 ->orderBy(['date_create'=>SORT_DESC,'id'=>SORT_DESC])
                 ->all();
+
             return $this->render('all',[
                 'doors'=>$doors,
                 'searchModel' => $searchModel,

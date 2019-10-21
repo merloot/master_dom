@@ -13,7 +13,7 @@ use frontend\modules\doors\models\Doors;
 <div class="poster-search">
 
     <?php $form = ActiveForm::begin([
-        'action' => ['index'],
+        'action' => ['all'],
         'method' => 'get',
         'options' => [
             'data-pjax' => 1
@@ -21,15 +21,7 @@ use frontend\modules\doors\models\Doors;
     ]); ?>
     <div class="row form-group">
         <div>
-            <?=$form->field($model, 'date_create')->widget(\kartik\date\DatePicker::classname(), [
-                'name' => 'check_issue_date',
-                'value' => date('Y-m-d', strtotime('+2 days')),
-                'options' => ['placeholder' => 'выберите дату'],
-                'pluginOptions' => [
-                    'format' => 'yyyy-M-dd',
-                    'todayHighlight' => true
-                ]
-            ]);?>
+            <?=$form->field($model,'address')?>
             <?= Html::submitButton('Поиск', ['class' => 'btn btn-primary']) ?>
         </div>
     </div>

@@ -10,6 +10,7 @@ use yii\data\ActiveDataProvider;
  */
 class DoorsSearch extends Doors
 {
+    public $address;
     /**
      * {@inheritdoc}
      */
@@ -18,6 +19,7 @@ class DoorsSearch extends Doors
         return [
             [['id'], 'integer'],
             [['date_create'], 'safe'],
+            [['address'], 'safe'],
         ];
     }
 
@@ -39,7 +41,7 @@ class DoorsSearch extends Doors
      */
     public function search($params)
     {
-        $query = Doors::find();
+        $query = Doors::find()->joinWith('client');
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -57,9 +59,7 @@ class DoorsSearch extends Doors
             'id' => $this->id,
         ]);
 
-//        $query->andFilterWhere(['iLike','address',$this->address]);
-        $query->andFilterWhere(['ilike', 'date_create', $this->date_create]);
-
+        $query->andFilterWhere(['iLike','{{%Clients}}.address',$this->address]);
         return $dataProvider;
     }
 }
