@@ -163,10 +163,11 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
         }
     }
 
-    public function createNewsServices($array) {
+    public function createNewsServices($array)
+    {
         $door = self::findOne($this->id);
-        if (is_array($array)){
-            foreach ($array as $value){
+        if (is_array($array)) {
+            foreach ($array as $value) {
                 $service = ServicePrice::findOne($value['id']);
                 $serviceDoors = new ServiceDoors();
                 $serviceDoors->id_doors = $this->id;

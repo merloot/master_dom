@@ -27,9 +27,10 @@ class DefaultController extends Controller
     public function actionCreate()
     {
 
-//                if (\Yii::$app->request->isPost) {
+//        if (\Yii::$app->request->isPost) {
 //            \Yii::$app->response->format = 'json';
-//            echo(json_encode($_POST));die();
+//            echo(json_encode($_POST));
+//            die();
 //        }
         if (\Yii::$app->user->isGuest || \Yii::$app->user->identity->status === User::STATUS_MANAGER){
             return $this->goHome();
@@ -64,7 +65,7 @@ class DefaultController extends Controller
             if ($client->load(\Yii::$app->request->post())&& $client->validate()){
                 $client->save();
                 if (Model::loadMultiple($allDoors,\Yii::$app->request->post()) && Model::validateMultiple($allDoors)){
-                    foreach ($allDoors as  $key => $door){
+                    foreach ($allDoors as $door){
                         $door->client_id = $client->id;
                         $door->save();
                     }

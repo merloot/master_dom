@@ -2,8 +2,9 @@
 
 /* @var $door frontend\modules\doors\models\Doors*/
 use yii\bootstrap\Html;
+use frontend\modules\doors\models\ServicePrice;
 $this->title = "Заказ № {$door->id}";
-$date = strtotime($door->date_create)
+$date = strtotime($door->date_create);
 ?>
 <div class="ticket-info">
     <div class="container">
@@ -61,19 +62,17 @@ $date = strtotime($door->date_create)
                     <div class="proem proem-<?=$door->type_opening?>">
                         <strong>Вид проема: </strong>
                         <!--НУЖНО ВСТАВЛЯТЬ КАРТИНКУ В ЗАВИСИМОСТИ ОТ ВЫБРАННОГО ПРОЕМА  -->
-                        #<?=$door->type_opening?> ТУТ НУЖНО ПРИБАВЛЯТЬ ЕДИНИЦУ маааааааааааааааааааааааааааааааакс
+                        #<?=$door->type_opening +1?> ТУТ НУЖНО ПРИБАВЛЯТЬ ЕДИНИЦУ маааааааааааааааааааааааааааааааакс
                         <?= \yii\helpers\Html::img('/image/mid_doors.svg')?>
                     </div>
                     <div>
                         <strong>Доп услуги: </strong>
-                        <?php foreach ($door->services as $service):?>
                         <ul>
                             <?php foreach ($door->servicesDoors as $value):?>
-
-                            <?php endforeach;?>
+                                <?php $service =ServicePrice::findOne($value['id_service'])?>
                             <li><?=$service->name?>(<?=$value->count_service?> шт Х <?=$service->price?>р) [<?=$service->price * $value->count_service?>]</li>
+                            <?php endforeach;?>
                         </ul>
-                        <?php endforeach;?>
                     </div>
                     <div>
                         <strong>Габариты проёма, коробки, полотна (ВхШхГ): </strong>
