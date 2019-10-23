@@ -17,7 +17,7 @@ $date = strtotime($door->date_create);
             <div class="col-xs-12 col-sm-12 co1-md-12 col-lg-12">
                 <?php if (Yii::$app->user->identity->status === User::STATUS_ADMIN):?>
                 <div class="ticket-info__button">
-                    <button class="btn btn-master">Редактировать</button>
+                    <button onclick="window.location='<?=\yii\helpers\Url::toRoute('update/'.$door->id)?>'" class="btn btn-master">Редактировать</button>
                 </div>
                 <?php endif?>
             </div>

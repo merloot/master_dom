@@ -2,8 +2,8 @@
 
 namespace frontend\modules\doors\models;
 
+use yii\db\ActiveRecord;
 use common\interfaces\ClientsInterface;
-
 /**
  * This is the model class for table "Clients".
  *
@@ -13,7 +13,7 @@ use common\interfaces\ClientsInterface;
  * @property string $comment Комментарий к заказу
  *
  */
-class Clients extends \yii\db\ActiveRecord implements ClientsInterface
+class Clients extends ActiveRecord implements ClientsInterface
 {
 
     /**

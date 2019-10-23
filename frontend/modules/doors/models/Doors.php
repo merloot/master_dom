@@ -56,7 +56,7 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
     public function rules()
     {
         return [
-            [['type_doors','adherence','type_opening'],'required'],
+//            [['type_doors','adherence','type_opening'],'required'],
             [['serviceDoors'], 'safe'],
             [['clientName'], 'safe'],
             [['sum'],'default','value' => 0],

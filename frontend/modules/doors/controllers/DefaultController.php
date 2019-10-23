@@ -121,18 +121,26 @@ class DefaultController extends Controller
         return $this->goHome();
     }
 
-    public function actionCountDoors(){
+    public function actionCountDoors() {
         return $this->render('count-doors');
     }
 
-    public function actionUpdate($id){
+    public function actionUpdate($id) {
         $door = Doors::findOne($id);
+        $client = Clients::findOne($door->client_id);
 
-        if ($door->load(\Yii::$app->request->post()) && $door->save()) {
-            return $this->redirect(['view', 'id' => $door->id]);
+        if ($door->load(\Yii::$app->request->post()) && $client->load(\Yii::$app->request->post())) {
+            $isValid = $door->validate();
+            $isValid = $client->validate() && $isValid;
+            if ($isValid) {
+                $door->save(false);
+                $client->save(false);
+                return $this->redirect(['one', 'id' => $id]);
+            }
         }
         return $this->render('update',[
-            'door' => $door
+            'doors'      => $door,
+            'client'    => $client
         ]);
     }
 }
