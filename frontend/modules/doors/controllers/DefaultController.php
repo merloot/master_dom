@@ -126,21 +126,24 @@ class DefaultController extends Controller
     }
 
     public function actionUpdate($id) {
-        $door = Doors::findOne($id);
-        $client = Clients::findOne($door->client_id);
+        if (\Yii::$app->user->identity->status === User::STATUS_ADMIN){
+            $door = Doors::findOne($id);
+            $client = Clients::findOne($door->client_id);
 
-        if ($door->load(\Yii::$app->request->post()) && $client->load(\Yii::$app->request->post())) {
-            $isValid = $door->validate();
-            $isValid = $client->validate() && $isValid;
-            if ($isValid) {
-                $door->save(false);
-                $client->save(false);
-                return $this->redirect(['one', 'id' => $id]);
+            if ($door->load(\Yii::$app->request->post()) && $client->load(\Yii::$app->request->post())) {
+                $isValid = $door->validate();
+                $isValid = $client->validate() && $isValid;
+                if ($isValid) {
+                    $door->save(false);
+                    $client->save(false);
+                    return $this->redirect(['one', 'id' => $id]);
+                }
             }
+            return $this->render('update',[
+                'doors'      => $door,
+                'client'    => $client
+            ]);
         }
-        return $this->render('update',[
-            'doors'      => $door,
-            'client'    => $client
-        ]);
+        return $this->goHome();
     }
 }
