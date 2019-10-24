@@ -53,22 +53,27 @@ class DefaultController extends Controller
             $allDoors =[];
 
             $count = \Yii::$app->request->post('count');
-            if (!isset($count)) {
-                for ($i=0; $i < 1; $i++){
+            $data = \Yii::$app->request->post('Doors',[]);
+            if ($count) {
+                for ($i=0; $i < $count; $i++){
                     $allDoors[] = new Doors();
                 }
+            }else{
+                $allDoors = [new Doors()];
             }
-            for ($i=0; $i < $count; $i++){
-                $allDoors[] = new Doors();
-            }
-
             if ($client->load(\Yii::$app->request->post())&& $client->validate()){
                 $client->save();
-                if (Model::loadMultiple($allDoors,\Yii::$app->request->post()) && Model::validateMultiple($allDoors)){
+                foreach (array_keys($data) as $value){
+                    $allDoors[$value] = new Doors();
+                }
+                if (Model::loadMultiple($allDoors,\Yii::$app->request->post())
+                    && Model::validateMultiple($allDoors)
+                    ){
                     foreach ($allDoors as $door){
                         $door->client_id = $client->id;
                         $door->save();
                     }
+
                     return $this->redirect('all');
                 }
             }
