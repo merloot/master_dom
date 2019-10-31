@@ -13,10 +13,13 @@ $this->title = 'Готовые замеры';
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-12 co1-md-12 col-lg-12">
-                <h3>Готовые замеры</h3>
+                <h3><?=$this->title?></h3>
             </div>
             <div class="col-xs-12 col-sm-12 co1-md-12 col-lg-12">
-                <?php echo $this->render('_search', ['model' => $searchModel]) ?>
+                <?php echo $this->render('_search', ['model' => $searchModel])?>
+            </div>
+            <div class="col-xs-12 col-sm-12 co1-md-12 col-lg-12 ">
+                <button onclick="window.location='<?=\yii\helpers\Url::toRoute('all-old')?>'" class="btn btn-master">Старые заказы</button>
             </div>
         </div>
     </div>
