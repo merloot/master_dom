@@ -21,6 +21,11 @@ $date = strtotime($door->date_create);
                 </div>
                 <?php endif?>
             </div>
+            <div class="col-xs-12 col-sm-12 co1-md-12 col-lg-12">
+                <div class="ticket-info__button">
+                    <button onclick="window.location='<?=\yii\helpers\Url::toRoute('all')?>'" class="btn btn-master">Назад</button>
+                </div>
+            </div>
             <div class="col-xs-12 col-sm-12 co1-md-6 col-lg-6">
                 <div class="ticket-info__personal">
                     <h3>Общая информация о заказчике</h3>

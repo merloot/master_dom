@@ -8,9 +8,10 @@ use yii\data\ActiveDataProvider;
 /**
  * ClientsSearch represents the model behind the search form of `frontend\modules\doors\models\Doors`.
  */
-class DoorsSearch extends Doors
+class OldDoorsSearch extends Doors
 {
-    public $address;
+    public $date_to;
+    public $date_from;
     /**
      * {@inheritdoc}
      */
@@ -18,14 +19,14 @@ class DoorsSearch extends Doors
     {
         return [
             [['id'], 'integer'],
-            [['date_create'], 'safe'],
-            [['address'], 'safe'],
+            [['date_to','date_from'], 'safe'],
         ];
     }
     public function attributeLabels()
     {
         return [
-            'address' => 'адрес',
+            'date_to' => 'от',
+            'date_from' => 'до',
         ];
     }
 
@@ -47,7 +48,7 @@ class DoorsSearch extends Doors
      */
     public function search($params)
     {
-        $query = Doors::find()->joinWith('client');
+        $query = OldDoors::find();
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -65,7 +66,9 @@ class DoorsSearch extends Doors
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['iLike','{{%Clients}}.address',$this->address]);
+        $query->andFilterWhere(['>=','date',$this->date_from]);
+        $query->andFilterWhere(['<=','date',$this->date_to]);
+//        $query->andFilterWhere(['iLike','{{%Clients}}.address',$this->address]);
         return $dataProvider;
     }
 }

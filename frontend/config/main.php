@@ -22,6 +22,7 @@ return [
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
         'db'    =>  require(__DIR__ . '/../../common/config/db.php'),
+        'old_db'    =>  require(__DIR__ . '/../../common/config/old_db.php'),
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],
@@ -52,8 +53,10 @@ return [
             'rules' => [
                 'doors/one/<id>'=>'doors/one',
                 'doors/all'  => 'doors/default/all',
+                'doors/one-old/<id>'=>'doors/one-old',
                 'doors/index'  => 'doors/default/index',
                 'doors/create'  => 'doors/default/create',
+                'doors/all-old'  => 'doors/default/all-old',
                 'doors/update/<id>'  => 'doors/default/update',
                 'doors/count-doors'  => 'doors/default/count-doors',
             ],

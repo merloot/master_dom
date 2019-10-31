@@ -177,7 +177,6 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
                     $door->sum += (float)$service->price * (int)$value['value'];
                     if ($door->save()){
                     }
-                    var_dump($door->getErrors());
                 }
             }
         } else {

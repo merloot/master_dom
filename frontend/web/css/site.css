@@ -108,6 +108,7 @@ body {
 }
 
 .btn-master {
+    margin-bottom: 10px;
     background-color: #C63318 !important;
     color: white;
     border: 2px solid transparent;

@@ -3,6 +3,8 @@
 namespace frontend\modules\doors\controllers;
 
 use common\models\User;
+use frontend\modules\doors\models\OldDoors;
+use frontend\modules\doors\models\OldDoorsSearch;
 use frontend\modules\doors\Module;
 use yii\base\Model;
 use yii\web\Controller;
@@ -147,6 +149,44 @@ class DefaultController extends Controller
             return $this->render('update',[
                 'doors'      => $door,
                 'client'    => $client
+            ]);
+        }
+        return $this->goHome();
+    }
+
+    public function actionAllOld(){
+        if (!\Yii::$app->user->isGuest){
+            $searchModel = new OldDoorsSearch();
+            $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
+            $pages = new Pagination([
+                'totalCount' => $dataProvider
+                    ->query
+                    ->count(),
+                'pageSize'=>6]);
+
+            $doors= $dataProvider
+                ->query
+                ->offset($pages->offset)
+                ->limit($pages->limit)
+                ->orderBy(['date'=>SORT_DESC,'id'=>SORT_DESC])
+                ->all();
+
+            return $this->render('all-old',[
+                'doors'=>$doors,
+                'searchModel' => $searchModel,
+                'pages'=>$pages
+            ]);
+        }
+        return $this->goHome();
+    }
+
+    public function actionOneOld($id){
+        if (!\Yii::$app->user->isGuest){
+
+            $door= OldDoors::findOne($id);
+
+            return $this->render('one-old',[
+                'door'=>$door
             ]);
         }
         return $this->goHome();
