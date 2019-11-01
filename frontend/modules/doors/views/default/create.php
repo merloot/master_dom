@@ -94,9 +94,10 @@ $this->title = 'Установка дверей';
                                         <div class="max-slomal-stili">
                                             <label>Вид проема в плане:</label>
                                             <?=$form->field($door, "[{$k}]type_opening")->radioList([
-                                                Doors::TYPE_OPENING_MID   => Html::img('/image/mid_doors.svg', ['width' => '100%', 'height' => 150]) ,
-                                                Doors::TYPE_OPENING_LEFT  => Html::img('/image/left_doors_1.svg',['width' => '100%', 'height' => 150]) ,
-                                                Doors::TYPE_OPENING_RIGHT => Html::img('/image/right_doors.svg' ,['width' => '100%', 'height' => 150])
+                                                Doors::TYPE_OPENING_MID   => Html::img('/image/middle.jpg',   ['width' => '100%', 'height' => 150]) ,
+                                                Doors::TYPE_OPENING_LEFT  => Html::img('/image/left.jpg',['width' => '100%', 'height' => 150]) ,
+                                                Doors::TYPE_OPENING_RIGHT => Html::img('/image/right.jpg' ,['width' => '100%', 'height' => 150]),
+                                                Doors::TYPE_OPENING_OFF   => Html::img('/image/off.jpg' ,  ['width' => '100%', 'height' => 150])
                                             ], ['encode' => false])->label(false)
                                             ?>
                                         </div>

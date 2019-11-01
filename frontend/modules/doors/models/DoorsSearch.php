@@ -65,7 +65,7 @@ class DoorsSearch extends Doors
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['iLike','{{%Clients}}.address',$this->address]);
+        $query->andFilterWhere(['like','{{%Clients}}.address',$this->address]);
         return $dataProvider;
     }
 }

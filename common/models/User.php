@@ -50,12 +50,23 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
+//    public function beforeSave($insert)
+//    {
+//        if (parent::beforeSave($insert)){
+//            $this->setPassword($this->password);
+//            return true;
+//        }
+//        return false;
+//    }
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
+            ['password', 'required'],
+            ['password', 'string', 'min' => 6],
             ['status', 'in', 'range' => [self::STATUS_ADMIN, self::STATUS_MANAGER, self::STATUS_WORKER]],
         ];
     }
