@@ -78,8 +78,17 @@ $date = strtotime($door->date_create);
                     <div class="proem proem-<?=$door->type_opening?>">
                         <strong>Вид проема: </strong>
                         <!--НУЖНО ВСТАВЛЯТЬ КАРТИНКУ В ЗАВИСИМОСТИ ОТ ВЫБРАННОГО ПРОЕМА  -->
-                        <?=$door->type_opening +1?>
-                        <?= \yii\helpers\Html::img('/image/mid_doors.svg')?>
+                        <?php if ($door->type_doors === Doors::TYPE_OPENING_MID){
+                           echo \yii\helpers\Html::img('/image/middle.jpg');
+                        }if ($door->type_doors === Doors::TYPE_OPENING_LEFT) {
+                            echo \yii\helpers\Html::img('/image/left.jpg');
+                        }if ($door->type_doors === Doors::TYPE_OPENING_RIGHT){
+                            echo \yii\helpers\Html::img('/image/right.jpg');
+                        }
+                        if($door->type_doors === Doors::TYPE_OPENING_OFF){
+                            echo \yii\helpers\Html::img('/image/off.jpg');
+                        }
+                        ?>
                     </div>
                     <div>
                         <strong>Доп услуги: </strong>

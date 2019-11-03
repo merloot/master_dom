@@ -13,8 +13,6 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-<!--    --><?//=$form->field($model,'password')->passwordInput()?>
-
     <?= $form->field($model, 'status')->dropDownList([
             User::STATUS_ADMIN =>'Админ',
             User::STATUS_MANAGER=>'Менеджер',
