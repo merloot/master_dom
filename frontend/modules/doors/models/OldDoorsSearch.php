@@ -48,7 +48,7 @@ class OldDoorsSearch extends Doors
      */
     public function search($params)
     {
-        $query = OldDoors::find();
+        $query = OldDoors::find()->groupBy('date');
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([

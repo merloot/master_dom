@@ -77,7 +77,6 @@ $date = strtotime($door->date_create);
                     </div>
                     <div class="proem proem-<?=$door->type_opening?>">
                         <strong>Вид проема: </strong>
-                        <!--НУЖНО ВСТАВЛЯТЬ КАРТИНКУ В ЗАВИСИМОСТИ ОТ ВЫБРАННОГО ПРОЕМА  -->
                         <?php if ($door->type_doors === Doors::TYPE_OPENING_MID){
                            echo \yii\helpers\Html::img('/image/middle.jpg');
                         }if ($door->type_doors === Doors::TYPE_OPENING_LEFT) {
