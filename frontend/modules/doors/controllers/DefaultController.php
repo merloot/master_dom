@@ -5,6 +5,8 @@ namespace frontend\modules\doors\controllers;
 use common\models\User;
 use frontend\modules\doors\models\OldDoors;
 use frontend\modules\doors\models\OldDoorsSearch;
+use frontend\modules\doors\models\Orders;
+use frontend\modules\doors\models\OrdersSearch;
 use frontend\modules\doors\Module;
 use yii\base\Model;
 use yii\web\Controller;
@@ -38,7 +40,7 @@ class DefaultController extends Controller
             return $this->goHome();
         }elseif (\Yii::$app->user->identity->status === User::STATUS_ADMIN || \Yii::$app->user->identity->status === User::STATUS_WORKER){
 
-            $client   = new Clients();
+            $client             = new Clients();
 
             $service            = ServicePrice::find()
                                               ->where(['type_service'=>ServicePrice::TYPE_SERVICE_DEMONTAG])
@@ -53,6 +55,7 @@ class DefaultController extends Controller
                                               ->all();
 
             $allDoors =[];
+
 
             $count = \Yii::$app->request->post('count');
             $data = \Yii::$app->request->post('Doors',[]);
@@ -72,8 +75,14 @@ class DefaultController extends Controller
                     && Model::validateMultiple($allDoors)
                     ){
                     foreach ($allDoors as $door){
-                        $door->client_id = $client->id;
+                        $order              =   new Orders();
+                        $door->client_id    =   $client->id;
+                        $door->id_order     =   $client->id;
                         $door->save();
+                        $order->id_doors    =   $door->id;
+                        $order->id_order    =   $client->id;
+                        $order->id_client   =   $client->id;
+                        $order->save();
                     }
 
                     return $this->redirect('all');
@@ -102,6 +111,18 @@ class DefaultController extends Controller
         return $this->goHome();
     }
 
+    public function actionOrder($id) {
+        if (!\Yii::$app->user->isGuest){
+
+            $order= Orders::find()->where(['id_order'=>$id])->all();
+
+            return $this->render('one-order',[
+                'order'=>$order
+            ]);
+        }
+        return $this->goHome();
+    }
+
     public function actionAll() {
         if (!\Yii::$app->user->isGuest){
             $searchModel = new DoorsSearch();
@@ -119,10 +140,27 @@ class DefaultController extends Controller
                 ->orderBy(['date_create'=>SORT_DESC,'id'=>SORT_DESC])
                 ->all();
 
+            $searchOrder = new OrdersSearch();
+            $dataProvider = $searchOrder->search(\Yii::$app->request->queryParams);
+            $pages = new Pagination([
+                'totalCount' => $dataProvider
+                    ->query
+                    ->count(),
+                'pageSize'=>6]);
+
+            $orders= $dataProvider
+                ->query
+                ->offset($pages->offset)
+                ->limit($pages->limit)
+                ->orderBy(['id_order'=>SORT_DESC])
+                ->all();
+
             return $this->render('all',[
-                'doors'=>$doors,
+                'doors'       => $doors,
+                'orders'      => $orders,
                 'searchModel' => $searchModel,
-                'pages'=>$pages
+                'searchOrder' => $searchOrder,
+                'pages'       => $pages
             ]);
         }
         return $this->goHome();
@@ -132,8 +170,30 @@ class DefaultController extends Controller
         return $this->render('count-doors');
     }
 
+    public function actionOrderUpdate($id) {
+        if (\Yii::$app->user->identity->status !== User::STATUS_MANAGER){
+            $order = Orders::findOne($id);
+            $client = Clients::findOne($order->id_client);
+
+            if ($order->load(\Yii::$app->request->post()) && $client->load(\Yii::$app->request->post())) {
+                $isValid = $order->validate();
+                $isValid = $client->validate() && $isValid;
+                if ($isValid) {
+                    $order->save(false);
+                    $client->save(false);
+                    return $this->redirect(['one', 'id' => $id]);
+                }
+            }
+            return $this->render('update-order',[
+                'doors'      => $order,
+                'client'    => $client
+            ]);
+        }
+        return $this->goHome();
+    }
+
     public function actionUpdate($id) {
-        if (\Yii::$app->user->identity->status === User::STATUS_ADMIN){
+        if (\Yii::$app->user->identity->status !== User::STATUS_MANAGER){
             $door = Doors::findOne($id);
             $client = Clients::findOne($door->client_id);
 

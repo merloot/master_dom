@@ -31,6 +31,7 @@ use yii\helpers\Json;
  * @property integer $depth_canvas
  * @property integer $width_canvas
  * @property integer $client_id
+ * @property integer $id_order
  *
  * @property ServicePrice[] $services
  * @property ServiceDoors[] $servicesDoors
@@ -61,10 +62,9 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
             [['clientName'], 'safe'],
             [['sum'],'default','value' => 0],
             [['type_doors', 'type_opening'], 'default', 'value' => null],
-            [['type_doors', 'type_opening','user_id'], 'integer'],
+            [['type_doors', 'type_opening','user_id','adherence','client_id','id_order'], 'integer'],
             ['type_doors', 'in', 'range' => [self::TYPE_DOORS_INTERIOR, self::TYPE_DOORS_IRON]],
 
-            [['adherence','client_id'], 'integer'],
             ['adherence', 'in', 'range' => [self::ADHERENCE_INTERIOR_LEFT, self::ADHERENCE_INTERIOR_RIGHT, self::ADHERENCE_OUTDOOR_LEFT,self::ADHERENCE_OUTDOOR_RIGHT]],
 
             ['type_opening','in','range' => [self::TYPE_OPENING_MID,self::TYPE_OPENING_LEFT,self::TYPE_OPENING_RIGHT,self::TYPE_OPENING_OFF]],
@@ -110,28 +110,41 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
             'type_opening' => 'Вид проема в плане',
             'sum' => 'Сумма',
             'serviceDoors' => 'serviceDoors',
+            'id_order' => 'Номер заказа',
         ];
     }
 
     public function getAuthor() {
-        return $this->hasOne(User::className(),['id'=>'user_id']);
+        return $this->hasOne(User::className(), [
+            'id'=>'user_id'
+        ]);
     }
 
     public function getClient() {
-        return $this->hasOne(Clients::className(),['id'=>'client_id']);
-    }
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getServicesDoors() {
-        return $this->hasMany(ServiceDoors::className(), ['id_doors' => 'id']);
+        return $this->hasOne(Clients::className(), [
+            'id'=>'client_id'
+        ]);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
+    public function getServicesDoors() {
+        return $this->hasMany(ServiceDoors::className(), [
+            'id_doors' => 'id'
+        ]);
+    }
+
+
     public function getServices() {
-        return $this->hasMany(ServicePrice::className(), ['id' => 'id_service'])->viaTable('ServiceDoors', ['id_doors' => 'id']);
+        return $this->hasMany(ServicePrice::className(), [
+            'id' => 'id_service'
+        ])->viaTable('ServiceDoors', [
+                'id_doors' => 'id'
+        ]);
+    }
+
+    public function getOrder(){
+        return $this->hasOne(Orders::className(),[
+            'id_doors'=>'id'
+        ]);
     }
 
     public function beforeSave($insert) {
@@ -162,6 +175,7 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
             return false;
         }
     }
+
 
     public function createNewsServices($array)
     {

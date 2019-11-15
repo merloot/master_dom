@@ -6,9 +6,9 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * ClientsSearch represents the model behind the search form of `frontend\modules\doors\models\Doors`.
+ * OrdersSearch represents the model behind the search form of `frontend\modules\doors\models\Orders`.
  */
-class DoorsSearch extends Doors
+class OrdersSearch extends Orders
 {
     public $address;
     /**
@@ -17,8 +17,7 @@ class DoorsSearch extends Doors
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['date_create'], 'safe'],
+            [['id_order'], 'integer'],
             [['address'], 'safe'],
         ];
     }
@@ -47,7 +46,9 @@ class DoorsSearch extends Doors
      */
     public function search($params)
     {
-        $query = Doors::find()->joinWith('client')->where(['id_order'=>null]);
+        $query = Orders::find()->select(['id_order','id_client'])->groupBy(['id_order','id_client'])->with('client');
+//        var_dump($query);
+//        die();
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -62,7 +63,7 @@ class DoorsSearch extends Doors
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            'id_order' => $this->id_order,
         ]);
 
         $query->andFilterWhere(['like','{{%Clients}}.address',$this->address]);
