@@ -46,7 +46,7 @@ class OrdersSearch extends Orders
      */
     public function search($params)
     {
-        $query = Orders::find()->select(['id_order','id_client'])->groupBy(['id_order','id_client'])->with('client');
+        $query = Orders::find()->select(['id_order','id_client'])->groupBy(['id_order','id_client'])->joinWith('client');
 //        var_dump($query);
 //        die();
         // add conditions that should always apply here

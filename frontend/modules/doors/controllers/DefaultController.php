@@ -75,10 +75,9 @@ class DefaultController extends Controller
                     && Model::validateMultiple($allDoors)
                     ){
                     foreach ($allDoors as $door){
-                        $order              =   new Orders();
-                        $door->client_id    =   $client->id;
                         $door->id_order     =   $client->id;
                         $door->save();
+                        $order              =   new Orders();
                         $order->id_doors    =   $door->id;
                         $order->id_order    =   $client->id;
                         $order->id_client   =   $client->id;
@@ -125,21 +124,6 @@ class DefaultController extends Controller
 
     public function actionAll() {
         if (!\Yii::$app->user->isGuest){
-            $searchModel = new DoorsSearch();
-            $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
-            $pages = new Pagination([
-                'totalCount' => $dataProvider
-                    ->query
-                    ->count(),
-                'pageSize'=>6]);
-
-            $doors= $dataProvider
-                ->query
-                ->offset($pages->offset)
-                ->limit($pages->limit)
-                ->orderBy(['date_create'=>SORT_DESC,'id'=>SORT_DESC])
-                ->all();
-
             $searchOrder = new OrdersSearch();
             $dataProvider = $searchOrder->search(\Yii::$app->request->queryParams);
             $pages = new Pagination([
@@ -156,9 +140,7 @@ class DefaultController extends Controller
                 ->all();
 
             return $this->render('all',[
-                'doors'       => $doors,
                 'orders'      => $orders,
-                'searchModel' => $searchModel,
                 'searchOrder' => $searchOrder,
                 'pages'       => $pages
             ]);
