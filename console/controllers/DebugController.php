@@ -2,21 +2,17 @@
 
 namespace console\controllers;
 
-use frontend\modules\doors\models\Clients;
 use frontend\modules\doors\models\Doors;
 use frontend\modules\doors\models\Orders;
-use frontend\modules\doors\models\Parser;
-use frontend\modules\doors\models\ServiceDoors;
-use frontend\modules\doors\models\ServicePrice;
-use Yii;
 use yii\console\Controller;
-use yii\helpers\Html;
-use yii\helpers\Json;
+use yii\web\User;
 
 class DebugController extends Controller {
 
+
     public function actionIndex(){
 
+        $this->actionCreateOrders();
     }
 
     public function actionUpdateDoors(){
@@ -36,6 +32,7 @@ class DebugController extends Controller {
             $order->id_order = $door->client_id;
             $order->id_doors = $door->id;
             $order->id_client = $door->client_id;
+            $order->date_create = $door->date_create;
             $order->save();
         }
     }

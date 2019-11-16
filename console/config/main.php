@@ -22,6 +22,16 @@ return [
           ],
     ],
     'components' => [
+        'user' => [
+            'class' => 'yii\web\User',
+            'identityClass' => 'common\models\User',
+            'enableSession' => false,
+            'enableAutoLogin' => false,
+            //'enableAutoLogin' => true,
+        ],
+        'session' => [ // for use session in console application
+            'class' => 'yii\web\Session'
+        ],
         'db'    =>  require(__DIR__ . '/../../common/config/db.php'),
         'log' => [
             'targets' => [

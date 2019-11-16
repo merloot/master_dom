@@ -17,6 +17,8 @@ class m191113_104134_orders extends Migration
             'id_order'  => $this->integer()->notNull(),
             'id_doors'  => $this->integer()->notNull(),
             'id_client' => $this->integer()->notNull(),
+            'date_create'=>$this->timestamp()
+
         ]);
 
         $this->createIndex('OrdersIndex','Orders',['id_order','id_doors'],true);

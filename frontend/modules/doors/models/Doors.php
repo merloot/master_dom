@@ -20,7 +20,6 @@ use yii\helpers\Json;
  * @property int $type_opening Вид проема в плане
  * @property string $sum
  * @property int user_id
- * @property integer $date_create
  * @property integer $height_box
  * @property integer $depth_box
  * @property integer $width_box
@@ -30,7 +29,6 @@ use yii\helpers\Json;
  * @property integer $height_canvas
  * @property integer $depth_canvas
  * @property integer $width_canvas
- * @property integer $client_id
  * @property integer $id_order
  *
  * @property ServicePrice[] $services
@@ -84,14 +82,10 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
                 'number'
             ],
 
-//            [['date_create'], 'date', 'format' => 'php:Y-m-d'],
-            [['date_create'], 'default', 'value' => date('Y-m-d')],
-
             [['comment'], 'string'],
 
             [['wall_material'], 'string', 'max' => 255],
 
-//            [['client_id'],'exist', 'skipOnError' =>true, 'targetClass' => Clients::className(), 'targetAttribute' => ['id' => 'client_id']]
 //            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id' => 'user_id']],
         ];
     }
