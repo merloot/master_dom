@@ -2,27 +2,20 @@
 
 namespace frontend\modules\doors\controllers;
 
-use common\models\User;
-use frontend\modules\doors\models\OldDoors;
-use frontend\modules\doors\models\OldDoorsSearch;
-use frontend\modules\doors\models\Orders;
-use frontend\modules\doors\models\OrdersSearch;
-use frontend\modules\doors\Module;
 use yii\base\Model;
 use yii\web\Controller;
+use common\models\User;
 use yii\data\Pagination;
 use frontend\modules\doors\models\Doors;
+use frontend\modules\doors\models\Orders;
 use frontend\modules\doors\models\Clients;
-use frontend\modules\doors\models\DoorsSearch;
+use frontend\modules\doors\models\OldDoors;
+use frontend\modules\doors\models\OrdersSearch;
 use frontend\modules\doors\models\ServicePrice;
+use frontend\modules\doors\models\OldDoorsSearch;
 
 class DefaultController extends Controller
 {
-
-    public function beforeAction($action) {
-        return true;
-        return parent::beforeAction($action);
-    }
 
     public function actionIndex() {
                 return $this->render('index');
@@ -156,19 +149,23 @@ class DefaultController extends Controller
         if (\Yii::$app->user->identity->status !== User::STATUS_MANAGER){
             $order = Orders::findOne($id);
             $client = Clients::findOne($order->id_client);
+            $doors = Doors::find()->where(['id_order'=>$order->id_order])->all();
 
-            if ($order->load(\Yii::$app->request->post()) && $client->load(\Yii::$app->request->post())) {
-                $isValid = $order->validate();
-                $isValid = $client->validate() && $isValid;
+
+            if (Model::loadMultiple($doors,\Yii::$app->request->post()) && $client->load(\Yii::$app->request->post())) {
+                $isValid = $client->validate() && Model::validateMultiple($doors);
                 if ($isValid) {
-                    $order->save(false);
+                    foreach ($doors as $door){
+                        $door->save(false);
+                    }
                     $client->save(false);
-                    return $this->redirect(['one', 'id' => $id]);
+                    return $this->redirect(['one-order', 'id' => $id]);
                 }
             }
             return $this->render('update-order',[
+                'allDoors'   => $doors,
                 'doors'      => $order,
-                'client'    => $client
+                'client'     => $client
             ]);
         }
         return $this->goHome();

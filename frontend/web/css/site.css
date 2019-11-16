@@ -96,8 +96,6 @@ body {
     margin-top: 0;
 }
 
-
-
 .auth-block__button{
     display: flex;
     justify-content: center;
@@ -114,6 +112,7 @@ body {
     color: white;
     border: 2px solid transparent;
 }
+
 .btn-master:hover,
 .btn-master:active,
 .btn-master:focus{
@@ -130,6 +129,7 @@ body {
         padding: 0 0 0 15px!important;
     }
 }
+
 .save-door__button{
     text-align: right;
 }
@@ -180,6 +180,7 @@ body {
 }
 
 .max-slomal-stili > .form-group label,
+
 .max-slomal-stili2 > .form-group label{
     border-radius: 5px;
     padding: 5px;
@@ -190,10 +191,12 @@ body {
     content: '#1';
     margin-left: 25px;
 }
+
 .max-slomal-stili label:nth-child(2) input[type="radio"]::after{
     content: '#2';
     margin-left: 25px;
 }
+
 .max-slomal-stili label:last-child input[type="radio"]::after{
     content: '#3';
     margin-left: 25px;
@@ -204,6 +207,7 @@ body {
     white-space: nowrap;
     margin-left: 25px;
 }
+
 .max-slomal-stili2 label:first-child img {
     -moz-transform: scale(-1);
     -webkit-transform: scale(-1);
@@ -212,11 +216,13 @@ body {
     filter: FlipH;
     -ms-filter: "FlipH";
 }
+
 .max-slomal-stili2 label:nth-child(2) input[type="radio"]::after{
     content: 'Правая внутренняя';
     white-space: nowrap;
     margin-left: 25px;
 }
+
 .max-slomal-stili2 label:nth-child(2) img {
     -moz-transform: scale(1,-1);
     -webkit-transform: scale(1, -1);
@@ -225,16 +231,19 @@ body {
     filter: FlipV;
     -ms-filter: "FlipV";
 }
+
 .max-slomal-stili2 label:nth-child(3) input[type="radio"]::after{
     content: 'Левая наружняя';
     white-space: nowrap;
     margin-left: 25px;
 }
+
 .max-slomal-stili2 label:last-child input[type="radio"]::after{
     content: 'Правая наружняя';
     white-space: nowrap;
     margin-left: 25px;
 }
+
 .max-slomal-stili2 label:last-child img {
     -moz-transform: scale(-1, 1);
     -webkit-transform: scale(-1, 1);
@@ -243,6 +252,7 @@ body {
     filter: FlipH;
     -ms-filter: "FlipH";
 }
+
 .site-index h1{
     display: flex;
     justify-content: center;
@@ -414,6 +424,7 @@ a.desc:after {
     flex-direction: column;
     align-items: flex-start;
 }
+
 .doors-list .doors-list__item div:last-child {
     white-space: nowrap;
     overflow: hidden;
@@ -439,6 +450,47 @@ a.desc:after {
     margin: 15px 0 0 0;
 }
 
+.proem img{
+    height: 150px;
+}
+.storona img{
+    height: 150px;
+}
+.storona.storona-0 img{
+    -moz-transform: scale(-1);
+    -webkit-transform: scale(-1);
+    -o-transform: scale(-1);
+    transform: scale(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+.storona.storona-1 img{
+    -moz-transform: scale(1,-1);
+    -webkit-transform: scale(1, -1);
+    -o-transform: scale(1, -1);
+    transform: scale(1, -1);
+    filter: FlipV;
+    -ms-filter: "FlipV";
+}
+
+.storona.storona-2 img{
+    -moz-transform: scale(-1, -1);
+    -webkit-transform: scale(-1, -1);
+    -o-transform: scale(-1, -1);
+    transform: scale(-1, -1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+.storona.storona-3 img{
+    -moz-transform: scale(-1, 1);
+    -webkit-transform: scale(-1, 1);
+    -o-transform: scale(-1, 1);
+    transform: scale(-1, 1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+
+}
+
 .ticket-info__personal .storona.storona-0 img{
     -moz-transform: scale(-1);
     -webkit-transform: scale(-1);
@@ -447,6 +499,7 @@ a.desc:after {
     filter: FlipH;
     -ms-filter: "FlipH";
 }
+
 .ticket-info__personal .storona.storona-1 img{
     -moz-transform: scale(1,-1);
     -webkit-transform: scale(1, -1);
@@ -455,6 +508,7 @@ a.desc:after {
     filter: FlipV;
     -ms-filter: "FlipV";
 }
+
 .ticket-info__personal .storona.storona-3 img{
     -moz-transform: scale(-1, 1);
     -webkit-transform: scale(-1, 1);
