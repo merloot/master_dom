@@ -17,6 +17,12 @@ use frontend\modules\doors\models\OldDoorsSearch;
 class DefaultController extends Controller
 {
 
+    // Это что бы не ловить ошибку с csrf
+    public function beforeAction($action) {
+        return true;
+        return parent::beforeAction($action);
+    }
+
     public function actionIndex() {
                 return $this->render('index');
     }
@@ -91,6 +97,8 @@ class DefaultController extends Controller
         return $this->goHome();
     }
 
+//        TODO Удалить данных метод т.к он не используется
+
     public function actionOne($id) {
         if (!\Yii::$app->user->isGuest){
 
@@ -147,7 +155,7 @@ class DefaultController extends Controller
 
     public function actionOrderUpdate($id) {
         if (\Yii::$app->user->identity->status !== User::STATUS_MANAGER){
-            $order = Orders::findOne($id);
+            $order= Orders::find()->where(['id_order'=>$id])->one();
             $client = Clients::findOne($order->id_client);
             $doors = Doors::find()->where(['id_order'=>$order->id_order])->all();
 
@@ -159,7 +167,7 @@ class DefaultController extends Controller
                         $door->save(false);
                     }
                     $client->save(false);
-                    return $this->redirect(['one-order', 'id' => $id]);
+                    return $this->redirect(['order', 'id' => $id]);
                 }
             }
             return $this->render('update-order',[
@@ -171,6 +179,7 @@ class DefaultController extends Controller
         return $this->goHome();
     }
 
+//    TODO Удалить данных метод т.к он не используется
     public function actionUpdate($id) {
         if (\Yii::$app->user->identity->status !== User::STATUS_MANAGER){
             $door = Doors::findOne($id);

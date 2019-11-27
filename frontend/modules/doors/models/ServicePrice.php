@@ -18,22 +18,19 @@ use Yii;
  * @property ServiceDoors[] $serviceDoors
  * @property Doors[] $doors
  */
-class ServicePrice extends \yii\db\ActiveRecord implements ServicePricesInterface
-{
+class ServicePrice extends \yii\db\ActiveRecord implements ServicePricesInterface {
 
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'ServicePrice';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['type_service', 'percent_accruals', 'unit'], 'default', 'value' => null],
             [['type_service', 'percent_accruals', 'unit'], 'integer'],
@@ -52,8 +49,7 @@ class ServicePrice extends \yii\db\ActiveRecord implements ServicePricesInterfac
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'name' => 'Название',
@@ -67,16 +63,14 @@ class ServicePrice extends \yii\db\ActiveRecord implements ServicePricesInterfac
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getServiceDoors()
-    {
+    public function getServiceDoors() {
         return $this->hasMany(ServiceDoors::className(), ['id_service' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getDoors()
-    {
+    public function getDoors() {
         return $this->hasMany(Doors::className(), ['id' => 'id_doors'])->viaTable('ServiceDoors', ['id_service' => 'id']);
     }
 }

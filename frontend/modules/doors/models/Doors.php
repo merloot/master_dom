@@ -60,7 +60,7 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
             [['clientName'], 'safe'],
             [['sum'],'default','value' => 0],
             [['type_doors', 'type_opening'], 'default', 'value' => null],
-            [['type_doors', 'type_opening','user_id','adherence','client_id','id_order'], 'integer'],
+            [['type_doors', 'type_opening','user_id','adherence','id_order'], 'integer'],
             ['type_doors', 'in', 'range' => [self::TYPE_DOORS_INTERIOR, self::TYPE_DOORS_IRON]],
 
             ['adherence', 'in', 'range' => [self::ADHERENCE_INTERIOR_LEFT, self::ADHERENCE_INTERIOR_RIGHT, self::ADHERENCE_OUTDOOR_LEFT,self::ADHERENCE_OUTDOOR_RIGHT]],
@@ -111,12 +111,6 @@ class Doors extends \yii\db\ActiveRecord implements DoorsInterface
     public function getAuthor() {
         return $this->hasOne(User::className(), [
             'id'=>'user_id'
-        ]);
-    }
-
-    public function getClient() {
-        return $this->hasOne(Clients::className(), [
-            'id'=>'client_id'
         ]);
     }
 

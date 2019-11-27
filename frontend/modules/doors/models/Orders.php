@@ -12,43 +12,43 @@ use yii\db\ActiveRecord;
  * @property int $id_doors
  * @property int $id_client
  * @property int $date_create
- *
+ * @property int $id_finished_doors
  * @property Doors $doors
  * @property Clients $client
  */
-class Orders extends ActiveRecord
-{
+class Orders extends ActiveRecord {
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'Orders';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
 //            [['id_order','id_doors','id_client'],'required'],
-            [['id_order','id_doors','id_client'],'integer'],
+            [['id_order','id_doors','id_client','id_finished_doors'],'integer'],
             [['date_create'], 'default', 'value' => date('Y-m-d')],
             [['id_order', 'id_doors'], 'unique', 'targetAttribute' => ['id_order', 'id_doors']],
+            [['id_finished_doors'], 'exist', 'skipOnError' => true, 'targetClass' => FinishedDoors::className(), 'targetAttribute' => ['id_finished_doors' => 'id']],
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id_order' => 'Номер заказа',
             'id_doors' => 'Номер двери',
             'id_client' => 'Номер клиента',
         ];
+    }
+    public function getFinishedDoors() {
+        return $this->hasOne(FinishedDoors::className(), ['id' => 'id_finished_doors']);
     }
 
     public function getDoors(){

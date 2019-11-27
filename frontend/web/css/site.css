@@ -198,6 +198,10 @@ body {
 }
 
 .max-slomal-stili label:last-child input[type="radio"]::after{
+    content: '#4';
+    margin-left: 25px;
+}
+.max-slomal-stili label:nth-child(3) input[type="radio"]::after{
     content: '#3';
     margin-left: 25px;
 }

@@ -14,21 +14,18 @@ use Yii;
  * @property Doors $doors
  * @property ServicePrice $service
  */
-class ServiceDoors extends \yii\db\ActiveRecord
-{
+class ServiceDoors extends \yii\db\ActiveRecord {
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'ServiceDoors';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['id_service', 'id_doors'], 'required'],
             [['id_service', 'id_doors', 'count_service'], 'default', 'value' => null],
@@ -42,8 +39,7 @@ class ServiceDoors extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id_service' => 'Id Service',
             'id_doors' => 'Id Doors',
@@ -54,16 +50,14 @@ class ServiceDoors extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getDoors()
-    {
+    public function getDoors() {
         return $this->hasOne(Doors::className(), ['id' => 'id_doors']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getService()
-    {
+    public function getService() {
         return $this->hasOne(ServicePrice::className(), ['id' => 'id_service']);
     }
 }

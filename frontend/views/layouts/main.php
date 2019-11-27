@@ -46,6 +46,7 @@ AppAsset::register($this);
     } elseif (Yii::$app->user->identity->status === User::STATUS_ADMIN) {
         $menuItems[] = ['label'=> 'Пользователи', 'url' =>['../users/index']];
         $menuItems[] = ['label' => 'Услуги', 'url' => ['/service-price/index']];
+        $menuItems[] = ['label' => 'Готовые двери', 'url' => ['/finished-doors/index']];
         $menuItems[] = '<li>'
                        . Html::beginForm(['/site/logout'], 'post')
                        . Html::submitButton(

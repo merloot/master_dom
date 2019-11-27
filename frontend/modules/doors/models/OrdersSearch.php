@@ -8,14 +8,12 @@ use yii\data\ActiveDataProvider;
 /**
  * OrdersSearch represents the model behind the search form of `frontend\modules\doors\models\Orders`.
  */
-class OrdersSearch extends Orders
-{
+class OrdersSearch extends Orders {
     public $address;
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['id_order'], 'integer'],
             [['address'], 'safe'],
@@ -31,8 +29,7 @@ class OrdersSearch extends Orders
     /**
      * {@inheritdoc}
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -44,8 +41,7 @@ class OrdersSearch extends Orders
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
+    public function search($params) {
         $query = Orders::find()->select(['id_order','id_client'])->groupBy(['id_order','id_client'])->joinWith('client');
 //        var_dump($query);
 //        die();

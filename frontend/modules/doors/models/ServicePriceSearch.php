@@ -9,13 +9,11 @@ use frontend\modules\doors\models\ServicePrice;
 /**
  * ServicePriceSearch represents the model behind the search form of `frontend\modules\doors\models\ServicePrice`.
  */
-class ServicePriceSearch extends ServicePrice
-{
+class ServicePriceSearch extends ServicePrice {
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['id', 'type_service', 'percent_accruals', 'unit'], 'integer'],
             [['name'], 'safe'],
@@ -26,8 +24,7 @@ class ServicePriceSearch extends ServicePrice
     /**
      * {@inheritdoc}
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -39,8 +36,7 @@ class ServicePriceSearch extends ServicePrice
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
+    public function search($params) {
         $query = ServicePrice::find();
 
         // add conditions that should always apply here

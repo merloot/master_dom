@@ -8,22 +8,19 @@ use yii\data\ActiveDataProvider;
 /**
  * ClientsSearch represents the model behind the search form of `frontend\modules\doors\models\Doors`.
  */
-class OldDoorsSearch extends Doors
-{
+class OldDoorsSearch extends Doors {
     public $date_to;
     public $date_from;
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['id'], 'integer'],
             [['date_to','date_from'], 'safe'],
         ];
     }
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'date_to' => 'от',
             'date_from' => 'до',
@@ -33,8 +30,7 @@ class OldDoorsSearch extends Doors
     /**
      * {@inheritdoc}
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -46,8 +42,7 @@ class OldDoorsSearch extends Doors
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
+    public function search($params) {
         $query = OldDoors::find()->groupBy('date');
         // add conditions that should always apply here
 
