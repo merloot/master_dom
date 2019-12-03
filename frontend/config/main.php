@@ -58,6 +58,7 @@ return [
                 'doors/index'               => 'doors/default/index',
                 'doors/create'              => 'doors/default/create',
                 'doors/update/<id>'         => 'doors/default/update',
+                'doors/storage'             => 'doors/default/storage',
                 'doors/all-old'             => 'doors/default/all-old',
                 'doors/count-doors'         => 'doors/default/count-doors',
                 'doors/order-update/<id>'   => 'doors/default/order-update',

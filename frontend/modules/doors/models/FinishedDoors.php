@@ -4,6 +4,7 @@ namespace frontend\modules\doors\models;
 
 use common\interfaces\DoorsInterface;
 use Yii;
+use yii\helpers\Json;
 
 /**
  * This is the model class for table "FinishedDoors".
@@ -27,11 +28,14 @@ class FinishedDoors extends \yii\db\ActiveRecord implements DoorsInterface {
         return 'FinishedDoors';
     }
 
+    public $sizeDoors;
+
     /**
      * {@inheritdoc}
      */
     public function rules() {
         return [
+            ['sizeDoors','safe'],
             [['type_doors', 'price'], 'default', 'value' => null],
             [['type_doors', 'price'], 'integer'],
             ['type_doors', 'in', 'range' => [self::TYPE_DOORS_INTERIOR, self::TYPE_DOORS_IRON]],
@@ -49,6 +53,48 @@ class FinishedDoors extends \yii\db\ActiveRecord implements DoorsInterface {
             'name' => 'Name',
             'price' => 'Price',
         ];
+    }
+
+    public function beforeDelete() {
+        if (parent::beforeDelete()){
+            SizeDoors::deleteAll(['id_finished_doors'=>$this->id]);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function afterSave($insert, $changedAttributes) {
+        parent::afterSave($insert, $changedAttributes);
+        $array = $this->sizeDoors;
+//        var_dump($array);
+//        die();
+        if (is_array($array)) {
+            foreach ($array as $value) {
+                $this->createSizeDoors(Json::decode($value));
+            }
+        } if (empty($array)) {
+            return false;
+        }
+    }
+
+
+    public function createSizeDoors($value) {
+        $size = Size::find()->where(['size'=>$value])->one();
+        if ($size) {
+           $sizeDoor = new SizeDoors();
+           $sizeDoor->id_size = $size->id;
+           $sizeDoor->id_finished_doors = $this->id;
+           $sizeDoor->save();
+        } else {
+            $size = new Size();
+            $size->size = $value;
+            $size->save();
+            $sizeDoor = new SizeDoors();
+            $sizeDoor->id_size = $size->id;
+            $sizeDoor->id_finished_doors = $this->id;
+            $sizeDoor->save();
+        }
     }
 
     /**

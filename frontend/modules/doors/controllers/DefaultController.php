@@ -2,6 +2,9 @@
 
 namespace frontend\modules\doors\controllers;
 
+use common\helpers\JResponse;
+use frontend\modules\doors\models\api\StorageList;
+use frontend\modules\doors\models\FinishedDoorsSearch;
 use yii\base\Model;
 use yii\web\Controller;
 use common\models\User;
@@ -13,6 +16,7 @@ use frontend\modules\doors\models\OldDoors;
 use frontend\modules\doors\models\OrdersSearch;
 use frontend\modules\doors\models\ServicePrice;
 use frontend\modules\doors\models\OldDoorsSearch;
+use yii\web\Response;
 
 class DefaultController extends Controller
 {
@@ -238,5 +242,24 @@ class DefaultController extends Controller
             ]);
         }
         return $this->goHome();
+    }
+
+    public function actionStorage(){
+        \Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $model = new StorageList();
+        $request = \Yii::$app->getRequest();
+        if ($request->isPost){
+            if (!empty($request->post())){
+                $model->load($request->post(),'');
+                if ($model->validate()){
+                    return $model->run();
+                }else{
+                    return $model->getErrors();
+                }
+            } else {
+                return $model->run();
+            }
+        }
     }
 }

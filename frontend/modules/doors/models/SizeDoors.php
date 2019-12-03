@@ -26,7 +26,7 @@ class SizeDoors extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['id_finished_doors', 'id_size'], 'required'],
+//            [['id_finished_doors', 'id_size'], 'required'],
             [['id_finished_doors', 'id_size'], 'default', 'value' => null],
             [['id_finished_doors', 'id_size'], 'integer'],
             [['id_finished_doors', 'id_size'], 'unique', 'targetAttribute' => ['id_finished_doors', 'id_size']],

@@ -67,6 +67,8 @@ class FinishedDoorsController extends Controller
         $model = new FinishedDoors();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//            var_dump(Yii::$app->request->post());
+//            die();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -118,7 +120,7 @@ class FinishedDoorsController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = FinishedDoors::findOne($id)) !== null) {
+        if (($model = FinishedDoors::find()->with('sizes')->andWhere(['id'=>$id])->one()) !== null) {
             return $model;
         }
 

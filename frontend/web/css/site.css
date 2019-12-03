@@ -529,3 +529,7 @@ a.desc:after {
 .ticket-info .ticket-info__personal img{
     max-width: 175px;
 }
+
+#store {
+    color: #0000aa;
+}
